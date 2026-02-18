@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claude Code Best Practices - Gamelearn AI Labs 2026</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css" />
+  <style>
+    :root {
+      --r-background-color: #0d1117;
+      --r-main-color: #e6edf3;
+      --r-heading-color: #f0f6fc;
+      --r-link-color: #da7756;
+      --r-link-color-hover: #f0a080;
+      --r-selection-background-color: #da775644;
+    }
+    .reveal { font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif; }
+    .reveal h1, .reveal h2, .reveal h3 { font-weight: 700; text-transform: none; letter-spacing: -0.02em; }
+    .reveal h1 { font-size: 2.2em; }
+    .reveal h2 { font-size: 1.5em; margin-bottom: 0.5em; }
+    .reveal h3 { font-size: 1.1em; color: var(--r-link-color); margin-bottom: 0.3em; }
+    .reveal .subtitle { color: #8b949e; font-size: 0.7em; margin-top: 0.2em; }
+    .reveal pre { width: 100%; font-size: 0.48em; box-shadow: 0 4px 20px rgba(0,0,0,0.4); border-radius: 8px; border: 1px solid #30363d; margin: 0.3em 0; }
+    .reveal pre code { padding: 0.8em; line-height: 1.4; max-height: 480px; }
+    .reveal code { font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace; }
+    .reveal :not(pre) > code { background: #1c2333; padding: 0.1em 0.35em; border-radius: 4px; font-size: 0.82em; color: var(--r-link-color); }
+    .reveal ul, .reveal ol { text-align: left; margin-left: 0; }
+    .reveal li { margin-bottom: 0.35em; font-size: 0.78em; line-height: 1.35; }
+    .tip-card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 0.8em 1.1em; margin: 0.4em 0; text-align: left; }
+    .tip-card h3 { margin: 0 0 0.3em 0; font-size: 0.9em; }
+    .tip-card p, .tip-card li { font-size: 0.68em; color: #8b949e; margin: 0; }
+    .tip-card code { font-size: 0.9em; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6em; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5em; }
+    .accent { color: var(--r-link-color); font-weight: 600; }
+    .dim { color: #8b949e; }
+    .green { color: #3fb950; }
+    .red { color: #f85149; }
+    .badge { display: inline-block; background: var(--r-link-color); color: #0d1117; font-size: 0.5em; padding: 0.15em 0.5em; border-radius: 20px; font-weight: 700; vertical-align: middle; margin-left: 0.3em; }
+    .badge-green { background: #238636; }
+    .badge-blue { background: #388bfd; }
+    .key { display: inline-block; background: #21262d; border: 1px solid #30363d; border-radius: 5px; padding: 0.05em 0.4em; font-family: monospace; font-size: 0.78em; box-shadow: 0 2px 0 #30363d; }
+    .vs-table { width: 100%; font-size: 0.65em; border-collapse: collapse; }
+    .vs-table th { color: var(--r-link-color); border-bottom: 2px solid #30363d; padding: 0.3em 0.6em; text-align: left; font-size: 0.9em; }
+    .vs-table td { border-bottom: 1px solid #21262d; padding: 0.3em 0.6em; }
+    .vs-table .bad { color: #f85149; }
+    .vs-table .good { color: #3fb950; }
+    .reveal .slide-number { font-size: 11px; color: #484f58; }
+    .reveal .progress span { background: var(--r-link-color); }
+    .tree { font-family: monospace; font-size: 0.52em; text-align: left; line-height: 1.5; color: #8b949e; }
+    .tree .highlight { color: var(--r-link-color); font-weight: 600; }
+    .tree .comment { color: #484f58; }
+    .section-label { font-size: 0.45em; text-transform: uppercase; letter-spacing: 0.15em; color: #484f58; margin-bottom: 0.5em; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2em; align-items: start; }
+    .stat-box { text-align: center; }
+    .stat-box .number { font-size: 2.2em; font-weight: 800; color: var(--r-link-color); line-height: 1; }
+    .stat-box .label { font-size: 0.55em; color: #8b949e; margin-top: 0.2em; }
+    .callout { background: #161b22; border-left: 4px solid var(--r-link-color); padding: 0.6em 1em; border-radius: 0 8px 8px 0; margin: 0.5em 0; text-align: left; }
+    .callout p { font-size: 0.7em; margin: 0; }
+    .step-num { display: inline-block; background: var(--r-link-color); color: #0d1117; width: 1.5em; height: 1.5em; line-height: 1.5em; text-align: center; border-radius: 50%; font-weight: 700; font-size: 0.8em; margin-right: 0.3em; }
+    .arrow { color: var(--r-link-color); font-size: 1.2em; }
+  </style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ============================================================ -->
+<!-- SLIDE 1: TITLE -->
+<!-- ============================================================ -->
+<section>
+  <p class="section-label">Gamelearn AI Labs 2026</p>
+  <h1>Claude Code<br/><span class="accent">Best Practices</span></h1>
+  <p class="subtitle">Basado en la guia oficial de Anthropic &mdash; "Code w/ Claude"</p>
+  <br/>
+  <p class="dim" style="font-size: 0.5em;">
+    Fuente: <code>code.claude.com/docs/best-practices</code>
+  </p>
+  <aside class="notes">
+    Esta presentacion esta basada en el video oficial de Anthropic "Claude Code best practices"
+    de la serie "Code w/ Claude", y en la documentacion oficial de best practices.
+
+    Es una charla practica. Cada slide tiene un patron concreto que podeis aplicar hoy.
+    No es teoria: son las practicas que usan los equipos internos de Anthropic
+    y los equipos de produccion mas efectivos.
+
+    La idea central de toda la charla: Claude Code es un entorno de coding agentico.
+    No es un chatbot que responde preguntas y espera. Lee tu codebase, edita archivos,
+    ejecuta comandos, y trabaja autonomamente. Eso cambia como trabajas.
+
+    La restriccion principal que hay que entender:
+    La ventana de contexto se llena rapido y el rendimiento degrada cuando se llena.
+    La mayoria de las best practices giran alrededor de gestionar esta restriccion.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 2: THE CORE CONSTRAINT -->
+<!-- ============================================================ -->
+<section>
+  <h2>La restriccion fundamental</h2>
+  <br/>
+  <div class="callout">
+    <p style="font-size: 0.85em;">
+      La ventana de contexto se llena rapido,<br/>
+      y <span class="accent">el rendimiento degrada cuando se llena</span>.
+    </p>
+  </div>
+  <br/>
+  <ul>
+    <li>Tu conversacion entera: mensajes, archivos leidos, output de comandos</li>
+    <li>Una sola sesion de debugging puede consumir <strong>decenas de miles</strong> de tokens</li>
+    <li>Cuando el contexto se llena, Claude "olvida" instrucciones y comete mas errores</li>
+    <li class="fragment"><span class="accent">La mayoria de best practices giran alrededor de gestionar esto</span></li>
+  </ul>
+  <br/>
+  <p class="fragment dim" style="font-size: 0.6em;">
+    Monitoriza tu contexto con un <code>status line</code> custom o con <code>/context</code>
+  </p>
+  <aside class="notes">
+    Esta es LA insight fundamental de la que derivan casi todas las best practices.
+
+    La ventana de contexto de Claude contiene TODO: cada mensaje que envias,
+    cada archivo que Claude lee, cada output de comando. Una sola sesion de debugging
+    o exploracion de codebase puede generar y consumir decenas de miles de tokens.
+
+    Por que importa: el rendimiento del LLM degrada con el contexto lleno.
+    Claude empieza a "olvidar" instrucciones anteriores, pierde de vista reglas
+    del CLAUDE.md, y comete mas errores.
+
+    La documentacion oficial de Anthropic lo dice explicitamente:
+    "Most best practices are based on one constraint: Claude's context window
+    fills up fast, and performance degrades as it fills."
+
+    La solucion: monitorizar el contexto constantemente.
+    - Custom status line: puedes configurar la barra inferior para mostrar
+      el porcentaje de contexto usado. Es como el medidor de combustible.
+    - /context: comando que muestra que esta consumiendo contexto
+      (MCP servers, historial, CLAUDE.md, etc.).
+    - Hay estrategias concretas que veremos en las proximas slides para
+      mantener el contexto limpio y el rendimiento alto.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 3: VERIFY ITS WORK -->
+<!-- ============================================================ -->
+<section>
+  <h2>Dale a Claude forma de <span class="accent">verificar</span> su trabajo</h2>
+  <p class="dim" style="font-size: 0.6em;">La accion de mayor impacto que puedes hacer</p>
+  <br/>
+  <table class="vs-table">
+    <thead>
+      <tr><th>Estrategia</th><th class="bad">Antes</th><th class="good">Despues</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Criterios de verificacion</td>
+        <td class="bad" style="font-size: 0.85em;">"implementa validacion de email"</td>
+        <td class="good" style="font-size: 0.85em;">"escribe validateEmail. Tests: user@ex.com &rarr; true, invalid &rarr; false. Ejecuta los tests"</td>
+      </tr>
+      <tr>
+        <td>Verificacion visual</td>
+        <td class="bad" style="font-size: 0.85em;">"mejora el dashboard"</td>
+        <td class="good" style="font-size: 0.85em;">"[screenshot] implementa este diseno. Haz screenshot y compara. Lista diferencias y arregla"</td>
+      </tr>
+      <tr>
+        <td>Root cause</td>
+        <td class="bad" style="font-size: 0.85em;">"el build falla"</td>
+        <td class="good" style="font-size: 0.85em;">"el build falla con [error]. Arregla la causa raiz, no suprimas el error. Verifica que pasa"</td>
+      </tr>
+    </tbody>
+  </table>
+  <br/>
+  <p class="fragment" style="font-size: 0.65em;">
+    Tests, linters, scripts bash, screenshots con Chrome extension<br/>
+    <strong>Invierte en que la verificacion sea solida</strong>
+  </p>
+  <aside class="notes">
+    Esto es lo que la documentacion oficial llama "the single highest-leverage thing you can do".
+    Boris Cherny, el creador de Claude Code, lo dice asi:
+    "Give Claude a way to verify its work. It will 2-3x the quality."
+
+    Sin criterios de verificacion claros, Claude produce algo que PARECE correcto
+    pero puede no funcionar. Tu te conviertes en el unico feedback loop,
+    y cada error requiere tu atencion.
+
+    Tres estrategias concretas:
+
+    1. CRITERIOS DE VERIFICACION: no digas "implementa X". Di "implementa X,
+       con estos test cases, y ejecuta los tests despues". Claude autocorrige.
+
+    2. VERIFICACION VISUAL: para cambios de UI, pega un screenshot como referencia.
+       Claude puede usar la Chrome extension para abrir tabs, testear el UI,
+       e iterar hasta que el codigo funcione. Tipicamente 2-3 iteraciones
+       para un buen match.
+
+    3. ROOT CAUSE: no digas "el build falla". Pega el error exacto y di
+       "arregla la causa raiz, no suprimas el error". Sin esto, Claude
+       puede simplemente silenciar el error en vez de arreglarlo.
+
+    La verificacion puede ser: un test suite, un linter, un comando bash que chequea output,
+    un screenshot. Lo importante es que sea automatica y fiable.
+    Si Claude puede verificar su propio trabajo, pasa de 60% a 95% de acierto.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 4: EXPLORE, PLAN, CODE -->
+<!-- ============================================================ -->
+<section>
+  <h2>Explora, planifica, codea</h2>
+  <p class="dim" style="font-size: 0.6em;">Separa la investigacion de la implementacion</p>
+  <br/>
+  <div style="display: flex; align-items: center; justify-content: center; gap: 0.5em; font-size: 0.85em;">
+    <div class="tip-card" style="flex: 1; text-align: center;">
+      <h3><span class="step-num">1</span> Explorar</h3>
+      <p>Plan Mode: lee archivos, entiende la base</p>
+    </div>
+    <span class="arrow">&rarr;</span>
+    <div class="tip-card" style="flex: 1; text-align: center;">
+      <h3><span class="step-num">2</span> Planificar</h3>
+      <p>Plan detallado. Ctrl+G para editar</p>
+    </div>
+    <span class="arrow">&rarr;</span>
+    <div class="tip-card" style="flex: 1; text-align: center;">
+      <h3><span class="step-num">3</span> Implementar</h3>
+      <p>Normal Mode: codea + verifica</p>
+    </div>
+    <span class="arrow">&rarr;</span>
+    <div class="tip-card" style="flex: 1; text-align: center;">
+      <h3><span class="step-num">4</span> Commit</h3>
+      <p>Mensaje descriptivo + PR</p>
+    </div>
+  </div>
+  <br/>
+  <pre class="fragment"><code class="language-markdown"># 1. Explorar (Plan Mode)
+lee /src/auth y entiende como manejamos sesiones y login.
+mira como gestionamos env vars para secretos.
+
+# 2. Planificar (Plan Mode)
+Quiero anadir Google OAuth. Que archivos hay que cambiar?
+Cual es el flujo de sesion? Crea un plan.
+
+# 3. Implementar (Normal Mode)
+Implementa el flujo OAuth de tu plan. Escribe tests para
+el callback handler, corre el test suite y arregla fallos.
+
+# 4. Commit
+commit con mensaje descriptivo y abre un PR</code></pre>
+  <aside class="notes">
+    Si dejas que Claude salte directamente a codear, puede producir codigo que resuelve
+    el problema equivocado. Plan Mode separa exploracion de ejecucion.
+
+    El workflow recomendado por Anthropic tiene 4 fases:
+
+    FASE 1 - EXPLORAR:
+    Entra en Plan Mode (Shift+Tab x2). Claude lee archivos y responde preguntas
+    SIN hacer cambios. Solo herramientas de lectura.
+    "Lee /src/auth y entiende como manejamos sesiones."
+
+    FASE 2 - PLANIFICAR:
+    Todavia en Plan Mode. Pide a Claude un plan detallado de implementacion.
+    Truco clave: Ctrl+G abre el plan en tu editor de texto para que lo edites
+    directamente antes de que Claude proceda. Puedes modificar, reordenar, eliminar pasos.
+
+    FASE 3 - IMPLEMENTAR:
+    Cambia a Normal Mode. Claude codea siguiendo el plan, verificando contra el mismo.
+    "Implementa el flujo OAuth de tu plan. Escribe tests, corre el suite, arregla fallos."
+
+    FASE 4 - COMMIT:
+    Claude commitea con mensaje descriptivo y abre PR.
+
+    IMPORTANTE: Plan Mode anade overhead. Para tareas donde el scope es claro
+    y el fix es pequeno (un typo, una linea de log, renombrar variable),
+    pide a Claude que lo haga directamente. Skip the plan.
+    Planning es mas util cuando: no estas seguro del approach, el cambio toca
+    multiples archivos, o no conoces el codigo que se va a modificar.
+    Si puedes describir el diff en una frase, salta el plan.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 5: SPECIFIC CONTEXT -->
+<!-- ============================================================ -->
+<section>
+  <h2>Da contexto <span class="accent">especifico</span></h2>
+  <p class="dim" style="font-size: 0.6em;">Cuanto mas preciso, menos correcciones</p>
+  <br/>
+  <table class="vs-table">
+    <thead>
+      <tr><th>Estrategia</th><th class="bad">Vago</th><th class="good">Especifico</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Acotar la tarea</td>
+        <td class="bad" style="font-size: 0.85em;">"anade tests para foo.py"</td>
+        <td class="good" style="font-size: 0.85em;">"test para foo.py cubriendo el edge case de usuario deslogueado. Sin mocks."</td>
+      </tr>
+      <tr>
+        <td>Apuntar a fuentes</td>
+        <td class="bad" style="font-size: 0.85em;">"por que tiene ExecutionFactory un API tan raro?"</td>
+        <td class="good" style="font-size: 0.85em;">"mira el git history de ExecutionFactory y resume como llego a ser su API"</td>
+      </tr>
+      <tr>
+        <td>Referenciar patrones</td>
+        <td class="bad" style="font-size: 0.85em;">"anade un widget de calendario"</td>
+        <td class="good" style="font-size: 0.85em;">"mira como estan implementados los widgets en home. HotDogWidget.php es buen ejemplo. Sigue el patron."</td>
+      </tr>
+      <tr>
+        <td>Describir sintomas</td>
+        <td class="bad" style="font-size: 0.85em;">"arregla el bug de login"</td>
+        <td class="good" style="font-size: 0.85em;">"login falla tras session timeout. Mira el auth flow en src/auth/, token refresh. Test que reproduzca, luego fix."</td>
+      </tr>
+    </tbody>
+  </table>
+  <aside class="notes">
+    Claude puede inferir intencion, pero no puede leerte la mente.
+    Referencia archivos especificos, menciona constraints, apunta a patrones existentes.
+
+    Cuatro estrategias:
+
+    1. ACOTAR LA TAREA: especifica que archivo, que escenario, que preferencias de testing.
+       "Anade tests para foo.py" -> "Test para foo.py cubriendo el edge case de usuario
+       deslogueado. Sin mocks." La diferencia en resultado es enorme.
+
+    2. APUNTAR A FUENTES: en vez de preguntar "por que es asi?", di a Claude
+       DONDE buscar la respuesta. "Mira el git history", "lee el PR #234",
+       "busca en los comments del archivo".
+
+    3. REFERENCIAR PATRONES: si tu codebase ya tiene patrones establecidos,
+       apunta a un ejemplo. "Mira como estan implementados los widgets en la home.
+       HotDogWidget.php es un buen ejemplo. Sigue el patron."
+       Claude replicara el patron mucho mejor que inventar uno nuevo.
+
+    4. DESCRIBIR SINTOMAS: proporciona el sintoma, la ubicacion probable,
+       y que aspecto tiene "arreglado". No solo "arregla el bug de login",
+       sino "login falla tras session timeout, mira src/auth/, escribe test
+       que reproduzca el issue, luego arregla."
+
+    NOTA: los prompts vagos PUEDEN ser utiles cuando estas explorando
+    y puedes permitirte corregir el curso. "Que mejorarias en este archivo?"
+    puede sacar cosas que no habrias pensado preguntar.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 6: RICH CONTENT -->
+<!-- ============================================================ -->
+<section>
+  <h2>Input rico: <code>@</code>, imagenes, pipes</h2>
+  <br/>
+  <div class="grid-2">
+    <div>
+      <ul>
+        <li><code>@archivo.ts</code> &mdash; Claude lee el archivo antes de responder</li>
+        <li><strong>Pegar imagenes</strong> &mdash; copy/paste o drag &amp; drop en el prompt</li>
+        <li><strong>URLs</strong> &mdash; documentacion, APIs. Allowlist con <code>/permissions</code></li>
+        <li><strong>Pipes</strong> &mdash; <code>cat error.log | claude</code></li>
+        <li><strong>Claude busca solo</strong> &mdash; bash, MCP, lectura de archivos</li>
+      </ul>
+    </div>
+    <div>
+      <pre><code class="language-bash"># Pipe de logs directamente
+cat error.log | claude -p "diagnostica"
+
+# Pipe de diff para review
+gh pr diff 123 | claude -p "review"
+
+# Claude busca lo que necesita
+"lee los tests de auth/ y entiende
+ el patron antes de escribir el nuevo"</code></pre>
+    </div>
+  </div>
+  <br/>
+  <div class="callout fragment">
+    <p><span class="accent">Tip de la comunidad:</span> Dictado por voz (SuperWhisper, Wispr Flow) = 150 WPM vs 40 WPM tipeando. Prompts mas largos y detallados = mejores resultados.</p>
+  </div>
+  <aside class="notes">
+    Puedes proporcionar datos ricos a Claude de varias formas:
+
+    1. @ PARA ARCHIVOS: en vez de describir donde esta el codigo,
+       usa @archivo.ts. Claude lo lee antes de responder.
+       Mucho mas preciso que describir con palabras.
+
+    2. IMAGENES: copy/paste o drag and drop directamente en el prompt.
+       Util para mockups de UI, screenshots de bugs, diagramas de arquitectura.
+       Claude los interpreta y puede implementar lo que ve.
+
+    3. URLS: para documentacion y referencias de API. Usa /permissions
+       para allowlistear dominios que uses frecuentemente para que Claude
+       pueda fetchearlos sin pedir permiso cada vez.
+
+    4. PIPES: "cat error.log | claude" envia el contenido directamente.
+       "gh pr diff 123 | claude -p review" para review de PRs.
+       "kubectl logs pod | claude -p find anomalies" para diagnostico.
+
+    5. CLAUDE BUSCA SOLO: puedes decir "lee los tests de auth/ y entiende
+       el patron antes de escribir el nuevo test". Claude ejecuta los comandos
+       que necesite para obtener el contexto.
+
+    TIP DE LA COMUNIDAD: varios power users reportan que el dictado por voz
+    cambio completamente su workflow. 150 WPM dictando vs 40 WPM tipeando.
+    Resultado: prompts 3.75x mas largos y detallados, que producen mejores resultados.
+    SuperWhisper, Wispr Flow, MacWhisper son las herramientas mas populares.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 7: CLAUDE.md -->
+<!-- ============================================================ -->
+<section>
+  <h2>CLAUDE.md &mdash; la memoria persistente</h2>
+  <p class="dim" style="font-size: 0.6em;"><code>/init</code> para generar uno basado en tu proyecto</p>
+  <br/>
+  <div class="two-col">
+    <div>
+      <pre><code class="language-markdown"># CLAUDE.md
+# Code style
+- ES modules (import/export), no CommonJS
+- Destructure imports cuando sea posible
+
+# Workflow
+- Typecheck al terminar cambios de codigo
+- Preferir single tests, no suite completo
+
+# Commands
+- Tests: npm test -- --watch
+- Lint: npm run lint:fix
+- Build: npm run build</code></pre>
+      <p style="font-size: 0.55em;" class="dim">
+        Soporta <code>@path/to/import</code> para incluir otros archivos
+      </p>
+    </div>
+    <div>
+      <h3 style="font-size: 0.9em;">Incluir</h3>
+      <ul style="font-size: 0.65em;">
+        <li>Comandos bash que Claude no puede adivinar</li>
+        <li>Reglas de estilo que difieren del default</li>
+        <li>Instrucciones de testing</li>
+        <li>Decisiones arquitecturales del proyecto</li>
+        <li>Gotchas y comportamientos no obvios</li>
+      </ul>
+      <h3 style="font-size: 0.9em; margin-top: 0.6em;">No incluir</h3>
+      <ul style="font-size: 0.65em;">
+        <li class="red">Lo que Claude deduce leyendo el codigo</li>
+        <li class="red">Convenciones estandar del lenguaje</li>
+        <li class="red">Documentacion de API detallada (enlaza)</li>
+        <li class="red">Info que cambia frecuentemente</li>
+        <li class="red">Practicas evidentes ("escribe codigo limpio")</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    CLAUDE.md es un archivo especial que Claude lee al inicio de CADA conversacion.
+    Da contexto persistente que Claude NO puede inferir del codigo solo.
+
+    /init analiza tu codebase para detectar build systems, test frameworks
+    y patrones de codigo, dandote una base solida para refinar.
+
+    No hay formato requerido, pero mantelo corto y legible.
+
+    LA REGLA DE ORO: para cada linea, preguntate "Si quito esto,
+    Claude cometeria errores?" Si no, BORRALA.
+
+    CLAUDE.md bloated hace que Claude IGNORE tus instrucciones reales.
+    La documentacion oficial lo dice literalmente:
+    "Bloated CLAUDE.md files cause Claude to ignore your actual instructions!"
+
+    Si Claude sigue haciendo algo que no quieres a pesar de tener regla en contra,
+    el archivo probablemente es demasiado largo y la regla se pierde en el ruido.
+    Si Claude hace preguntas que estan respondidas en CLAUDE.md,
+    la redaccion puede ser ambigua.
+
+    Tratar CLAUDE.md como codigo: revisarlo cuando algo va mal,
+    podarlo regularmente, y testear cambios observando si el comportamiento
+    de Claude realmente cambia.
+
+    Puedes tunear instrucciones con enfasis ("IMPORTANT", "YOU MUST")
+    para mejorar la adherencia.
+
+    Check it into git para que tu equipo contribuya.
+    El archivo acumula valor con el tiempo.
+
+    UBICACIONES:
+    - ~/.claude/CLAUDE.md: aplica a TODAS las sesiones.
+    - ./CLAUDE.md (raiz del proyecto): compartido via git.
+    - CLAUDE.local.md: personal, gitignored.
+    - Subdirectorios: Claude los carga on-demand cuando trabaja en esos dirs.
+    - @imports: CLAUDE.md puede importar otros archivos con @path/to/file.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 8: ENVIRONMENT SETUP -->
+<!-- ============================================================ -->
+<section>
+  <h2>Configura tu entorno</h2>
+  <br/>
+  <div class="grid-3">
+    <div class="tip-card">
+      <h3>Permisos</h3>
+      <p><code>/permissions</code> allowlist safe commands<br/>
+        <code>/sandbox</code> aislamiento OS-level<br/>
+        Reduce interrupciones manteniendo control</p>
+    </div>
+    <div class="tip-card">
+      <h3>CLI tools</h3>
+      <p><code>gh</code>, <code>aws</code>, <code>gcloud</code>, <code>sentry-cli</code><br/>
+        Gratis en contexto (no MCP overhead)<br/>
+        "Usa foo-cli --help para aprender, luego resuelve A, B, C"</p>
+    </div>
+    <div class="tip-card">
+      <h3>MCP servers</h3>
+      <p><code>claude mcp add</code><br/>
+        Notion, Figma, databases, Jira<br/>
+        Integraciones sin alternativa CLI</p>
+    </div>
+    <div class="tip-card">
+      <h3>Hooks</h3>
+      <p>Scripts automaticos en puntos clave<br/>
+        Deterministas (no advisory como CLAUDE.md)<br/>
+        "Escribe un hook que corra eslint tras cada edit"</p>
+    </div>
+    <div class="tip-card">
+      <h3>Skills</h3>
+      <p><code>.claude/skills/</code> con <code>SKILL.md</code><br/>
+        Conocimiento de dominio on-demand<br/>
+        Workflows repetibles: <code>/fix-issue 1234</code></p>
+    </div>
+    <div class="tip-card">
+      <h3>Subagentes</h3>
+      <p><code>.claude/agents/</code><br/>
+        Contexto propio + tools propias<br/>
+        Security reviewer, build fixer, etc.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    Unos pocos pasos de setup hacen que Claude Code sea significativamente mas efectivo.
+
+    PERMISOS:
+    Por defecto Claude pide permiso para todo lo que pueda modificar tu sistema.
+    Es seguro pero tedioso. Despues de la decima aprobacion ya no estas revisando,
+    solo estas haciendo click.
+    Dos opciones: /permissions para allowlistear comandos safe (npm run lint, git commit),
+    o /sandbox para aislamiento a nivel OS que restringe filesystem y red,
+    permitiendo a Claude trabajar mas libremente dentro de boundaries definidos.
+
+    CLI TOOLS:
+    Son la forma mas eficiente en contexto de interactuar con servicios externos.
+    Si usas GitHub, instala gh CLI. Claude sabe usarla para issues, PRs, comments.
+    Sin gh, Claude usa la API de GitHub pero las requests sin auth dan rate limits.
+    Truco: Claude aprende tools nuevas rapido. "Usa foo-cli --help para aprender
+    sobre foo, luego usala para resolver A, B, C."
+
+    MCP SERVERS:
+    Para integraciones que no tienen CLI: Notion, Figma, bases de datos, Jira.
+    IMPORTANTE: las CLI tools son gratis en contexto (Claude las ejecuta con Bash).
+    Los MCP servers CUESTAN contexto constantemente: tool definitions en system prompt.
+    Regla: si hay CLI que haga lo mismo, usa la CLI. Reserva MCP para lo necesario.
+
+    HOOKS:
+    A diferencia de CLAUDE.md que es advisory, hooks son deterministas.
+    Garantizan que la accion ocurre. Claude puede escribir hooks por ti.
+    "Escribe un hook que corra eslint despues de cada file edit"
+    "Escribe un hook que bloquee writes al folder de migrations."
+
+    SKILLS:
+    Conocimiento de dominio que Claude carga on-demand sin bloatear cada conversacion.
+    Dos tipos: conocimiento (api-conventions) y workflows (fix-issue 1234).
+
+    SUBAGENTES:
+    Corren en su propio contexto con sus propias tools permitidas.
+    Util para tareas que leen muchos archivos o necesitan focus especializado
+    sin ensuciar tu conversacion principal.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 9: SKILLS DEEP DIVE -->
+<!-- ============================================================ -->
+<section>
+  <h2>Skills: conocimiento + workflows</h2>
+  <br/>
+  <div class="two-col">
+    <div>
+      <h3>Conocimiento de dominio</h3>
+      <pre><code class="language-markdown"># .claude/skills/api-conventions/SKILL.md
+---
+name: api-conventions
+description: REST API conventions
+---
+# API Conventions
+- kebab-case para URL paths
+- camelCase para JSON properties
+- Siempre pagination en list endpoints
+- Versionar APIs en URL (/v1/, /v2/)</code></pre>
+      <p style="font-size: 0.55em;" class="dim">
+        Claude lo aplica automaticamente cuando es relevante
+      </p>
+    </div>
+    <div>
+      <h3>Workflow repetible</h3>
+      <pre><code class="language-markdown"># .claude/skills/fix-issue/SKILL.md
+---
+name: fix-issue
+description: Fix a GitHub issue
+disable-model-invocation: true
+---
+Analiza y arregla el issue: $ARGUMENTS.
+
+1. `gh issue view` para obtener detalles
+2. Entiende el problema descrito
+3. Busca archivos relevantes en codebase
+4. Implementa los cambios necesarios
+5. Escribe y ejecuta tests
+6. Lint y type checking
+7. Commit con mensaje descriptivo
+8. Push y crea PR</code></pre>
+      <p style="font-size: 0.55em;" class="dim">
+        Invoca: <code>/fix-issue 1234</code>
+      </p>
+    </div>
+  </div>
+  <aside class="notes">
+    Skills extienden el conocimiento de Claude con informacion especifica
+    de tu proyecto, equipo, o dominio. Dos tipos fundamentales:
+
+    TIPO 1 - CONOCIMIENTO DE DOMINIO:
+    Convenciones, reglas de negocio, patrones especificos de tu proyecto.
+    Ejemplo: api-conventions define como deben ser tus REST APIs.
+    Claude lo aplica automaticamente cuando detecta que es relevante.
+    Sin el campo "disable-model-invocation", Claude decide cuando aplicarlo.
+
+    TIPO 2 - WORKFLOW REPETIBLE:
+    Secuencias de pasos que invocas explicitamente.
+    Ejemplo: /fix-issue 1234. Claude ejecuta los 8 pasos en orden.
+    "disable-model-invocation: true" para workflows con side effects
+    que quieres triggerear manualmente (no que Claude decida hacerlo solo).
+    $ARGUMENTS se reemplaza con lo que pases tras el nombre del skill.
+
+    La diferencia con CLAUDE.md: CLAUDE.md se carga SIEMPRE, en cada sesion.
+    Skills se cargan on-demand, solo cuando son relevantes.
+    CLAUDE.md para lo que aplica siempre. Skills para lo especializado.
+
+    UBICACIONES:
+    - .claude/skills/ (proyecto): compartido por git.
+    - ~/.claude/skills/ (global): disponible en todos los proyectos.
+
+    Tip: skills pueden tener archivos adicionales (templates, scripts)
+    en la misma carpeta. Se cargan como contexto adicional.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 10: HOOKS DEEP DIVE -->
+<!-- ============================================================ -->
+<section>
+  <h2>Hooks: automatizacion <span class="accent">determinista</span></h2>
+  <p class="dim" style="font-size: 0.6em;">Para acciones que deben ocurrir SIEMPRE, sin excepciones</p>
+  <br/>
+  <div class="two-col">
+    <div>
+      <h3>CLAUDE.md (advisory)</h3>
+      <pre><code class="language-markdown"># En CLAUDE.md
+Ejecuta eslint despues de cada edit.
+
+# Resultado: Claude INTENTA hacerlo
+# pero puede olvidarse o saltarselo</code></pre>
+      <br/>
+      <h3>Hook (determinista)</h3>
+      <pre><code class="language-json">{
+  "hooks": {
+    "PostToolUse": [{
+      "matcher": "Edit|Write",
+      "command": "eslint --fix $CLAUDE_FILE_PATH"
+    }],
+    "PreToolUse": [{
+      "matcher": "Edit",
+      "command": "./scripts/check-protected.sh"
+    }]
+  }
+}</code></pre>
+    </div>
+    <div>
+      <h3>Cuando usar hooks vs CLAUDE.md</h3>
+      <br/>
+      <table class="vs-table" style="font-size: 0.9em;">
+        <tr><th>Escenario</th><th>Herramienta</th></tr>
+        <tr><td>Format despues de edit</td><td class="good">Hook</td></tr>
+        <tr><td>Lint despues de edit</td><td class="good">Hook</td></tr>
+        <tr><td>Proteger archivos</td><td class="good">Hook</td></tr>
+        <tr><td>Estilo de codigo</td><td>CLAUDE.md</td></tr>
+        <tr><td>Patrones arquitecturales</td><td>CLAUDE.md</td></tr>
+        <tr><td>Workflows complejos</td><td>Skills</td></tr>
+      </table>
+      <br/>
+      <p class="fragment" style="font-size: 0.65em;">
+        Claude puede escribir hooks por ti:<br/>
+        <em>"Escribe un hook que corra eslint tras cada edit"</em>
+      </p>
+    </div>
+  </div>
+  <aside class="notes">
+    La diferencia fundamental entre hooks y CLAUDE.md:
+    CLAUDE.md es advisory - Claude INTENTA seguir las instrucciones pero puede
+    olvidarse o decidir que no aplica. Hooks son deterministas - se ejecutan
+    SIEMPRE que se cumpla la condicion, sin excepcion.
+
+    Para acciones que deben ocurrir cada vez sin fallo (format, lint, proteccion),
+    usa hooks. Para guia y preferencias, usa CLAUDE.md.
+
+    EVENTOS DISPONIBLES:
+    - PreToolUse: antes de que Claude use una tool. Para bloquear acciones.
+    - PostToolUse: despues de usar una tool. Para format, lint, validacion.
+    - SessionStart: al inicio de sesion. Para setup de entorno.
+    - Stop: cuando Claude termina una respuesta. Para tests finales.
+
+    MATCHER: filtra por nombre de tool.
+    - "Edit|Write": se ejecuta cuando Claude edita o escribe archivos.
+    - "Bash": se ejecuta en cada comando bash.
+    - Sin matcher: se ejecuta en cada uso de tool.
+
+    VARIABLES DE ENTORNO:
+    Claude pasa info a los hooks via env vars:
+    - $CLAUDE_FILE_PATH: archivo que se esta editando.
+    - $CLAUDE_TOOL_NAME: nombre de la tool.
+    - $CLAUDE_SESSION_ID: id de la sesion.
+
+    Claude puede escribir hooks por ti. Literalmente puedes decir:
+    "Escribe un hook que corra eslint despues de cada file edit"
+    o "Escribe un hook que bloquee writes al folder de migrations."
+    Configura con /hooks interactivamente o edita .claude/settings.json.
+
+    incident.io redujo su feedback loop de 90 a menos de 10 segundos con hooks.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 11: COMMUNICATE -->
+<!-- ============================================================ -->
+<section>
+  <h2>Comunicacion efectiva</h2>
+  <br/>
+  <div class="two-col">
+    <div>
+      <h3>Pregunta como a un senior engineer</h3>
+      <ul style="font-size: 0.7em;">
+        <li>"Como funciona el logging?"</li>
+        <li>"Como creo un nuevo endpoint de API?"</li>
+        <li>"Que hace <code>async move { ... }</code> en linea 134 de foo.rs?"</li>
+        <li>"Que edge cases maneja CustomerOnboardingFlowImpl?"</li>
+        <li>"Por que este codigo llama foo() en vez de bar()?"</li>
+      </ul>
+      <p class="dim" style="font-size: 0.6em; margin-top: 0.5em;">
+        Workflow de onboarding efectivo &mdash; reduce carga en otros ingenieros
+      </p>
+    </div>
+    <div>
+      <h3>Deja que Claude te entreviste</h3>
+      <pre><code class="language-markdown">Quiero construir [descripcion breve].
+Entrevistame en detalle usando
+AskUserQuestion.
+
+Pregunta sobre implementacion tecnica,
+UI/UX, edge cases, concerns, tradeoffs.
+No preguntes obviedades, profundiza
+en las partes dificiles.
+
+Sigue entrevistando hasta cubrir todo,
+luego escribe un spec completo
+en SPEC.md.</code></pre>
+      <p class="dim fragment" style="font-size: 0.6em;">
+        Despues: sesion nueva con contexto limpio para implementar el spec
+      </p>
+    </div>
+  </div>
+  <aside class="notes">
+    La forma en que te comunicas con Claude impacta significativamente
+    la calidad de los resultados.
+
+    PREGUNTAS DE CODEBASE:
+    Cuando te incorporas a un codebase nuevo, usa Claude para aprendizaje y exploracion.
+    Puedes hacer las mismas preguntas que le harias a otro ingeniero.
+    No necesitas prompting especial: pregunta directamente.
+    Esto es un workflow de onboarding efectivo que mejora el ramp-up
+    y reduce la carga en otros ingenieros.
+
+    LA ENTREVISTA:
+    Para features grandes, haz que Claude te entreviste PRIMERO.
+    Empieza con un prompt minimo y pide a Claude que te haga preguntas
+    sobre implementacion tecnica, UI/UX, edge cases, y tradeoffs.
+
+    Claude pregunta sobre cosas que quizas no habias considerado.
+    Genera un spec completo en SPEC.md.
+
+    Despues, empieza una sesion NUEVA para ejecutar el spec.
+    La sesion nueva tiene contexto limpio enfocado en implementacion,
+    y tienes un spec escrito al que referenciar.
+
+    Este patron es especialmente poderoso para features grandes
+    donde la exploracion y las decisiones contaminarian el contexto
+    de la sesion de implementacion.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 12: SESSION MANAGEMENT -->
+<!-- ============================================================ -->
+<section>
+  <h2>Gestiona tu sesion</h2>
+  <br/>
+  <div class="grid-2">
+    <div class="tip-card">
+      <h3>Corrige pronto y a menudo</h3>
+      <p>
+        <span class="key">Esc</span> para interrumpir (contexto preservado)<br/>
+        <span class="key">Esc</span> x2 o <code>/rewind</code> para restaurar estado<br/>
+        <code>"Deshaz eso"</code> para revertir cambios<br/>
+        <code>/clear</code> entre tareas no relacionadas
+      </p>
+    </div>
+    <div class="tip-card">
+      <h3>Contexto agresivo</h3>
+      <p>
+        <code>/clear</code> frecuente entre tareas<br/>
+        <code>/compact Focus on API changes</code> dirigido<br/>
+        <span class="key">Esc</span> x2 &rarr; <strong>Summarize from here</strong><br/>
+        En CLAUDE.md: "When compacting, preserve modified files list"
+      </p>
+    </div>
+    <div class="tip-card">
+      <h3>Subagentes para investigacion</h3>
+      <p>
+        <em>"Usa subagentes para investigar como funciona auth token refresh
+        y si tenemos utilidades OAuth existentes"</em><br/>
+        <span class="accent">Exploran en contexto separado</span> &rarr; tu main queda limpio
+      </p>
+    </div>
+    <div class="tip-card">
+      <h3>Checkpoints + Resume</h3>
+      <p>
+        Cada accion crea un checkpoint. Restaura conversacion, codigo, o ambos.<br/>
+        <code>claude --continue</code> retoma la ultima sesion<br/>
+        <code>claude --resume</code> elige de sesiones recientes<br/>
+        <code>/rename</code> para nombres descriptivos
+      </p>
+    </div>
+  </div>
+  <br/>
+  <div class="callout fragment">
+    <p>Si has corregido a Claude <strong>2+ veces</strong> en el mismo issue: <code>/clear</code> y reescribe con un prompt mejor. Un contexto limpio con mejor prompt &gt; sesion larga con correcciones acumuladas.</p>
+  </div>
+  <aside class="notes">
+    Las conversaciones son persistentes y reversibles. Usa esto a tu favor.
+
+    CORREGIR PRONTO:
+    Los mejores resultados vienen de feedback loops rapidos.
+    - Esc: para a Claude mid-accion. Contexto preservado, puedes redirigir.
+    - Esc x2 o /rewind: abre menu de rewind. Restaura conversacion, codigo, o ambos.
+      Tambien puedes hacer "Summarize from here" para condensar desde un punto.
+    - "Deshaz eso": Claude revierte sus cambios.
+    - /clear: reset entre tareas no relacionadas.
+
+    CONTEXTO AGRESIVO:
+    Claude auto-compacta cuando se acerca a los limites.
+    Pero puedes ser mas proactivo:
+    - /clear frecuente entre tareas.
+    - /compact con instrucciones: "/compact Focus on the API changes"
+      Le dices QUE preservar durante la compactacion.
+    - En CLAUDE.md puedes poner: "When compacting, always preserve
+      the full list of modified files and any test commands"
+    - Esc x2 -> selecciona un mensaje -> "Summarize from here"
+      condensa desde ese punto, manteniendo contexto anterior intacto.
+
+    SUBAGENTES PARA INVESTIGACION:
+    Como el contexto es tu restriccion fundamental, los subagentes
+    son una de las herramientas mas poderosas.
+    Cuando Claude investiga un codebase lee muchos archivos,
+    todos consumiendo contexto. Subagentes corren en ventana separada
+    y reportan resumenes.
+    Tambien para verificacion: "usa un subagente para revisar este codigo
+    buscando edge cases."
+
+    CHECKPOINTS Y RESUME:
+    Claude crea checkpoints automaticamente antes de cambios.
+    Persisten entre sesiones: puedes cerrar terminal y rewind despues.
+    claude --continue: retoma la mas reciente.
+    claude --resume: elige de recientes.
+    /rename: nombres descriptivos como "oauth-migration", "memory-leak-debug".
+    Trata las sesiones como branches: workstreams separados con contextos persistentes.
+
+    LA REGLA DE 2 CORRECCIONES:
+    Si has corregido a Claude mas de 2 veces en el mismo issue en una sesion,
+    el contexto esta contaminado con approaches fallidos.
+    /clear y reescribe con un prompt mejor que incorpore lo aprendido.
+    Contra-intuitivo pero mucho mas rapido y barato.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 13: AUTOMATE & SCALE -->
+<!-- ============================================================ -->
+<section>
+  <h2>Automatiza y escala</h2>
+  <p class="dim" style="font-size: 0.6em;">De un Claude a multiples Claude en paralelo</p>
+  <br/>
+  <div class="grid-2">
+    <div class="tip-card">
+      <h3>Headless mode</h3>
+      <pre style="margin: 0.5em 0;"><code class="language-bash"># Query one-off
+claude -p "Explica que hace este proyecto"
+
+# Output estructurado
+claude -p "Lista endpoints" --output-format json
+
+# Streaming para procesamiento
+claude -p "Analiza este log" \
+  --output-format stream-json</code></pre>
+      <p>CI pipelines, pre-commit hooks, scripts</p>
+    </div>
+    <div class="tip-card">
+      <h3>Sesiones paralelas</h3>
+      <p>
+        &bull; <strong>Desktop app</strong>: multiples sesiones visuales, worktrees aislados<br/>
+        &bull; <strong>Web</strong>: VMs aisladas en cloud de Anthropic<br/>
+        &bull; <strong>Agent Teams</strong>: coordinacion automatica con tareas compartidas<br/><br/>
+        <strong>Writer/Reviewer:</strong><br/>
+        Sesion A implementa &rarr; Sesion B revisa (contexto limpio, sin bias)
+      </p>
+    </div>
+  </div>
+  <br/>
+  <div class="tip-card fragment">
+    <h3>Fan out: distribuir trabajo masivo</h3>
+    <pre style="margin: 0.5em 0;"><code class="language-bash"># 1. Claude genera lista de archivos a migrar
+# 2. Loop distribuyendo trabajo
+for file in $(cat files.txt); do
+  claude -p "Migra $file de React a Vue. Return OK o FAIL." \
+    --allowedTools "Edit,Bash(git commit *)"
+done</code></pre>
+    <p>Testea con 2-3 archivos, refina prompt, luego escala. <code>--allowedTools</code> restringe permisos en batch.</p>
+  </div>
+  <aside class="notes">
+    Todo lo anterior asume un humano, un Claude, una conversacion.
+    Pero Claude Code escala horizontalmente.
+
+    HEADLESS MODE:
+    claude -p "prompt" sin sesion interactiva.
+    Es como integrar Claude en CI pipelines, pre-commit hooks, o scripts.
+    Formatos de output: texto plano, JSON, streaming JSON para parsear resultados.
+    Ejemplo: "claude -p 'Lista todos los endpoints de API' --output-format json"
+    para integrar en herramientas de documentacion.
+
+    SESIONES PARALELAS:
+    Tres formas principales:
+    1. Desktop app: gestiona multiples sesiones locales visualmente.
+       Cada sesion tiene su propio worktree aislado.
+    2. Web (claude.ai/code): corre en VMs aisladas en la infra de Anthropic.
+    3. Agent Teams: coordinacion automatica de multiples sesiones
+       con tareas compartidas, mensajeria, y un team lead.
+
+    WRITER/REVIEWER PATTERN:
+    Sesion A: "Implementa un rate limiter para API endpoints"
+    Sesion B: "Revisa la implementacion de rate limiter en @src/middleware/rateLimiter.ts.
+    Busca edge cases, race conditions, y consistencia con middleware existente."
+    Sesion A: "Aqui el feedback de la review: [output B]. Aborda estos issues."
+    El contexto limpio de la sesion B no tiene bias hacia el codigo que acaba de escribir.
+    Similar con tests: uno escribe tests, otro escribe codigo para pasarlos.
+
+    FAN OUT:
+    Para migraciones masivas o analisis a gran escala.
+    1. Claude genera lista de archivos que necesitan migracion.
+    2. Script loop que llama a claude -p para cada archivo.
+    3. --allowedTools restringe lo que Claude puede hacer cuando corre unattended.
+    Testea con 2-3 archivos, refina el prompt basandote en lo que falla,
+    luego corre en el set completo.
+    Puedes pipar resultado: claude -p "prompt" --output-format json | your_command
+
+    Tip: --verbose para debugging durante desarrollo, quitarlo en produccion.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 14: COMMON FAILURE PATTERNS -->
+<!-- ============================================================ -->
+<section>
+  <h2>Anti-patrones comunes</h2>
+  <p class="dim" style="font-size: 0.55em;">De la documentacion oficial de Anthropic</p>
+  <br/>
+  <table class="vs-table">
+    <thead>
+      <tr><th>Anti-patron</th><th>Que pasa</th><th>Solucion</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="bad">Kitchen sink session</td>
+        <td style="font-size: 0.85em;">Mezclas tareas no relacionadas. Contexto lleno de ruido.</td>
+        <td class="good"><code>/clear</code> entre tareas</td>
+      </tr>
+      <tr>
+        <td class="bad">Corregir y corregir</td>
+        <td style="font-size: 0.85em;">Contexto contaminado con approaches fallidos.</td>
+        <td class="good"><code>/clear</code> + mejor prompt inicial</td>
+      </tr>
+      <tr>
+        <td class="bad">CLAUDE.md sobrecargado</td>
+        <td style="font-size: 0.85em;">Claude ignora la mitad. Reglas importantes se pierden.</td>
+        <td class="good">Podar. Mover a skills y hooks.</td>
+      </tr>
+      <tr>
+        <td class="bad">Trust-then-verify gap</td>
+        <td style="font-size: 0.85em;">Implementacion plausible que no cubre edge cases.</td>
+        <td class="good">Tests, scripts, screenshots. Siempre.</td>
+      </tr>
+      <tr>
+        <td class="bad">Exploracion infinita</td>
+        <td style="font-size: 0.85em;">"Investiga X" sin scope. Lee cientos de archivos.</td>
+        <td class="good">Acotar scope o usar subagentes.</td>
+      </tr>
+    </tbody>
+  </table>
+  <br/>
+  <div class="callout fragment">
+    <p>
+      <span class="accent">Regla:</span> Si Claude ya hace algo bien sin la instruccion en CLAUDE.md,
+      <strong>borra la instruccion</strong>. Si una accion debe ocurrir SIEMPRE,
+      <strong>conviertela en hook</strong> en vez de ponerla en CLAUDE.md.
+    </p>
+  </div>
+  <aside class="notes">
+    Estos anti-patrones vienen directamente de la documentacion oficial de Anthropic.
+    Reconocerlos temprano ahorra mucho tiempo.
+
+    1. KITCHEN SINK SESSION:
+    Empiezas con una tarea, preguntas algo no relacionado, vuelves a la primera.
+    El contexto esta lleno de informacion irrelevante que confunde al modelo.
+    Solucion: /clear entre tareas no relacionadas. Siempre.
+
+    2. CORREGIR Y CORREGIR:
+    Claude hace algo mal, corriges, sigue mal, corriges otra vez.
+    El contexto esta contaminado con intentos fallidos y correcciones parciales.
+    Solucion: despues de 2 correcciones fallidas, /clear.
+    Reescribe el prompt desde cero incorporando lo aprendido.
+    Contra-intuitivo pero es mucho mas rapido y barato.
+
+    3. CLAUDE.MD SOBRECARGADO:
+    Si tu CLAUDE.md es demasiado largo, Claude ignora la mitad.
+    La doc oficial dice: "Bloated CLAUDE.md files cause Claude to ignore
+    your actual instructions!"
+    Solucion: podar implacablemente. Para cada linea preguntar
+    "Si quito esto, Claude cometeria errores?" Si no, borrar.
+    Mover instrucciones especializadas a skills (on-demand)
+    y acciones mecanicas a hooks (deterministas).
+
+    4. TRUST-THEN-VERIFY GAP:
+    Claude produce implementacion que parece correcta pero no maneja edge cases.
+    Solucion: siempre proporcionar verificacion (tests, scripts, screenshots).
+    Si no puedes verificarlo, no lo shipees.
+
+    5. EXPLORACION INFINITA:
+    "Investiga X" sin acotar. Claude lee cientos de archivos, llena el contexto.
+    Solucion: acotar ("investiga solo src/auth/") o delegar a subagentes
+    (la exploracion se queda en su contexto, el tuyo queda limpio).
+
+    LA REGLA DE ORO DE ANTI-PATRONES:
+    - Si Claude ya lo hace bien -> borra la instruccion.
+    - Si DEBE ocurrir siempre -> hook, no CLAUDE.md.
+    - Si es especializado -> skill, no CLAUDE.md.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 15: SUBAGENTS DEEP DIVE -->
+<!-- ============================================================ -->
+<section>
+  <h2>Subagentes: aislar y paralelizar</h2>
+  <br/>
+  <div class="two-col">
+    <div>
+      <pre><code class="language-markdown"># .claude/agents/security-reviewer.md
+---
+name: security-reviewer
+description: Reviews code for security vulns
+tools: Read, Grep, Glob, Bash
+model: opus
+---
+Eres un senior security engineer. Revisa:
+- Injection vulnerabilities (SQL, XSS, cmd)
+- Auth and authorization flaws
+- Secrets or credentials in code
+- Insecure data handling
+
+Proporciona lineas especificas y fixes.</code></pre>
+    </div>
+    <div>
+      <h3>Por que subagentes</h3>
+      <ul style="font-size: 0.7em;">
+        <li><span class="accent">Contexto aislado</span> &mdash; exploran sin ensuciar tu sesion</li>
+        <li><span class="accent">Tools propias</span> &mdash; restricciones por agente</li>
+        <li><span class="accent">Modelo configurable</span> &mdash; Opus para review, Haiku para busquedas</li>
+        <li><span class="accent">Paralelizables</span> &mdash; "usa subagentes para X e Y"</li>
+      </ul>
+      <br/>
+      <h3>Patrones comunes</h3>
+      <ul style="font-size: 0.7em;">
+        <li>Investigar codebase antes de implementar</li>
+        <li>Code review post-implementacion</li>
+        <li>Security audit en paralelo</li>
+        <li>Verificar edge cases</li>
+      </ul>
+    </div>
+  </div>
+  <br/>
+  <pre class="fragment"><code class="language-plaintext"># Delegacion explicita
+"Usa un subagente para investigar como funciona token refresh y si tenemos utilidades OAuth"
+"Usa un subagente para revisar este codigo buscando edge cases"
+"Usa el security-reviewer para auditar los cambios de auth"</code></pre>
+  <aside class="notes">
+    Los subagentes son una de las herramientas mas poderosas porque atacan
+    directamente la restriccion fundamental del contexto.
+
+    COMO FUNCIONAN:
+    Corren en su propia ventana de contexto con su propio set de tools.
+    Lee muchos archivos, analiza, y reporta un resumen a tu sesion principal.
+    Tu contexto queda limpio.
+
+    DEFINICION:
+    Archivo markdown en .claude/agents/ con frontmatter YAML.
+    - name: como lo referencias.
+    - description: cuando es relevante (Claude puede elegir usarlo).
+    - tools: que herramientas puede usar (Read, Grep, Bash, etc.).
+    - model: que modelo usa (opus para tareas complejas, haiku para simples).
+
+    El cuerpo del archivo es el system prompt del subagente.
+    Define su personalidad, su enfoque, y sus instrucciones.
+
+    PATRONES COMUNES:
+    1. Investigacion: "usa subagentes para investigar como funciona X"
+       El subagente explora, lee archivos, y reporta resumen.
+    2. Code review: despues de implementar algo, un subagente revisa
+       con contexto limpio (sin bias de haber escrito el codigo).
+    3. Security audit: subagente especializado revisa vulnerabilidades.
+    4. Edge cases: "usa un subagente para revisar este codigo buscando edge cases."
+
+    IMPORTANTE: di explicitamente a Claude que use subagentes.
+    "Usa un subagente para..." o "Usa el security-reviewer para..."
+
+    Ubicaciones:
+    - .claude/agents/ (proyecto): compartido por git.
+    - ~/.claude/agents/ (global): disponible en todos los proyectos.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 16: WRITER/REVIEWER PATTERN -->
+<!-- ============================================================ -->
+<section>
+  <h2>Patron Writer / Reviewer</h2>
+  <p class="dim" style="font-size: 0.6em;">Contexto limpio para revision = sin bias hacia el codigo escrito</p>
+  <br/>
+  <table class="vs-table" style="font-size: 0.85em;">
+    <thead>
+      <tr><th></th><th>Sesion A (Writer)</th><th>Sesion B (Reviewer)</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="step-num">1</span></td>
+        <td>"Implementa un rate limiter para nuestros API endpoints"</td>
+        <td class="dim">&mdash;</td>
+      </tr>
+      <tr>
+        <td><span class="step-num">2</span></td>
+        <td class="dim">&mdash;</td>
+        <td>"Revisa el rate limiter en @src/middleware/rateLimiter.ts. Busca edge cases, race conditions, consistencia."</td>
+      </tr>
+      <tr>
+        <td><span class="step-num">3</span></td>
+        <td>"Feedback de la review: [output B]. Aborda estos issues."</td>
+        <td class="dim">&mdash;</td>
+      </tr>
+    </tbody>
+  </table>
+  <br/>
+  <div class="grid-2 fragment">
+    <div class="tip-card">
+      <h3>Variante: Test-first</h3>
+      <p>Sesion A escribe tests<br/>&rarr; Sesion B escribe codigo que los pase</p>
+    </div>
+    <div class="tip-card">
+      <h3>Variante: Spec + Implement</h3>
+      <p>Sesion A: entrevista + SPEC.md<br/>&rarr; /clear &rarr; Sesion B implementa el spec</p>
+    </div>
+  </div>
+  <aside class="notes">
+    El patron Writer/Reviewer es uno de los mas efectivos para calidad de codigo.
+    La key insight: un contexto limpio para revision elimina el bias
+    que tiene Claude hacia codigo que acaba de escribir.
+
+    FLUJO:
+    1. Sesion A (Writer): implementa la feature.
+    2. Sesion B (Reviewer): revisa con contexto completamente limpio.
+       No tiene el historial de decisiones, solo ve el codigo final.
+       Esto es como tener un code reviewer externo.
+    3. Sesion A: recibe el feedback y aborda los issues.
+
+    VARIANTE TEST-FIRST:
+    Sesion A escribe los tests (define el contrato).
+    Sesion B escribe el codigo que pase los tests.
+    Patron recomendado por Anthropic especialmente para refactors
+    donde el comportamiento no debe cambiar.
+
+    VARIANTE SPEC + IMPLEMENT:
+    Sesion A hace la entrevista con AskUserQuestion, genera SPEC.md.
+    /clear. Sesion nueva implementa el spec con contexto limpio
+    enfocado 100% en ejecucion.
+
+    Estas variantes explotan el hecho de que las sesiones son baratas.
+    No te cases con una sesion. Usa multiples sesiones como herramienta
+    de calidad, no solo de productividad.
+
+    Tip: puedes hacer lo mismo con subagentes definidos como reviewer,
+    pero sesiones separadas dan mayor aislamiento de contexto.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 17: DEVELOP YOUR INTUITION -->
+<!-- ============================================================ -->
+<section>
+  <h2>Desarrolla tu <span class="accent">intuicion</span></h2>
+  <br/>
+  <div class="grid-2">
+    <div>
+      <h3>Cuando <span class="green">si</span> planificar</h3>
+      <ul style="font-size: 0.7em;">
+        <li>No estas seguro del approach</li>
+        <li>El cambio toca multiples archivos</li>
+        <li>No conoces el codigo que se modifica</li>
+        <li>No puedes describir el diff en una frase</li>
+      </ul>
+      <br/>
+      <h3>Cuando <span class="green">si</span> ser especifico</h3>
+      <ul style="font-size: 0.7em;">
+        <li>Sabes exactamente lo que quieres</li>
+        <li>El patron ya existe en el codebase</li>
+        <li>Hay constraints no obvios</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Cuando <span class="red">no</span> planificar</h3>
+      <ul style="font-size: 0.7em;">
+        <li>Puedes describir el diff en una frase</li>
+        <li>Fix de typo, linea de log, rename</li>
+        <li>Scope claro y fix pequeno</li>
+      </ul>
+      <br/>
+      <h3>Cuando <span class="red">no</span> ser especifico</h3>
+      <ul style="font-size: 0.7em;">
+        <li>Estas explorando y puedes corregir curso</li>
+        <li>"Que mejorarias en este archivo?"</li>
+        <li>Quieres ver como Claude interpreta el problema</li>
+      </ul>
+    </div>
+  </div>
+  <br/>
+  <div class="callout fragment">
+    <p>
+      Cuando Claude produce gran output, <span class="accent">observa que hiciste</span>:
+      la estructura del prompt, el contexto, el modo.
+      Cuando Claude tiene problemas, pregunta <span class="accent">por que</span>:
+      contexto ruidoso? prompt vago? tarea demasiado grande?
+    </p>
+  </div>
+  <aside class="notes">
+    Los patrones de esta guia no son rigidos. Son puntos de partida
+    que funcionan en general pero pueden no ser optimos en cada situacion.
+
+    A veces DEBERIAS dejar que el contexto se acumule porque estas profundamente
+    en un problema complejo y el historial es valioso.
+    A veces deberias saltar el planning y dejar que Claude lo descubra
+    porque la tarea es exploratoria.
+    A veces un prompt vago es exactamente correcto porque quieres ver
+    como Claude interpreta el problema antes de constrenirlo.
+
+    LA CLAVE: presta atencion a que funciona.
+    Cuando Claude produce gran output, observa que hiciste:
+    la estructura del prompt, el contexto que proporcionaste, el modo en que estabas.
+    Cuando Claude tiene problemas, pregunta por que:
+    estaba el contexto demasiado ruidoso? el prompt demasiado vago?
+    la tarea demasiado grande para una pasada?
+
+    Con el tiempo desarrollaras una intuicion que ninguna guia puede capturar:
+    - Cuando ser especifico y cuando ser abierto.
+    - Cuando planificar y cuando explorar.
+    - Cuando limpiar contexto y cuando dejarlo acumular.
+
+    Esta es la transicion de "usuario de Claude Code" a "power user de Claude Code".
+    No hay shortcut: viene con la practica y la observacion consciente.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 18: QUICK REFERENCE -->
+<!-- ============================================================ -->
+<section>
+  <h2>Referencia rapida</h2>
+  <div class="two-col">
+    <div>
+      <h3>Comandos esenciales</h3>
+      <table class="vs-table" style="font-size: 0.75em;">
+        <tr><td><span class="key">Shift</span>+<span class="key">Tab</span> x2</td><td>Plan/Act mode</td></tr>
+        <tr><td><span class="key">Esc</span></td><td>Interrumpir (preserva contexto)</td></tr>
+        <tr><td><span class="key">Esc</span> x2</td><td>Rewind menu</td></tr>
+        <tr><td><span class="key">Ctrl</span>+<span class="key">G</span></td><td>Editar plan en editor</td></tr>
+        <tr><td><code>/clear</code></td><td>Reset contexto</td></tr>
+        <tr><td><code>/compact</code></td><td>Comprimir contexto</td></tr>
+        <tr><td><code>/context</code></td><td>Ver consumo</td></tr>
+        <tr><td><code>/init</code></td><td>Generar CLAUDE.md</td></tr>
+        <tr><td><code>/hooks</code></td><td>Configurar hooks</td></tr>
+        <tr><td><code>/permissions</code></td><td>Allowlist dominios/cmds</td></tr>
+        <tr><td><code>/sandbox</code></td><td>Activar sandbox</td></tr>
+        <tr><td><code>/rename</code></td><td>Nombrar sesion</td></tr>
+        <tr><td><code>/rewind</code></td><td>Restaurar checkpoint</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>CLI flags clave</h3>
+      <table class="vs-table" style="font-size: 0.75em;">
+        <tr><td><code>-p "prompt"</code></td><td>Headless mode</td></tr>
+        <tr><td><code>--continue</code></td><td>Retomar sesion</td></tr>
+        <tr><td><code>--resume</code></td><td>Elegir sesion</td></tr>
+        <tr><td><code>--output-format</code></td><td>json / stream-json</td></tr>
+        <tr><td><code>--allowedTools</code></td><td>Restringir en batch</td></tr>
+        <tr><td><code>--verbose</code></td><td>Debug output</td></tr>
+      </table>
+      <br/>
+      <h3>Workflow diario</h3>
+      <ol style="font-size: 0.65em;">
+        <li>Plan Mode: explorar + planificar</li>
+        <li>Normal Mode: implementar + verificar</li>
+        <li><code>/clear</code> entre tareas</li>
+        <li><code>/compact</code> cada 30-45 min</li>
+        <li>Subagentes para investigacion</li>
+        <li>Commit + PR</li>
+      </ol>
+    </div>
+  </div>
+  <aside class="notes">
+    Slide de referencia rapida. Recomiendo screenshot.
+
+    ATAJOS:
+    - Shift+Tab x2: alternar Plan/Act mode. El mas importante.
+    - Esc: interrumpir a Claude. Contexto preservado para redirigir.
+    - Esc x2: abrir rewind menu para restaurar estado anterior.
+    - Ctrl+G: abrir plan en editor externo para editar directamente.
+
+    COMANDOS:
+    - /clear: reset total. CLAUDE.md se re-carga automaticamente.
+    - /compact: comprimir. Puede tomar instrucciones de que preservar.
+    - /context: auditar que consume contexto.
+    - /init: generar CLAUDE.md analizando tu proyecto. Lo primero en repo nuevo.
+    - /hooks: configurar hooks interactivamente.
+    - /permissions: allowlistear dominios y comandos safe.
+    - /sandbox: activar/desactivar sandbox.
+    - /rename: dar nombre descriptivo a la sesion.
+    - /rewind: restaurar checkpoint anterior.
+
+    CLI FLAGS:
+    - -p "prompt": headless mode. Para CI, scripts, automacion.
+    - --continue: retomar la sesion mas reciente.
+    - --resume: elegir de sesiones recientes.
+    - --output-format: json o stream-json para parsear output.
+    - --allowedTools: restringir permisos en operaciones batch.
+    - --verbose: debug output durante desarrollo.
+
+    WORKFLOW DIARIO RECOMENDADO:
+    1. Entra en Plan Mode, explora y planifica.
+    2. Cambia a Normal Mode, implementa y verifica.
+    3. /clear entre tareas no relacionadas.
+    4. /compact cada 30-45 minutos de sesion activa.
+    5. Delega investigaciones a subagentes.
+    6. Commit y PR cuando la feature esta lista.
+    Repetir.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 19: RECAP -->
+<!-- ============================================================ -->
+<section>
+  <h2>Recapitulando</h2>
+  <br/>
+  <ol style="font-size: 0.75em;">
+    <li class="fragment"><span class="accent">Verifica</span> &mdash; tests, lint, screenshots. La accion de mayor impacto.</li>
+    <li class="fragment"><span class="accent">Explora &rarr; Planifica &rarr; Codea</span> &mdash; separa investigacion de implementacion</li>
+    <li class="fragment"><span class="accent">Contexto especifico</span> &mdash; archivos, patrones, sintomas, no prompts vagos</li>
+    <li class="fragment"><span class="accent">Configura el entorno</span> &mdash; CLAUDE.md, hooks, skills, subagentes, sandbox</li>
+    <li class="fragment"><span class="accent">Gestiona el contexto</span> &mdash; /clear, /compact, subagentes para investigacion</li>
+    <li class="fragment"><span class="accent">Escala</span> &mdash; headless, sesiones paralelas, fan out</li>
+    <li class="fragment"><span class="accent">Evita anti-patrones</span> &mdash; kitchen sink, CLAUDE.md obeso, trust without verify</li>
+  </ol>
+  <br/>
+  <p class="fragment dim" style="font-size: 0.65em;">
+    "Give Claude a way to verify its work. It will 2-3x the quality."<br/>
+    <span style="font-size: 0.8em;">&mdash; Boris Cherny, creador de Claude Code</span>
+  </p>
+  <aside class="notes">
+    Recapitulacion rapida de los 7 principios clave.
+
+    1. VERIFICA: la accion de mayor impacto que puedes hacer.
+       Tests, linters, screenshots, scripts. Si Claude puede verificar
+       su propio trabajo, pasa de 60% a 95% de acierto.
+
+    2. EXPLORA, PLANIFICA, CODEA: no dejes que Claude salte a codear.
+       Plan Mode para explorar y planificar. Normal Mode para implementar.
+
+    3. CONTEXTO ESPECIFICO: referencia archivos, apunta a patrones,
+       describe sintomas. Cuanto mas preciso, menos correcciones.
+
+    4. CONFIGURA EL ENTORNO: la inversion upfront se paga con creces.
+       CLAUDE.md, hooks, skills, subagentes, sandbox, CLI tools, MCP.
+
+    5. GESTIONA EL CONTEXTO: /clear frecuente, /compact cada 30-45 min,
+       subagentes para investigacion. El contexto es tu recurso mas preciado.
+
+    6. ESCALA: headless mode para CI, sesiones paralelas para productividad,
+       fan out para operaciones masivas.
+
+    7. EVITA ANTI-PATRONES: kitchen sink session, corregir y corregir,
+       CLAUDE.md obeso, confiar sin verificar, exploracion infinita.
+
+    La cita de Boris Cherny es el resumen perfecto de todo.
+    Si os llevas una sola cosa de esta charla, que sea esta:
+    dad a Claude forma de verificar su trabajo.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 20: END -->
+<!-- ============================================================ -->
+<section>
+  <h1 style="font-size: 1.6em;">Describe lo que quieres.<br/><span class="accent">Claude descubre<br/>como construirlo.</span></h1>
+  <br/>
+  <p class="dim" style="font-size: 0.6em;">
+    Tu trabajo: <strong style="color: var(--r-heading-color);">descomponer problemas</strong>,
+    <strong style="color: var(--r-heading-color);">dar contexto preciso</strong>,
+    <strong style="color: var(--r-heading-color);">verificar resultados</strong>.
+  </p>
+  <br/>
+  <p style="font-size: 0.5em; color: #484f58;">
+    docs &rarr; code.claude.com/docs &middot;
+    best practices &rarr; code.claude.com/docs/best-practices &middot;
+    video &rarr; "Code w/ Claude" en YouTube
+  </p>
+  <aside class="notes">
+    Mensaje final.
+
+    La documentacion oficial lo dice claramente:
+    "Claude Code is an agentic coding environment. Unlike a chatbot that answers
+    questions and waits, Claude Code can read your codebase, edit files,
+    run commands, and autonomously work through problems."
+
+    Eso cambia como trabajas. En vez de escribir codigo tu mismo
+    y pedir a Claude que lo revise, describes lo que quieres
+    y Claude descubre como construirlo.
+
+    Pero esa autonomia viene con una curva de aprendizaje.
+    Las best practices de hoy son los cimientos para aprovecharla.
+
+    Tu rol:
+    1. Descomponer problemas en pasos claros.
+    2. Dar contexto preciso: CLAUDE.md, archivos, patrones, constraints.
+    3. Verificar resultados: tests, lint, review, screenshots.
+
+    Si haceis estas tres cosas bien, el resto se construye encima.
+
+    RECURSOS:
+    - code.claude.com/docs: documentacion oficial completa y actualizada.
+    - code.claude.com/docs/best-practices: la guia oficial de best practices
+      en la que se basa esta charla.
+    - "Code w/ Claude" en YouTube: la serie oficial de Anthropic.
+    - github.com/anthropics/claude-code: el repo con issues y discussions.
+
+    Gracias. Preguntas bienvenidas.
+  </aside>
+</section>
+
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: 'c/t',
+    transition: 'slide',
+    transitionSpeed: 'fast',
+    plugins: [RevealHighlight, RevealNotes],
+    width: 1280,
+    height: 720,
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,1884 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claude Code Advanced - Gamelearn AI Labs 2026</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css" />
+  <style>
+    :root {
+      --r-background-color: #0d1117;
+      --r-main-color: #e6edf3;
+      --r-heading-color: #f0f6fc;
+      --r-link-color: #da7756;
+      --r-link-color-hover: #f0a080;
+      --r-selection-background-color: #da775644;
+    }
+    .reveal { font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif; }
+    .reveal h1, .reveal h2, .reveal h3 { font-weight: 700; text-transform: none; letter-spacing: -0.02em; }
+    .reveal h1 { font-size: 2.2em; }
+    .reveal h2 { font-size: 1.5em; margin-bottom: 0.5em; }
+    .reveal h3 { font-size: 1.1em; color: var(--r-link-color); margin-bottom: 0.3em; }
+    .reveal .subtitle { color: #8b949e; font-size: 0.7em; margin-top: 0.2em; }
+    .reveal pre { width: 100%; font-size: 0.48em; box-shadow: 0 4px 20px rgba(0,0,0,0.4); border-radius: 8px; border: 1px solid #30363d; margin: 0.3em 0; }
+    .reveal pre code { padding: 0.8em; line-height: 1.4; max-height: 480px; }
+    .reveal code { font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace; }
+    .reveal :not(pre) > code { background: #1c2333; padding: 0.1em 0.35em; border-radius: 4px; font-size: 0.82em; color: var(--r-link-color); }
+    .reveal ul, .reveal ol { text-align: left; margin-left: 0; }
+    .reveal li { margin-bottom: 0.35em; font-size: 0.78em; line-height: 1.35; }
+    .tip-card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 0.8em 1.1em; margin: 0.4em 0; text-align: left; }
+    .tip-card h3 { margin: 0 0 0.3em 0; font-size: 0.9em; }
+    .tip-card p, .tip-card li { font-size: 0.68em; color: #8b949e; margin: 0; }
+    .tip-card code { font-size: 0.9em; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6em; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5em; }
+    .accent { color: var(--r-link-color); font-weight: 600; }
+    .dim { color: #8b949e; }
+    .green { color: #3fb950; }
+    .red { color: #f85149; }
+    .badge { display: inline-block; background: var(--r-link-color); color: #0d1117; font-size: 0.5em; padding: 0.15em 0.5em; border-radius: 20px; font-weight: 700; vertical-align: middle; margin-left: 0.3em; }
+    .badge-green { background: #238636; }
+    .badge-blue { background: #388bfd; }
+    .key { display: inline-block; background: #21262d; border: 1px solid #30363d; border-radius: 5px; padding: 0.05em 0.4em; font-family: monospace; font-size: 0.78em; box-shadow: 0 2px 0 #30363d; }
+    .vs-table { width: 100%; font-size: 0.65em; border-collapse: collapse; }
+    .vs-table th { color: var(--r-link-color); border-bottom: 2px solid #30363d; padding: 0.3em 0.6em; text-align: left; font-size: 0.9em; }
+    .vs-table td { border-bottom: 1px solid #21262d; padding: 0.3em 0.6em; }
+    .vs-table .bad { color: #f85149; text-decoration: line-through; opacity: 0.7; }
+    .vs-table .good { color: #3fb950; }
+    .reveal .slide-number { font-size: 11px; color: #484f58; }
+    .reveal .progress span { background: var(--r-link-color); }
+    .tree { font-family: monospace; font-size: 0.52em; text-align: left; line-height: 1.5; color: #8b949e; }
+    .tree .highlight { color: var(--r-link-color); font-weight: 600; }
+    .tree .comment { color: #484f58; }
+    .section-label { font-size: 0.45em; text-transform: uppercase; letter-spacing: 0.15em; color: #484f58; margin-bottom: 0.5em; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2em; align-items: start; }
+    .stat-box { text-align: center; }
+    .stat-box .number { font-size: 2.2em; font-weight: 800; color: var(--r-link-color); line-height: 1; }
+    .stat-box .label { font-size: 0.55em; color: #8b949e; margin-top: 0.2em; }
+  </style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ============================================================ -->
+<!-- SLIDE 1: TITLE -->
+<!-- ============================================================ -->
+<section>
+  <p class="section-label">Gamelearn AI Labs 2026</p>
+  <h1>Claude Code<br/><span class="accent">Advanced</span></h1>
+  <p class="subtitle">Arquitectura, automatizacion y patrones para equipos de ingenieria</p>
+  <aside class="notes">
+    Bienvenidos. Esta charla NO es una introduccion a Claude Code.
+    Asumo que ya lo habeis usado, que sabeis lo basico: hacer preguntas, editar archivos, ejecutar comandos.
+
+    Lo que vamos a ver hoy es como pasar de "usuario casual" a "power user".
+    Vamos a cubrir cosas que la mayoria de la gente no sabe que existen:
+    - La arquitectura completa de configuracion (5 niveles de prioridad)
+    - Hooks para automatizar tareas sin LLM
+    - Subagentes custom con su propio modelo y memoria
+    - Skills: tus propios /comandos reutilizables
+    - Headless mode para meter Claude en CI/CD
+    - Agent Teams: multiples agentes en paralelo con Git Worktrees
+    - Y los patrones que usan equipos como incident.io, Every, y Nx
+
+    Todo lo que voy a contar viene de la documentacion oficial de Anthropic,
+    entrevistas con Boris Cherny (el creador de Claude Code),
+    y case studies de equipos reales en produccion.
+
+    Duracion estimada: 25-30 minutos. Preguntas al final.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 2: THE NUMBERS -->
+<!-- ============================================================ -->
+<section>
+  <h2>Por que esto importa</h2>
+  <br/>
+  <div class="grid-3">
+    <div class="stat-box">
+      <div class="number">195M</div>
+      <div class="label">lineas de codigo<br/>procesadas/semana</div>
+    </div>
+    <div class="stat-box">
+      <div class="number">115K</div>
+      <div class="label">developers<br/>usando Claude Code</div>
+    </div>
+    <div class="stat-box">
+      <div class="number">14.9%</div>
+      <div class="label">de PRs tienen<br/>participacion AI</div>
+    </div>
+  </div>
+  <br/>
+  <p class="dim" style="font-size: 0.55em;">
+    incident.io: UI editor de 2h a 10min &middot;
+    Treasure Data: MCP server de 2 semanas a 1 dia &middot;
+    Boris Cherny (creador): 5 locales + 10 web sessions en paralelo
+  </p>
+  <aside class="notes">
+    Estos numeros no son de un benchmark. Son datos reales de produccion a fecha de principios de 2026.
+
+    195 millones de lineas de codigo procesadas por semana. 115.000 desarrolladores activos.
+    1 de cada 7 pull requests ya tiene participacion de AI. 335.000 PRs con AI-authored code solo en 2025.
+
+    Algunos case studies concretos:
+    - incident.io: empezaron con un agente, en 4 meses escalaron a 4-7 agentes concurrentes.
+      Su UI editor paso de 2 horas de trabajo manual a 10 minutos.
+      Su feedback loop bajo de 90+ segundos a menos de 10.
+      Construyeron una funcion bash llamada "w" para gestionar Git Worktrees.
+
+    - Treasure Data: un proyecto de MCP Server que normalmente habria tardado 2-3 semanas
+      lo sacaron en un solo dia. La adopcion paso del 20% al 80%+ en la empresa.
+
+    - Boris Cherny, el creador de Claude Code dentro de Anthropic:
+      Corre 5 sesiones locales y 5-10 sesiones web simultaneamente.
+      Usa Opus con extended thinking exclusivamente, nunca Sonnet para su trabajo.
+      Abandona el 10-20% de las sesiones como algo normal. Si Claude se atasca, reinicia.
+      No usa Git Worktrees, usa checkouts dedicados por cada sesion.
+
+    - HumanLayer (YC F24): una sesion de pair programming de 7 horas equivalia a 1-2 semanas de trabajo normal.
+
+    - Vulcan Technologies (YC S25): fundadores no tecnicos sacaron prototipos funcionales,
+      ganaron contratos gubernamentales, y cerraron $11M de seed round en 4 meses.
+
+    La pregunta no es SI usar estas herramientas, sino COMO usarlas bien.
+    Que es de lo que va el resto de esta charla.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 3: CONFIGURATION ARCHITECTURE -->
+<!-- ============================================================ -->
+<section>
+  <h2>Arquitectura de configuracion</h2>
+  <p class="dim" style="font-size: 0.6em;">Jerarquia de prioridad (mayor a menor)</p>
+  <div class="tree">
+    <span class="highlight">1. managed-settings.json</span> <span class="comment"># /etc/claude-code/ &mdash; IT/empresa, no se puede sobrescribir</span><br/>
+    <span class="highlight">2. CLI flags</span> <span class="comment"># --model, --allowedTools &mdash; override temporal de sesion</span><br/>
+    <span class="highlight">3. .claude/settings.local.json</span> <span class="comment"># overrides personales, gitignored</span><br/>
+    <span class="highlight">4. .claude/settings.json</span> <span class="comment"># proyecto, compartido por git</span><br/>
+    <span class="highlight">5. ~/.claude/settings.json</span> <span class="comment"># usuario global, todos los proyectos</span><br/>
+  </div>
+  <br/>
+  <div class="grid-2" style="font-size: 0.6em;">
+    <div>
+      <span class="accent">Memoria</span><br/>
+      <code>CLAUDE.md</code> &rarr; proyecto (git)<br/>
+      <code>CLAUDE.local.md</code> &rarr; personal (gitignored)<br/>
+      <code>~/.claude/CLAUDE.md</code> &rarr; global<br/>
+      <code>.claude/rules/*.md</code> &rarr; modulares
+    </div>
+    <div>
+      <span class="accent">Extensiones</span><br/>
+      <code>.claude/agents/</code> &rarr; subagentes<br/>
+      <code>.claude/skills/</code> &rarr; /comandos<br/>
+      <code>.mcp.json</code> &rarr; MCP servers<br/>
+      <code>.claude/hooks/</code> &rarr; automatizaciones
+    </div>
+  </div>
+  <aside class="notes">
+    Esta slide es crucial. La mayoria de la gente solo conoce CLAUDE.md y ya.
+    Pero Claude Code tiene una arquitectura de configuracion completa con 5 niveles de prioridad.
+
+    Nivel 1: managed-settings.json. Esto es para equipos de IT/empresa. Se pone en /etc/claude-code/ en Linux
+    o /Library/Application Support/ClaudeCode/ en Mac. NO se puede sobrescribir por nada.
+    Ejemplo: tu empresa puede prohibir --dangerously-skip-permissions, restringir MCP servers,
+    o forzar que solo se usen ciertos modelos. Util para compliance y seguridad.
+
+    Nivel 2: CLI flags. Override temporal para la sesion. Cosas como --model opus, --allowedTools, etc.
+
+    Nivel 3: .claude/settings.local.json. Este es TU override personal para ESTE proyecto.
+    Esta gitignored automaticamente. Ejemplo: tu quieres usar Opus pero el equipo tiene Sonnet por defecto.
+
+    Nivel 4: .claude/settings.json. Este va en git. Todo el equipo lo comparte.
+    Aqui van las reglas de permisos del equipo, los hooks compartidos, el modelo por defecto.
+
+    Nivel 5: ~/.claude/settings.json. Tu configuracion global personal para todos los proyectos.
+
+    La parte de Memoria sigue una logica parecida:
+    - CLAUDE.md en raiz del proyecto: compartido por git. Instrucciones del proyecto.
+    - CLAUDE.local.md: tus instrucciones personales, gitignored.
+    - ~/.claude/CLAUDE.md: instrucciones que aplican a TODOS tus proyectos.
+      Ejemplo: "siempre responde en espanol", "usa tabs de 2 espacios", etc.
+    - .claude/rules/*.md: esto es nuevo (v2.0.64). Instrucciones modulares por tema o por path.
+      Lo vemos en la siguiente slide.
+
+    Las Extensiones son los mecanismos de personalizacion avanzados:
+    - agents/ para subagentes custom
+    - skills/ para /comandos reutilizables
+    - .mcp.json para herramientas externas
+    - hooks/ para automatizaciones deterministas
+
+    Tip: usa el JSON schema de schemastore para autocompletado en tu editor:
+    "$schema": "https://json.schemastore.org/claude-code-settings.json"
+
+    Claude Code hace backups automaticos de tus archivos de config, guarda los 5 mas recientes.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 4: CLAUDE.md ADVANCED -->
+<!-- ============================================================ -->
+<section>
+  <h2>CLAUDE.md que funciona de verdad</h2>
+  <p class="dim" style="font-size: 0.55em;">Mantenerlo bajo 500 lineas. Mover especializado a skills y rules.</p>
+  <div class="two-col">
+    <div>
+      <pre><code class="language-markdown"># Proyecto
+FastAPI + SQLAlchemy + Pydantic.
+Monorepo con packages/ por dominio.
+
+# Comandos
+uv run dev        # servidor dev
+uv run test       # pytest
+uv run lint       # ruff + mypy
+
+# Convenciones
+- Type hints obligatorios
+- Tests en tests/unit/ y tests/integration/
+- Migrations: alembic, siempre reversibles
+- NO usar print(), usar structlog
+
+# Verificacion
+Antes de dar una tarea por hecha:
+1. Ejecuta tests afectados
+2. Ejecuta lint
+3. Verifica que compila</code></pre>
+    </div>
+    <div>
+      <h3>Rules modulares</h3>
+      <pre><code class="language-yaml"># .claude/rules/testing.md
+---
+paths: ["**/*.test.ts", "**/*.spec.ts"]
+---
+- Usa vitest, nunca jest
+- Mockea llamadas HTTP con msw
+- Minimo 80% coverage en nuevos archivos</code></pre>
+      <pre><code class="language-yaml"># .claude/rules/migrations.md
+---
+paths: ["prisma/migrations/**/*"]
+---
+- Siempre incluir rollback
+- Nunca borrar columna y codigo
+  en la misma migracion
+- Revisar indices afectados</code></pre>
+    </div>
+  </div>
+  <aside class="notes">
+    Dos cosas importantes aqui: como escribir un buen CLAUDE.md, y como usar rules modulares.
+
+    CLAUDE.md - Lo que funciona:
+    - Boris Cherny recomienda mantenerlo bajo 2.500 tokens. Un usuario experimentado de Reddit
+      encontro que bajo 100 lineas daba mejores resultados que documentos largos.
+    - La seccion de COMANDOS es la mas importante. Todos los equipos exitosos la incluyen.
+      Claude necesita saber como ejecutar tests, lint, build. Sin esto, tiene que adivinar.
+    - La seccion de VERIFICACION es el segundo factor mas importante.
+      Si le dices "antes de dar algo por hecho, ejecuta tests y lint", la calidad sube 2-3x.
+      Es el famoso "feedback loop" del que habla Boris Cherny.
+    - NO pongas cosas que Claude ya hace bien sin instruccion. Si ya usa type hints,
+      no hace falta decirle que use type hints. Cada linea extra es ruido.
+
+    Que NO poner en CLAUDE.md:
+    - Credenciales, API keys, connection strings. Nunca. Va en git.
+    - Documentacion exhaustiva de la arquitectura. Para eso estan las rules.
+    - Instrucciones que solo aplican a ciertos archivos. Para eso estan las rules con paths.
+
+    Rules modulares (.claude/rules/):
+    - Disponibles desde la version 2.0.64.
+    - Son archivos markdown en .claude/rules/ que se cargan automaticamente.
+    - La key feature: el frontmatter "paths" con glob patterns.
+    - Cuando una rule tiene paths, SOLO se carga cuando Claude trabaja con archivos que matchean.
+    - Y se carga con ALTA PRIORIDAD. Esto importa porque el context window tiene jerarquia.
+    - Ejemplo: rules/testing.md con paths ["**/*.test.ts"] solo se activa al tocar tests.
+    - Ejemplo: rules/migrations.md con paths ["prisma/migrations/**/*"] solo al tocar migraciones.
+    - Soporta symlinks, incluso entre repos. Se detectan circular symlinks gracefully.
+
+    Estrategia para monorepos:
+    - CLAUDE.md en la raiz: arquitectura general, convenciones cross-cutting.
+    - CLAUDE.md en cada package/: convenciones especificas del package.
+    - Rules por dominio: rules/frontend/, rules/backend/, rules/shared/.
+
+    Consejo de builder.io: "Make it reflect reality. Document how your team actually develops,
+    not theoretical best practices that don't match workflows."
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 5: PROMPT ENGINEERING -->
+<!-- ============================================================ -->
+<section>
+  <h2>Anatomia de un prompt efectivo</h2>
+  <p class="dim" style="font-size: 0.55em;">El framework de 4 preguntas</p>
+  <pre><code class="language-markdown">[QUE]:     Extraer la logica de retry a un decorador reutilizable
+[DONDE]:   src/services/api_client.py, src/services/webhook.py
+[POR QUE]: Hay 4 implementaciones duplicadas con backoff distinto
+[VERIFICA]: Los tests existentes deben seguir pasando + nuevo test
+            para el decorador con mock de timing
+
+Contexto adicional:
+- Revisar src/utils/retry.py que ya existe pero no se usa
+- Seguir el patron de src/utils/cache.py para la API del decorador
+- Mantener compatibilidad con el logger actual (structlog)</code></pre>
+  <br/>
+  <div class="grid-2 fragment">
+    <div class="tip-card">
+      <h3>Constraint-First</h3>
+      <p>Pon las restricciones ANTES de la tarea. Claude las respeta mas si van primero.</p>
+    </div>
+    <div class="tip-card">
+      <h3>Show-by-Example</h3>
+      <p>"Mira como esta hecho en X archivo y aplica el mismo patron en Y"</p>
+    </div>
+  </div>
+  <aside class="notes">
+    Este framework viene de la documentacion oficial de Claude Code y de DeveloperToolkit.ai.
+    Cada prompt efectivo responde estas 4 preguntas:
+
+    1. QUE: Que cambio especifico necesitas. No "arregla el bug" sino "extraer la logica de retry
+       a un decorador". Cuanto mas especifico, menos iteraciones.
+
+    2. DONDE: En que archivos. Esto ahorra a Claude el escaneo masivo del codebase.
+       Un prompt sin DONDE puede triggerear lecturas de cientos de archivos,
+       llenando el contexto de basura. Un prompt con DONDE es quirurgico.
+
+    3. POR QUE: La razon del cambio. Esto le da a Claude criterio para tomar decisiones.
+       Si sabe que hay 4 implementaciones duplicadas, entiende que debe crear algo reutilizable.
+       Sin el POR QUE, puede hacer un fix puntual en vez de la solucion correcta.
+
+    4. VERIFICA: Como saber que esta hecho. Esto cierra el feedback loop.
+       "Los tests existentes deben seguir pasando + nuevo test para el decorador."
+       Claude ejecutara los tests y se autocorregira si fallan.
+
+    Patrones avanzados:
+
+    Constraint-First: Las restricciones van ANTES de la tarea, no despues.
+    Razon tecnica: en modelos de lenguaje, la informacion al principio del prompt
+    recibe mas atencion que la informacion al final. Si dices "no modifiques archivos generated"
+    al final de un prompt largo, es mas probable que lo ignore.
+
+    Show-by-Example: En vez de describir un patron con palabras, apunta a codigo existente.
+    "Mira como esta implementado el cache decorator en src/utils/cache.py
+    y aplica exactamente el mismo patron para el retry decorator."
+    Esto es MUCHO mas efectivo porque Claude lee el codigo real y lo replica.
+
+    Read-Then-Act: Pide a Claude que lea archivos relevantes ANTES de hacer preguntas.
+    "Lee src/auth/ y src/middleware/ y luego proponme como refactorizar la autenticacion."
+    Asi analiza codigo real en vez de asumir.
+
+    Un usuario de Reddit compartio que dedicar 2 horas a documentar 12 pasos de implementacion
+    antes de pedirle a Claude que los ejecutase le ahorro 6-10 horas de desarrollo.
+    La planificacion upfront es la inversion con mas ROI.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 6: THINKING KEYWORDS + PLAN MODE -->
+<!-- ============================================================ -->
+<section>
+  <h2>Extended Thinking + Plan Mode</h2>
+  <div class="two-col">
+    <div>
+      <h3>Thinking budget</h3>
+      <table class="vs-table" style="font-size: 0.85em;">
+        <tr><td><code>think</code></td><td>Budget estandar</td></tr>
+        <tr><td><code>think hard</code></td><td>Mas presupuesto</td></tr>
+        <tr><td><code>think harder</code></td><td>Aun mas</td></tr>
+        <tr><td><code>ultrathink</code></td><td>Maximo budget</td></tr>
+      </table>
+      <br/>
+      <p style="font-size: 0.6em;" class="dim">
+        Usalo para: decisiones de arquitectura, analisis de seguridad, sistemas concurrentes, debugging complejo.
+      </p>
+      <p style="font-size: 0.55em;" class="dim">
+        <code>MAX_THINKING_TOKENS=8000</code> para limitar en tareas simples.
+      </p>
+    </div>
+    <div>
+      <h3>Plan Mode <span class="key">Shift</span>+<span class="key">Tab</span> x2</h3>
+      <ul style="font-size: 0.7em;">
+        <li><span class="accent">Solo read-only</span> &mdash; Claude no puede tocar nada</li>
+        <li>Explora, analiza, propone arquitectura</li>
+        <li>Tu apruebas antes de que escriba codigo</li>
+        <li class="fragment"><span class="accent">Opus Plan Mode</span>: usa Opus para planificar, Sonnet para implementar &mdash; calidad de Opus sin pagar Opus en cada linea</li>
+      </ul>
+      <br/>
+      <p style="font-size: 0.55em;" class="dim fragment">
+        Usar para: cambios en 3+ archivos, refactors donde el orden importa, tareas con approach incierto.
+      </p>
+    </div>
+  </div>
+  <aside class="notes">
+    Dos features distintas aqui. Vamos con cada una.
+
+    EXTENDED THINKING:
+    Las palabras "think", "think hard", "think harder", "ultrathink" son instrucciones
+    que Claude interpreta para asignar mas thinking tokens. No son keywords magicas
+    que activan un modo especial; simplemente escalan el presupuesto de razonamiento interno.
+
+    Cuando usarlo:
+    - Decisiones de arquitectura donde hay multiples trade-offs.
+    - Analisis de seguridad donde se necesita considerar multiples vectores de ataque.
+    - Sistemas concurrentes donde el race condition analysis es complejo.
+    - Debugging de problemas con multiples capas (red + base de datos + codigo).
+
+    Cuando NO usarlo:
+    - Formateo de codigo, cambios simples, renombrar variables.
+    - No gastes tokens de thinking en tareas mecanicas. Baja el budget con MAX_THINKING_TOKENS=8000.
+    - Puedes desactivar thinking completamente en /config.
+
+    Nota tecnica: tambien puedes controlar el effort level con CLAUDE_CODE_EFFORT_LEVEL (low/medium/high)
+    y bajar el effort en /model para Opus 4.6.
+
+    PLAN MODE:
+    Shift+Tab dos veces activa plan mode. Aparece "plan mode on" en la parte inferior del terminal.
+    Es un toggle behavioral: Claude SOLO tiene acceso a herramientas de lectura.
+    Read, Grep, Glob, WebFetch, WebSearch estan disponibles.
+    Write, Edit, Bash (que modifique cosas) estan BLOQUEADOS.
+
+    Es fundamentalmente diferente de simplemente pedir "haz un plan".
+    Cuando pides un plan con texto, Claude puede empezar a implementar.
+    Con plan mode activo, es IMPOSIBLE que toque archivos.
+
+    El workflow recomendado:
+    1. Activa plan mode (Shift+Tab x2)
+    2. Describe la tarea: "Planifica como implementar notificaciones push"
+    3. Claude explora el codebase, lee archivos, analiza dependencias
+    4. Te presenta un plan con pasos, archivos afectados, dependencias
+    5. Tu revisas, pides ajustes, apruebas
+    6. Desactiva plan mode (Shift+Tab x2 de nuevo) y Claude implementa
+
+    OPUS PLAN MODE (la killer feature):
+    Con opusplan configurado, Claude usa Opus durante la fase de plan
+    (razonamiento profundo, arquitectura, decisiones de diseno)
+    y automaticamente cambia a Sonnet para la implementacion
+    (escribir codigo, tests, editar archivos).
+    Resultado: calidad de razonamiento de Opus sin pagar Opus por cada linea de codigo.
+    Esto puede reducir el coste significativamente manteniendo la calidad de diseno.
+
+    Usar plan mode cuando: cambios en 3+ archivos, refactors donde el orden importa,
+    tareas donde no esta claro el approach, migraciones grandes.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 7: HOOKS -->
+<!-- ============================================================ -->
+<section>
+  <h2>Hooks: automatizacion determinista</h2>
+  <p class="dim" style="font-size: 0.55em;">Comandos que se ejecutan en eventos del lifecycle. Sin LLM, sin ambiguedad.</p>
+  <div class="two-col">
+    <div>
+      <h3>Auto-format en cada edit</h3>
+      <pre><code class="language-json">{
+  "hooks": {
+    "PostToolUse": [{
+      "matcher": "Edit|Write",
+      "hooks": [{
+        "type": "command",
+        "command": "jq -r '.tool_input.file_path' | xargs prettier --write"
+      }]
+    }]
+  }
+}</code></pre>
+      <h3>Bloquear archivos protegidos</h3>
+      <pre><code class="language-json">{
+  "hooks": {
+    "PreToolUse": [{
+      "matcher": "Edit|Write",
+      "hooks": [{
+        "type": "command",
+        "command": ".claude/hooks/protect.sh"
+      }]
+    }]
+  }
+}</code></pre>
+      <p style="font-size: 0.55em;" class="dim">Exit 2 = bloquea la accion. stderr se envia a Claude como feedback.</p>
+    </div>
+    <div>
+      <h3>Eventos disponibles</h3>
+      <table class="vs-table" style="font-size: 0.8em;">
+        <tr><td><code>SessionStart</code></td><td>Inicio/resume/compact</td></tr>
+        <tr><td><code>UserPromptSubmit</code></td><td>Antes de procesar prompt</td></tr>
+        <tr><td><code>PreToolUse</code></td><td>Antes de tool (puede bloquear)</td></tr>
+        <tr><td><code>PostToolUse</code></td><td>Despues de tool OK</td></tr>
+        <tr><td><code>Stop</code></td><td>Claude termina de responder</td></tr>
+        <tr><td><code>PreCompact</code></td><td>Antes de compactar</td></tr>
+      </table>
+      <br/>
+      <h3 class="fragment">Tipos de hook</h3>
+      <ul class="fragment" style="font-size: 0.65em;">
+        <li><code>command</code> &mdash; shell script determinista</li>
+        <li><code>prompt</code> &mdash; pasa por LLM (juicio)</li>
+        <li><code>agent</code> &mdash; multi-turn con tools</li>
+        <li><code>"async": true</code> &mdash; no bloquea</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    Los hooks son probablemente la feature MAS INFRAUTILIZADA de Claude Code.
+    Y son una de las mas poderosas. Porque son DETERMINISTAS: no dependen del LLM,
+    se ejecutan siempre, sin ambiguedad, sin "a veces lo hace y a veces no".
+
+    La filosofia: lo que puedes automatizar con un script, no lo dejes al criterio del LLM.
+    Formatting? Hook. Linting? Hook. Proteger archivos sensibles? Hook.
+    Preservar contexto despues de compaction? Hook.
+
+    EJEMPLO 1 - Auto-format (PostToolUse):
+    Cada vez que Claude edita o escribe un archivo, el hook corre prettier automaticamente.
+    Resultado: nunca mas discutir sobre formato. Claude escribe lo que quiera,
+    prettier lo formatea. incident.io usa exactamente este patron en produccion.
+    Tambien puedes encadenar: prettier + eslint --fix + sort imports.
+
+    EJEMPLO 2 - Proteger archivos (PreToolUse):
+    El script protect.sh recibe el JSON de la tool call via stdin.
+    Extrae el file_path con jq. Compara contra patrones protegidos (.env, lock files, .git/).
+    Si matchea: exit 2 (bloquea). El stderr se envia como feedback a Claude,
+    asi que Claude SABE por que fue bloqueado y puede ajustar.
+    Si no matchea: exit 0 (procede).
+
+    EJEMPLO 3 - Re-inyectar contexto (SessionStart con matcher "compact"):
+    Cuando Claude compacta el contexto, pierde detalles. Con un hook en SessionStart
+    que matchea "compact", puedes re-inyectar instrucciones criticas:
+    "Reminder: usa Bun, no npm. Ejecuta bun test antes de commitear."
+    La stdout del hook se anade al contexto de Claude.
+
+    TIPOS DE HOOKS:
+    - command: shell script. Determinista. El mas comun y recomendado.
+    - prompt: pasa por el LLM. Util para juicios que requieren razonamiento.
+      Ejemplo: "Revisa si todos los tasks estan completos."
+    - agent: como prompt pero multi-turn con acceso a tools. Puede correr tests, leer archivos.
+      Ejemplo: "Verifica que todos los unit tests pasan. Ejecuta el test suite."
+      Tiene timeout configurable.
+    - async: true: cualquier tipo puede ser async. Se ejecuta en background sin bloquear.
+      Ideal para notificaciones (Slack, email), logging, metricas.
+
+    EVENTOS mas utiles:
+    - PostToolUse con matcher "Edit|Write": auto-format, auto-lint.
+    - PreToolUse con matcher "Edit|Write": proteger archivos, validar paths.
+    - Stop: verificacion al final de cada respuesta (correr tests, check de completitud).
+    - SessionStart: inyectar contexto al inicio o despues de compact.
+    - PreCompact: guardar estado antes de perder contexto.
+
+    Donde configurarlos:
+    - En settings.json (proyecto o usuario) dentro del objeto "hooks".
+    - O como scripts en .claude/hooks/ referenciados desde settings.
+    - Los hooks del proyecto se comparten por git. Los de usuario son personales.
+    - Managed settings puede forzar hooks a nivel de empresa (allowManagedHooksOnly).
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 8: CUSTOM SUBAGENTS -->
+<!-- ============================================================ -->
+<section>
+  <h2>Subagentes custom</h2>
+  <p class="dim" style="font-size: 0.55em;">Agentes especializados con su propio contexto, modelo y herramientas</p>
+  <div class="two-col">
+    <div>
+      <h3>Archivo Markdown</h3>
+      <pre><code class="language-yaml"># .claude/agents/security-reviewer.md
+---
+name: security-reviewer
+description: Revisa codigo por vulnerabilidades.
+  Usar despues de cambios en auth o API.
+tools: Read, Grep, Glob, Bash
+model: sonnet
+memory: project
+---
+
+Eres un security engineer senior.
+1. Ejecuta git diff para ver cambios
+2. Busca OWASP top 10 vulnerabilities
+3. Revisa input validation, SQL injection,
+   XSS, auth bypass
+4. Reporta con severidad CRITICAL/HIGH/
+   MEDIUM/LOW</code></pre>
+      <p style="font-size: 0.55em;" class="dim">
+        <code>~/.claude/agents/</code> = todos los proyectos<br/>
+        <code>.claude/agents/</code> = este proyecto (git)
+      </p>
+    </div>
+    <div>
+      <h3>Via CLI (efimero)</h3>
+      <pre><code class="language-bash">claude --agents '{
+  "reviewer": {
+    "description": "Code reviewer",
+    "prompt": "Review for quality",
+    "tools": ["Read","Grep","Glob"],
+    "model": "sonnet"
+  },
+  "tester": {
+    "description": "Test writer",
+    "prompt": "Write tests",
+    "tools": ["Read","Edit","Bash"],
+    "model": "haiku"
+  }
+}'</code></pre>
+      <h3 class="fragment">Built-in agents</h3>
+      <table class="vs-table fragment" style="font-size: 0.8em;">
+        <tr><td><span class="accent">Explore</span></td><td>Haiku, read-only, rapido</td></tr>
+        <tr><td><span class="accent">Plan</span></td><td>Inherited, read-only</td></tr>
+        <tr><td><span class="accent">General</span></td><td>Inherited, todas las tools</td></tr>
+        <tr><td><span class="accent">Bash</span></td><td>Inherited, solo terminal</td></tr>
+      </table>
+      <br/>
+      <p style="font-size: 0.55em;" class="dim fragment">
+        <span class="key">Ctrl</span>+<span class="key">B</span> = mandar tarea al background
+      </p>
+    </div>
+  </div>
+  <aside class="notes">
+    Los subagentes son la clave para escalar. Cada subagente tiene su PROPIO context window.
+    Esto significa que las operaciones verbosas (test suites, scans, analisis) no contaminan
+    tu conversacion principal. Solo el resumen vuelve.
+
+    POR QUE IMPORTA:
+    Si le dices a Claude "corre los tests" en tu sesion principal, toda la salida de pytest
+    (que puede ser miles de lineas) se mete en tu contexto. Despues de 3-4 ejecuciones,
+    tu contexto esta lleno de output de tests.
+    Con un subagente: "Usa un subagente para correr los tests y reporta solo los que fallan."
+    El output se queda en el subagente. Tu solo ves el resumen.
+
+    ARCHIVO MARKDOWN (persistente):
+    Los subagentes se definen como archivos .md con frontmatter YAML.
+    - name: nombre para invocarlo
+    - description: cuando deberia usarse (Claude lee esto para decidir)
+    - tools: que herramientas puede usar. Puedes restringir a solo Read, Grep, Glob.
+    - model: puede ser diferente al principal. Haiku para tareas simples = mas barato.
+    - memory: user, project, o local. Con memory: project, el subagente RECUERDA
+      entre sesiones. Guarda en .claude/agent-memory/nombre/MEMORY.md.
+      Ejemplo: un security-reviewer que recuerda vulnerabilidades previas.
+
+    Dos ubicaciones:
+    - ~/.claude/agents/ = disponible en todos tus proyectos (personal)
+    - .claude/agents/ = este proyecto, compartido por git (equipo)
+
+    VIA CLI (efimero):
+    El flag --agents acepta JSON con definiciones de subagentes.
+    Solo duran la sesion. Util para automatizacion y scripts.
+    Puedes definir multiples agentes a la vez.
+
+    BUILT-IN AGENTS:
+    Claude Code ya trae 4 tipos de subagente:
+    - Explore: usa Haiku, read-only. Super rapido para buscar cosas en el codebase.
+    - Plan: hereda modelo, read-only. Para la fase de investigacion del plan mode.
+    - General-purpose: hereda modelo, todas las tools. Para tareas complejas multi-step.
+    - Bash: hereda modelo, solo Bash. Para ejecutar comandos.
+
+    BACKGROUND (Ctrl+B):
+    Si Claude esta haciendo algo largo, pulsa Ctrl+B para mandarlo al background.
+    El agente sigue trabajando mientras tu puedes hacer otra cosa en la sesion.
+    Los background agents auto-deniegan cualquier permiso no pre-aprobado (seguridad).
+    No pueden usar tools MCP.
+    Puedes desactivar background tasks con CLAUDE_CODE_DISABLE_BACKGROUND_TASKS=1.
+
+    PERMISSION MODES para subagentes:
+    - default: pide permiso normal
+    - acceptEdits: auto-acepta ediciones de archivos
+    - dontAsk: auto-deniega permisos (util para agentes read-only)
+    - delegate: solo coordina, no ejecuta (para el lider de agent teams)
+    - bypassPermissions: salta todos los checks
+    - plan: read-only exploracion
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 9: SKILLS / CUSTOM COMMANDS -->
+<!-- ============================================================ -->
+<section>
+  <h2>Skills: tus propios /comandos</h2>
+  <div class="two-col">
+    <div>
+      <pre><code class="language-yaml"># .claude/skills/fix-issue/SKILL.md
+---
+name: fix-issue
+description: Fix a GitHub issue end-to-end
+disable-model-invocation: true
+allowed-tools: Read, Edit, Bash, Grep
+context: fork
+model: sonnet
+---
+
+Fix GitHub issue $ARGUMENTS:
+1. Lee la issue con gh issue view $0
+2. Analiza el codigo afectado
+3. Implementa el fix
+4. Escribe tests
+5. Ejecuta tests hasta que pasen
+6. Crea commit con conventional commits
+
+## Contexto dinamico
+- Branch actual: !`git branch --show-current`
+- Cambios pendientes: !`git status -s`</code></pre>
+      <p style="font-size: 0.55em;" class="dim">
+        Uso: <code>/fix-issue 42</code>
+      </p>
+    </div>
+    <div>
+      <h3>Frontmatter clave</h3>
+      <table class="vs-table" style="font-size: 0.8em;">
+        <tr><td><code>context: fork</code></td><td>Aislado en subagente</td></tr>
+        <tr><td><code>disable-model-invocation</code></td><td>Solo el user invoca</td></tr>
+        <tr><td><code>allowed-tools</code></td><td>Auto-approve tools</td></tr>
+        <tr><td><code>model</code></td><td>Override del modelo</td></tr>
+        <tr><td><code>agent</code></td><td>Tipo de subagente</td></tr>
+      </table>
+      <br/>
+      <h3 class="fragment">Inyeccion dinamica</h3>
+      <p class="fragment" style="font-size: 0.65em;">
+        <code>!`comando`</code> ejecuta shell como preproceso.<br/>
+        <code>$ARGUMENTS</code> / <code>$0</code> para parametros.<br/>
+        <code>${CLAUDE_SESSION_ID}</code> para session ID.
+      </p>
+      <br/>
+      <h3 class="fragment">Ubicaciones</h3>
+      <ul class="fragment" style="font-size: 0.6em;">
+        <li><code>~/.claude/skills/</code> &mdash; personal, global</li>
+        <li><code>.claude/skills/</code> &mdash; proyecto (git)</li>
+        <li>Auto-discovery en subdirectorios de monorepo</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    Skills son la evolucion de los antiguos slash commands (.claude/commands/).
+    Los commands legacy siguen funcionando, pero skills son mas potentes.
+
+    ESTRUCTURA DE UN SKILL:
+    Carpeta en .claude/skills/nombre/ con un SKILL.md obligatorio.
+    Opcionalmente puede tener: templates/, examples/, scripts/.
+    El SKILL.md tiene frontmatter YAML + el prompt/instrucciones.
+
+    FRONTMATTER CLAVE:
+    - name: se convierte en /nombre cuando lo invocas
+    - description: Claude lee esto para saber cuando usarlo (si no es disable-model-invocation)
+    - disable-model-invocation: true = SOLO el usuario puede invocarlo con /nombre.
+      Claude nunca lo activara por su cuenta. Importante para skills destructivos o costosos.
+    - user-invocable: false = invisible en el menu /. Solo es "conocimiento de fondo".
+    - allowed-tools: las tools listadas se auto-aprueban cuando el skill esta activo.
+      No mas "Allow Bash? [y/n]" para cada comando del skill.
+    - context: fork = se ejecuta en un subagente aislado. Esto es MUY importante.
+      Sin fork, el skill se ejecuta en tu contexto principal y puede llenarlo.
+      Con fork, el skill tiene su propio contexto y solo devuelve el resultado.
+    - model: puedes forzar un modelo. Ejemplo: un skill de review en Opus,
+      un skill de formateo en Haiku.
+    - agent: que tipo de subagente usa (Explore, Plan, o uno custom).
+
+    INYECCION DINAMICA (la feature killer):
+    La sintaxis !`comando` ejecuta el comando como PREPROCESO antes de que Claude vea el contenido.
+    Ejemplo: !`git branch --show-current` se reemplaza por "main" antes de llegar a Claude.
+    Ejemplo: !`gh pr diff` inyecta el diff del PR actual.
+    Ejemplo: !`cat package.json | jq '.dependencies'` inyecta las dependencias.
+    Esto es increiblemente potente para crear skills context-aware.
+
+    VARIABLES:
+    - $ARGUMENTS: todo lo que pones despues del /nombre
+    - $0, $1, $ARGUMENTS[0]: argumentos individuales
+    - ${CLAUDE_SESSION_ID}: ID de la sesion actual
+
+    UBICACIONES (misma logica que agents):
+    - ~/.claude/skills/ = personal, todos tus proyectos
+    - .claude/skills/ = proyecto, compartido por git
+    - Enterprise: managed settings
+    - Plugin: distribuido via marketplaces
+
+    MONOREPO: Skills en subdirectorios se auto-descubren.
+    Si editas un archivo en packages/frontend/, Claude tambien encuentra
+    skills en packages/frontend/.claude/skills/.
+
+    CASO REAL: incident.io tiene un skill /commit-push-pr que ejecutan docenas de veces al dia.
+    Redujo el tiempo de crear PR descriptions de 5 minutos a 30 segundos.
+    El skill lee el diff, los commits, y genera titulo + descripcion automaticamente.
+
+    CONTEXT BUDGET: Las descripciones de skills consumen ~2% del context window
+    (o 16.000 chars, lo que sea mayor). Override con SLASH_COMMAND_TOOL_CHAR_BUDGET.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 10: HEADLESS MODE / CI-CD -->
+<!-- ============================================================ -->
+<section>
+  <h2>Headless Mode: Claude en CI/CD</h2>
+  <p class="dim" style="font-size: 0.55em;">Flag <code>-p</code> para ejecucion no-interactiva</p>
+  <div class="two-col">
+    <div>
+      <h3>Basico</h3>
+      <pre><code class="language-bash"># Commit automatico
+claude -p "Create commit for staged changes" \
+  --allowedTools "Bash(git diff *),\
+Bash(git log *),Bash(git commit *)"
+
+# Review con output JSON
+git diff | claude -p "Review for bugs" \
+  --output-format json | jq '.result'
+
+# Output tipado con schema
+claude -p "Extract API endpoints" \
+  --output-format json \
+  --json-schema '{"type":"object",
+    "properties":{"endpoints":{
+      "type":"array","items":{
+        "type":"string"}}}}'</code></pre>
+    </div>
+    <div>
+      <h3>Pipeline de migracion</h3>
+      <pre><code class="language-bash">#!/bin/bash
+# Migrar archivos en batch
+for file in src/legacy/*.js; do
+  claude -p \
+    "Migrate $file to TypeScript.
+     Follow tsconfig strict mode.
+     Preserve all exports.
+     Run tsc to verify." \
+    --allowedTools "Read,Edit,\
+Bash(npx tsc *)" \
+    --output-format json \
+    | jq -r '.result'
+done</code></pre>
+      <h3 class="fragment">GitHub Actions</h3>
+      <pre class="fragment"><code class="language-yaml"># @claude en PR comments
+- uses: anthropics/claude-code-action@v1
+  with:
+    anthropic_api_key: ${{ secrets.KEY }}</code></pre>
+    </div>
+  </div>
+  <aside class="notes">
+    Headless mode es lo que convierte Claude Code de "herramienta interactiva"
+    a "componente de infraestructura". Con el flag -p (o --print), Claude se ejecuta
+    de forma no-interactiva: recibe un prompt, ejecuta, y devuelve el resultado.
+
+    BASICO - Commits automaticos:
+    El ejemplo de arriba crea commits automaticos a partir de staged changes.
+    Ojo con --allowedTools: el espacio antes del asterisco es CRITICO.
+    "Bash(git diff *)" matchea "git diff --staged", "git diff HEAD", etc.
+    Sin el espacio, "Bash(git diff*)" tambien matchearia "git diff-index" y otros.
+    Es prefix matching, no glob matching.
+
+    OUTPUT FORMATS:
+    - Sin flag: texto plano, como si fuera un echo.
+    - --output-format json: JSON con metadata (session_id, usage, result).
+      Perfecto para parsear con jq en pipelines.
+    - --output-format stream-json: tokens streameados como newline-delimited JSON.
+      Util para UIs en tiempo real o logging.
+    - --json-schema: fuerza a Claude a devolver output que matchee un JSON Schema.
+      Esto es increible para extraer datos estructurados.
+      Ejemplo: extraer endpoints de una API, listar funciones, clasificar archivos.
+
+    PIPING:
+    Todo se puede pipear. git diff | claude -p "review" es el caso mas comun.
+    Tambien: gh pr diff 123 | claude -p "summarize", cat error.log | claude -p "diagnose",
+    e incluso encadenar: claude -p "write code" | claude -p "review this code".
+
+    BATCH PROCESSING:
+    El ejemplo del for loop es un patron real para migraciones.
+    Cada archivo se procesa en una sesion independiente.
+    Tip de Anthropic: prueba con 2-3 archivos primero, refina el prompt,
+    y luego ejecuta el batch completo.
+
+    SYSTEM PROMPT CUSTOM:
+    - --append-system-prompt: ANADE al system prompt default de Claude Code.
+      Claude mantiene todas sus capacidades + tus instrucciones extra.
+      Es la opcion RECOMENDADA para el 90% de los casos.
+    - --system-prompt: REEMPLAZA completamente el system prompt.
+      Claude pierde todas las instrucciones default. Solo usar si necesitas control total.
+    - --system-prompt-file / --append-system-prompt-file: cargan desde archivo.
+      Util para version control de prompts en el repo.
+
+    GITHUB ACTIONS:
+    anthropics/claude-code-action@v1 permite que cualquiera escriba @claude en un
+    PR comment o issue comment. Claude lee el contexto, implementa, fixea, o responde.
+    Setup rapido: /install-github-app en Claude Code interactivo.
+    El workflow se pone en .github/workflows/claude.yml.
+    Trigger: issue_comment y pull_request_review_comment.
+
+    SESIONES PERSISTENTES:
+    Puedes capturar el session_id del output JSON y usarlo con --resume para continuar
+    conversaciones. O usar --continue para retomar la sesion mas reciente.
+    Util para pipelines multi-step donde cada paso construye sobre el anterior.
+
+    SEGURIDAD EN CI:
+    --allowedTools restringe que tools puede usar. Siempre especificar.
+    --disallowedTools para blacklist explicita: "Bash(rm *),Bash(curl *)".
+    --dangerously-skip-permissions solo en Docker sin red (--network none).
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 11: AGENT TEAMS / SWARM -->
+<!-- ============================================================ -->
+<section>
+  <h2>Agent Teams <span class="badge badge-blue">EXPERIMENTAL</span></h2>
+  <p class="dim" style="font-size: 0.55em;">Multiples agentes en paralelo, cada uno con su contexto y worktree</p>
+  <pre><code class="language-bash">CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 claude</code></pre>
+  <br/>
+  <div class="grid-2">
+    <div class="tip-card">
+      <h3>Como funciona</h3>
+      <p>Un agente lider coordina. Los teammates trabajan en Git Worktrees independientes.
+         Cada uno tiene su propio context window. Se comunican via mensajes directos.</p>
+    </div>
+    <div class="tip-card">
+      <h3>Mejores casos de uso</h3>
+      <p>
+        &bull; Research en paralelo (multiples aspectos)<br/>
+        &bull; Features con piezas independientes<br/>
+        &bull; Debug con hipotesis competidoras<br/>
+        &bull; Cambios cross-layer (front + back + tests)
+      </p>
+    </div>
+  </div>
+  <br/>
+  <div class="fragment" style="font-size: 0.65em;">
+    <span class="red">Cuidado:</span> ~7x mas tokens que sesion normal.
+    Usa Sonnet para teammates. Tareas pequenas y autocontenidas.
+  </div>
+  <aside class="notes">
+    Agent Teams es la feature mas ambiciosa de Claude Code. Lanzada a principios de 2026
+    junto con Claude Sonnet 5. Es experimental (requiere env var), pero ya hay equipos
+    usandola en produccion.
+
+    COMO FUNCIONA:
+    Activas con CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 (en shell o en settings.json env).
+    Describes tu tarea normalmente. Claude detecta que es paralelizable y crea el equipo.
+    Un agente LIDER coordina: descompone la tarea, asigna trabajo, sintetiza resultados.
+    Los TEAMMATES trabajan en paralelo, cada uno en su propia sesion con su propio context window.
+
+    LA CLAVE: GIT WORKTREES.
+    Cada teammate trabaja en un Git Worktree independiente.
+    Un worktree es como un clone ligero: misma historia de git, archivos aislados.
+    Esto evita que dos agentes sobreescriban el mismo archivo.
+    El lider puede despues merge los cambios de cada worktree.
+
+    COMUNICACION ENTRE AGENTES:
+    Los teammates se comunican via mensajes directos, coordinados por el lider.
+    El setting teammateMode controla como se muestran:
+    - "auto": elige automaticamente
+    - "in-process": todo en el mismo proceso (default)
+    - "tmux": cada teammate en un panel de tmux (para ver en tiempo real)
+
+    MEJORES CASOS DE USO:
+    1. Research paralelo: "investiga el modulo de auth, el de pagos, y el de notificaciones"
+       Tres teammates leen simultaneamente, cada uno reporta hallazgos.
+    2. Features con piezas independientes: "implementa el frontend, el backend, y los tests"
+       Cada teammate se encarga de una capa.
+    3. Debug con hipotesis competidoras: "investiga si el bug es por la cache, por la DB, o por la red"
+       Tres teammates prueban teorias distintas en paralelo.
+    4. Cross-layer: cambios que tocan frontend + backend + migraciones + tests.
+
+    COSTES:
+    Agent teams usan aproximadamente 7x mas tokens que una sesion normal.
+    Esto es significativo. Recomendaciones:
+    - Usa Sonnet para teammates (no Opus). El lider puede ser Opus.
+    - Tareas pequenas y autocontenidas. No "construye toda la app".
+    - Scope claro para cada teammate. Si el scope es ambiguo, gastan tokens explorando.
+
+    DATOS DE MERCADO:
+    Segun Gartner, las consultas sobre sistemas multi-agente crecieron 1445%
+    de Q1 2024 a Q2 2025. Para finales de 2026 se espera que el 40% de las
+    aplicaciones enterprise incluyan agentes AI task-specific.
+
+    EQUIPOS QUE YA LO USAN:
+    - incident.io: 4-7 agentes concurrentes con worktrees.
+    - Nx (monorepo platform): 3-4 instancias simultaneas en worktrees separados.
+    - Boris Cherny corre 5+ sesiones locales en paralelo (con checkouts, no worktrees).
+
+    El concepto clave: no es solo "mas agentes = mas rapido".
+    Es "agentes especializados en paralelo con aislamiento de contexto".
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 12: MCP SERVERS -->
+<!-- ============================================================ -->
+<section>
+  <h2>MCP: herramientas externas</h2>
+  <p class="dim" style="font-size: 0.55em;">Model Context Protocol &mdash; conecta Claude a cualquier API</p>
+  <div class="two-col">
+    <div>
+      <pre><code class="language-bash"># Anadir MCP server (HTTP)
+claude mcp add --transport http \
+  notion https://mcp.notion.com/mcp
+
+# Con autenticacion
+claude mcp add --transport http \
+  --header "Authorization: Bearer $TOKEN" \
+  api https://api.internal.com/mcp
+
+# Servidor local stdio
+claude mcp add --transport stdio \
+  --scope project \
+  db -- npx db-mcp-server
+
+# Gestionar
+/mcp           # ver estado en sesion
+/context       # ver consumo de contexto</code></pre>
+    </div>
+    <div>
+      <h3>Project-scoped (.mcp.json)</h3>
+      <pre><code class="language-json">{
+  "mcpServers": {
+    "api": {
+      "type": "http",
+      "url": "${API_URL}/mcp",
+      "headers": {
+        "Authorization": "Bearer ${TOKEN}"
+      }
+    }
+  }
+}</code></pre>
+      <p style="font-size: 0.55em;" class="dim">
+        Soporta <code>${VAR}</code> y <code>${VAR:-default}</code>
+      </p>
+      <br/>
+      <div class="tip-card fragment">
+        <h3>Tip: CLI > MCP para costes</h3>
+        <p>Prefiere <code>gh</code>, <code>aws</code>, <code>gcloud</code> via Bash.
+           Cada MCP server anade tool definitions al system prompt.
+           Maximo 10 servers / 80 tools activos.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    MCP (Model Context Protocol) es un estandar abierto creado por Anthropic para conectar
+    modelos AI con herramientas externas. Piensa en ello como un "USB para AI":
+    cualquier servicio que implemente MCP puede conectarse a Claude Code.
+
+    TRANSPORTES:
+    - HTTP: recomendado para servicios remotos. El mas moderno y fiable.
+      Ejemplo: Notion, Asana, PayPal ya tienen endpoints MCP nativos.
+    - SSE (Server-Sent Events): deprecated, usar HTTP en su lugar.
+    - stdio: para servidores locales. El MCP server corre como un proceso hijo.
+      Ejemplo: npx db-mcp-server, npx airtable-mcp-server.
+
+    SCOPES (donde se guarda la config):
+    - local (default): en ~/.claude.json, seccion per-project. Solo tu, solo este proyecto.
+    - project: en .mcp.json en la raiz del repo. Se commitea. Todo el equipo lo comparte.
+    - user: en ~/.claude.json global. Solo tu, todos los proyectos.
+
+    .mcp.json CON VARIABLE EXPANSION:
+    Soporta ${VAR} y ${VAR:-default} para no hardcodear secretos.
+    Las variables se resuelven del environment. Asi puedes commitear .mcp.json
+    sin exponer API keys. Cada dev pone sus keys en su .env o shell profile.
+
+    CLAUDE CODE COMO MCP SERVER:
+    Claude Code tambien puede SERVIR como MCP server con "claude mcp serve".
+    Esto permite que otras herramientas (como Claude Desktop) usen Claude Code como backend.
+    Se configura en claude_desktop_config.json como un server stdio.
+
+    GESTION EN SESION:
+    - /mcp: ver estado de todos los servers, autenticar via OAuth, habilitar/deshabilitar.
+    - /context: ver cuanto contexto consume cada MCP server.
+      Esto es CRITICO porque cada server anade tool definitions al system prompt.
+
+    TOOL SEARCH (auto-scaling):
+    Cuando las tool definitions de MCP superan el 10% del context window,
+    Claude Code automaticamente defer tools y las carga on-demand.
+    Puedes ajustar: ENABLE_TOOL_SEARCH=auto:5 (5% threshold).
+    O desactivar: ENABLE_TOOL_SEARCH=false.
+
+    TIMEOUTS:
+    - MCP_TIMEOUT: timeout para el startup del server (en ms). Default razonable,
+      pero si tu server tarda en arrancar, sube a 10000-15000.
+    - MCP_TOOL_TIMEOUT: timeout para la ejecucion de una tool individual.
+    - MAX_MCP_OUTPUT_TOKENS: maximo tokens en respuestas de MCP tools (default 25000).
+      Subir a 50000 si tus tools devuelven payloads grandes.
+
+    EL TIP MAS IMPORTANTE:
+    CLI tools como gh, aws, gcloud son GRATIS en contexto. No anaden nada al system prompt.
+    Claude las ejecuta con Bash igual que cualquier otro comando.
+    Los MCP servers, en cambio, CUESTAN contexto constantemente: sus tool definitions
+    estan en el system prompt de CADA mensaje.
+    Regla: si hay una CLI tool que hace lo mismo, usa la CLI. Reserva MCP para integraciones
+    que no tienen alternativa CLI (Notion, Slack, herramientas internas).
+
+    LIMITES RECOMENDADOS:
+    Maximo 10 MCP servers activos. Maximo 80 tools en total.
+    Si necesitas mas, activa tool search para defer automatico.
+
+    ENTERPRISE:
+    managed-mcp.json en rutas del sistema para deployment centralizado.
+    allowedMcpServers y deniedMcpServers para whitelist/blacklist a nivel empresa.
+    enableAllProjectMcpServers: true para auto-aprobar los del .mcp.json del repo.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 13: PERMISSIONS & SANDBOXING -->
+<!-- ============================================================ -->
+<section>
+  <h2>Permisos y Sandbox</h2>
+  <div class="two-col">
+    <div>
+      <h3>Reglas de permisos</h3>
+      <pre><code class="language-json">{
+  "permissions": {
+    "allow": [
+      "Bash(npm run lint)",
+      "Bash(npm run test *)",
+      "Read(~/.zshrc)"
+    ],
+    "deny": [
+      "Bash(curl *)",
+      "Read(./.env)",
+      "Read(./secrets/**)"
+    ],
+    "ask": [
+      "Bash(git push *)"
+    ]
+  }
+}</code></pre>
+      <p style="font-size: 0.55em;" class="dim">
+        Sintaxis: <code>Tool</code> o <code>Tool(specifier)</code><br/>
+        Wildcards: <code>*</code> para prefix, <code>**</code> para recursive
+      </p>
+    </div>
+    <div>
+      <h3>Sandbox <span class="badge badge-green">-84% prompts</span></h3>
+      <pre><code class="language-json">{
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
+    "excludedCommands": ["docker"],
+    "network": {
+      "allowedDomains": [
+        "github.com",
+        "*.npmjs.org"
+      ],
+      "allowLocalBinding": true
+    }
+  }
+}</code></pre>
+      <p style="font-size: 0.55em;" class="dim">
+        Activa con <code>/sandbox</code> en sesion interactiva.
+        Reduce interrupciones un 84% segun datos internos de Anthropic.
+      </p>
+      <br/>
+      <p style="font-size: 0.55em; color: #f85149;" class="fragment">
+        <code>--dangerously-skip-permissions</code><br/>
+        Solo en Docker sin red. 32% reportan edits no deseados.
+      </p>
+    </div>
+  </div>
+  <aside class="notes">
+    El sistema de permisos de Claude Code tiene tres capas: reglas de permisos,
+    sandbox, y el flag nuclear --dangerously-skip-permissions.
+
+    REGLAS DE PERMISOS:
+    Tres niveles: allow, deny, ask.
+    - allow: auto-aprueba sin preguntar. Ejemplo: "Bash(npm run lint)".
+    - deny: bloquea siempre. Ejemplo: "Read(./.env)", "Bash(curl *)".
+    - ask: pregunta cada vez. Ejemplo: "Bash(git push *)".
+
+    Sintaxis: Tool o Tool(specifier).
+    - "Bash" matchea todos los bash commands.
+    - "Bash(npm run *)" matchea npm run test, npm run lint, etc.
+    - "Read(./.env)" matchea lectura del archivo .env.
+    - "Edit(src/**)" matchea ediciones en todo src/ recursivamente.
+    - "WebFetch(domain:example.com)" matchea fetch a ese dominio.
+
+    La prioridad: deny > ask > allow. Si algo esta en deny, no importa si esta en allow.
+    Los permisos se pueden poner a nivel managed (empresa), proyecto, local, o usuario.
+
+    SANDBOX:
+    El sandbox es la evolucion de los permisos. En vez de preguntar por cada comando,
+    defines upfront los boundaries y Claude trabaja libremente dentro de ellos.
+
+    Con sandbox enabled + autoAllowBashIfSandboxed: true, TODOS los bash commands
+    se auto-aprueban SIEMPRE QUE esten dentro del sandbox. Sin popups de permiso.
+    Segun datos internos de Anthropic, esto reduce las interrupciones de permisos un 84%.
+
+    La red se controla por dominio:
+    - allowedDomains: ["github.com", "*.npmjs.org", "registry.yarnpkg.com"]
+    - Solo estas dominios son accesibles. Todo lo demas esta bloqueado.
+    - allowLocalBinding: true para permitir que Claude levante servers en localhost.
+    - allowUnixSockets: para Docker sockets, SSH agents, etc.
+
+    excludedCommands: comandos que se ejecutan FUERA del sandbox.
+    Ejemplo: ["docker", "git"]. Estos siguen pidiendo permiso normal.
+
+    Activar con /sandbox en sesion interactiva. Se puede configurar en settings.json.
+
+    --dangerously-skip-permissions:
+    El flag nuclear. Salta TODOS los checks de permisos. Claude hace lo que quiera.
+    Un estudio encontro que el 32% de los developers que usan este flag
+    experimentaron al menos una modificacion de archivo no deseada.
+
+    Recomendaciones de seguridad (de Anthropic):
+    1. SOLO en Docker con --network none (sin red).
+    2. Combinar con --disallowedTools para blacklist explicita.
+    3. Git stash antes de ejecutar. Si algo sale mal: git stash pop.
+    4. Tareas especificas y acotadas. NUNCA prompts vagos como "build a web app".
+    5. El patron TDD de Anthropic: "escribe tests que fallen" -> commit -> "haz que pasen".
+
+    ENTERPRISE LOCKDOWN:
+    - disableBypassPermissionsMode: "disable" bloquea el flag a nivel empresa.
+    - allowManagedPermissionRulesOnly: true ignora reglas de proyecto/usuario.
+    - allowManagedHooksOnly: true solo permite hooks de managed settings.
+    - Se configura en managed-settings.json (rutas del sistema, no editables por el dev).
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 14: CONTEXT MANAGEMENT & COST -->
+<!-- ============================================================ -->
+<section>
+  <h2>Gestion de contexto y coste</h2>
+  <div class="two-col">
+    <div>
+      <h3>Contexto</h3>
+      <ul style="font-size: 0.7em;">
+        <li><code>/compact</code> cada 30-45 min</li>
+        <li><code>/compact Focus on test output</code> &mdash; compactacion dirigida</li>
+        <li><code>/clear</code> entre tareas no relacionadas</li>
+        <li><code>/context</code> para ver que consume contexto</li>
+        <li>Subagentes para operaciones verbosas</li>
+        <li class="fragment">
+          <span class="accent">Anti-patron:</span> "Kitchen sink session" &mdash;
+          mezclar tareas no relacionadas en la misma sesion
+        </li>
+        <li class="fragment">
+          <span class="accent">Anti-patron:</span> Corregir 3+ veces &mdash;
+          mejor <code>/clear</code> y reescribir prompt
+        </li>
+      </ul>
+    </div>
+    <div>
+      <h3>Coste (~$6/dev/dia)</h3>
+      <table class="vs-table" style="font-size: 0.8em;">
+        <tr><th>Tarea</th><th>Modelo</th></tr>
+        <tr><td>Implementacion</td><td class="good">Sonnet</td></tr>
+        <tr><td>Arquitectura</td><td class="accent">Opus</td></tr>
+        <tr><td>Subagentes simples</td><td class="green">Haiku</td></tr>
+        <tr><td>Plan Mode</td><td>Opus plan + Sonnet act</td></tr>
+      </table>
+      <br/>
+      <pre class="fragment"><code class="language-bash"># Reducir thinking en tareas simples
+MAX_THINKING_TOKENS=8000 claude
+
+# Compactar antes (default ~95%)
+CLAUDE_AUTOCOMPACT_PCT_OVERRIDE=50 claude
+
+# Ver coste en sesion
+/cost</code></pre>
+    </div>
+  </div>
+  <aside class="notes">
+    Segun datos de la comunidad, el 40-60% de los usuarios gastan de mas
+    porque dejan crecer el contexto sin control y corren todo en el modelo por defecto.
+    Esta slide trata de como NO ser de esos.
+
+    GESTION DE CONTEXTO - Las 5 reglas:
+
+    1. /compact cada 30-45 minutos de sesion activa.
+       Comprime el historial, mantiene lo importante, libera espacio.
+       Truco avanzado: "/compact Focus on test output and code changes"
+       Le dices QUE preservar durante la compactacion.
+       Puedes incluso ponerlo en CLAUDE.md: "When you are using compact,
+       please focus on test output and code changes."
+
+    2. /clear entre tareas no relacionadas. SIEMPRE.
+       La "kitchen sink session" es el anti-patron #1: empiezas debuggeando auth,
+       luego preguntas por el styling, luego vuelves al auth.
+       El contexto esta lleno de informacion irrelevante que confunde al modelo.
+       /clear y empieza limpio. CLAUDE.md se re-carga automaticamente.
+
+    3. /context para auditar que esta consumiendo tu context window.
+       Especialmente util para ver cuanto cuestan los MCP servers.
+       Si tienes 5 servers habilitados que no estas usando, estan quemando contexto gratis.
+       Desactivalos con /mcp.
+
+    4. Delegar a subagentes para operaciones verbosas.
+       "Usa un subagente para correr el test suite y reporta solo los que fallan."
+       La salida completa se queda en el subagente. Tu contexto queda limpio.
+
+    5. Despues de 2 correcciones fallidas, /clear y reescribe el prompt.
+       Si Claude lo hace mal, lo corriges, lo vuelve a hacer mal, lo corriges otra vez...
+       el contexto esta contaminado con intentos fallidos.
+       Es mas rapido y mas barato hacer /clear e incorporar lo aprendido en un nuevo prompt.
+
+    AUTOCOMPACT:
+    Claude Code compacta automaticamente cuando se acerca al limite (~95% del contexto).
+    Puedes triggerarlo antes: CLAUDE_AUTOCOMPACT_PCT_OVERRIDE=50 (al 50%).
+    Util si prefieres compactar frecuentemente con poco historial vs. raramente con mucho.
+
+    COSTE:
+    Media: ~$6/developer/dia. El 90% de los usuarios gastan menos de $12/dia.
+    Mensual con Sonnet 4.6: ~$100-200/developer/mes.
+
+    Estrategia de modelo por tarea:
+    - Sonnet para el 80% del trabajo: implementacion, ediciones, refactors, tests.
+    - Opus SOLO para: arquitectura compleja, decisiones de diseno, debugging profundo.
+    - Haiku para subagentes simples: busquedas, lecturas, tareas mecanicas.
+    - Opus Plan Mode: Opus planifica (caro pero bueno), Sonnet implementa (barato y rapido).
+      Mejor ratio calidad/precio.
+
+    /model para cambiar modelo mid-session.
+    ANTHROPIC_MODEL=claude-sonnet-4-6 como env var para default.
+
+    THINKING TOKENS:
+    MAX_THINKING_TOKENS=8000 para tareas simples donde el thinking default es excesivo.
+    Puedes desactivar thinking completamente en /config.
+    CLAUDE_CODE_EFFORT_LEVEL=low para minimal thinking.
+
+    AGENT TEAMS:
+    Cuestan ~7x mas tokens que sesion normal. Mantener teammates en Sonnet.
+    Tareas cortas y autocontenidas. Background summarization: ~$0.04 por sesion.
+
+    BATCH API:
+    Si usas la API directamente (no Claude Code interactivo), el Batch API
+    da 50% de descuento automatico. Prompt caching ahorra hasta 90% en contexto repetido.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 15: ANTI-PATTERNS -->
+<!-- ============================================================ -->
+<section>
+  <h2>Anti-patrones de produccion</h2>
+  <p class="dim" style="font-size: 0.55em;">De la documentacion oficial de Anthropic + comunidad</p>
+  <br/>
+  <table class="vs-table">
+    <thead>
+      <tr><th>Anti-patron</th><th>Solucion</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="bad">CLAUDE.md de 2000 lineas</td>
+        <td class="good">Max 500 lineas. Mover a skills y rules.</td>
+      </tr>
+      <tr>
+        <td class="bad">"Investiga X" sin scope</td>
+        <td class="good">Delegar a subagente. No contamina contexto principal.</td>
+      </tr>
+      <tr>
+        <td class="bad">Corregir y corregir (3+ veces)</td>
+        <td class="good">/clear + reescribir prompt con lo aprendido.</td>
+      </tr>
+      <tr>
+        <td class="bad">No dar feedback loop</td>
+        <td class="good">"Implementa X, ejecuta tests, arregla hasta que pasen."</td>
+      </tr>
+      <tr>
+        <td class="bad">Confiar sin verificar</td>
+        <td class="good">Tests + lint + hooks PostToolUse. 2-3x calidad.</td>
+      </tr>
+      <tr>
+        <td class="bad">Abandonar 0% de sesiones</td>
+        <td class="good">Normal abandonar 10-20%. Si da vueltas, restart.</td>
+      </tr>
+    </tbody>
+  </table>
+  <aside class="notes">
+    Estos anti-patrones vienen directamente de la documentacion oficial de Anthropic
+    (pagina "Best practices"), de entrevistas con Boris Cherny, y de la comunidad.
+
+    1. CLAUDE.md DE 2000 LINEAS:
+    Si tu CLAUDE.md es demasiado largo, Claude ignora la mitad. Las reglas importantes
+    se pierden en el ruido. La documentacion oficial dice literalmente:
+    "If your CLAUDE.md is too long, Claude ignores half of it because important rules
+    get lost in the noise."
+    Solucion: max 500 lineas (Boris dice 2500 tokens). Mover instrucciones especializadas
+    a skills (on-demand) y rules (path-scoped). Si Claude ya hace algo correctamente
+    sin la instruccion, BORRA la instruccion. Convertir instrucciones mecanicas en hooks.
+
+    2. "INVESTIGA X" SIN SCOPE:
+    Pedir a Claude que "investigue" algo sin acotar hace que lea cientos de archivos,
+    llenando el contexto de informacion irrelevante. La documentacion oficial llama esto
+    "The infinite exploration".
+    Solucion: delegar a un subagente (Explore, que usa Haiku y es read-only).
+    La exploracion se queda en el subagente. Tu contexto queda limpio.
+    O acotar: "Investiga solo src/auth/ y src/middleware/, nada mas."
+
+    3. CORREGIR Y CORREGIR (3+ VECES):
+    La documentacion oficial llama esto "Correcting over and over".
+    Claude hace algo mal, corriges, sigue mal, corriges otra vez.
+    El contexto esta contaminado con intentos fallidos y correcciones parciales.
+    Solucion: despues de 2 correcciones fallidas, /clear.
+    Reescribe el prompt desde cero incorporando lo que aprendiste.
+    Es contra-intuitivo pero mucho mas rapido y barato.
+
+    4. NO DAR FEEDBACK LOOP:
+    La insight MAS IMPORTANTE de toda esta charla.
+    Boris Cherny, el creador de Claude Code: "Give Claude a way to verify its work.
+    If Claude has that feedback loop, it will 2-3x the quality."
+    Si Claude puede correr tests, lint, tsc, y VER los resultados,
+    se autocorrige. Si no puede verificar, produce output "plausible looking"
+    que puede tener edge cases sin cubrir.
+    Solucion: "Implementa X, ejecuta los tests, arregla lo que falle hasta que pasen todos."
+    O mejor aun: hooks PostToolUse que corren lint automaticamente + hooks Stop
+    que corren tests al final de cada respuesta.
+
+    5. CONFIAR SIN VERIFICAR:
+    La documentacion oficial llama esto "The trust-then-verify gap".
+    Claude produce codigo que parece correcto pero no maneja edge cases.
+    Solucion: tests obligatorios. Lint obligatorio. Security review via subagente.
+    Si no puedes verificar algo, no lo shipees.
+
+    6. ABANDONAR 0% DE SESIONES:
+    Boris Cherny abandona el 10-20% de las sesiones como rutina normal.
+    Si Claude esta dando vueltas, es mas rapido reiniciar con un prompt mejor
+    que seguir corrigiendo. No te cases con una sesion. Son baratas.
+    Reconocer cuando abandonar es una skill en si misma.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 16: PRO WORKFLOWS -->
+<!-- ============================================================ -->
+<section>
+  <h2>Workflows de equipos top</h2>
+  <br/>
+  <div class="grid-2">
+    <div class="tip-card">
+      <h3>Every (5-person output / 1 dev)</h3>
+      <p>
+        1. <strong>Plan</strong> (80% esfuerzo): research + docs<br/>
+        2. <strong>Work</strong> (20%): ejecucion<br/>
+        3. <strong>Assess</strong>: 12 agentes especializados en paralelo<br/>
+        4. <strong>Compound</strong>: sistematizar aprendizajes
+      </p>
+    </div>
+    <div class="tip-card">
+      <h3>incident.io (4-7 agentes)</h3>
+      <p>
+        &bull; Git worktrees para aislamiento<br/>
+        &bull; Funcion <code>w</code> en bash para gestionar worktrees<br/>
+        &bull; PostToolUse hooks para auto-format<br/>
+        &bull; Feedback loop: 90s &rarr; &lt;10s
+      </p>
+    </div>
+    <div class="tip-card">
+      <h3>Test-Driven AI Development</h3>
+      <p>
+        1. Escribe tests que fallen<br/>
+        2. Commit<br/>
+        3. "Make tests pass; iterate until green"<br/>
+        4. Review + commit<br/>
+        <em>Pattern recomendado por Anthropic</em>
+      </p>
+    </div>
+    <div class="tip-card">
+      <h3>Voice + Claude Code</h3>
+      <p>
+        Dictado por voz: 150 WPM vs 40 WPM<br/>
+        SuperWhisper / Wispr Flow / MacWhisper<br/>
+        Prompts mas largos y detallados = mejores resultados<br/>
+        3.75x mas contexto por minuto
+      </p>
+    </div>
+  </div>
+  <aside class="notes">
+    Estos son workflows reales de equipos en produccion, documentados en case studies.
+
+    EVERY - Plan-Work-Assess-Compound:
+    Every es una empresa donde desarrolladores individuales producen el output
+    equivalente a equipos de 5 personas. Su metodologia tiene 4 fases:
+    1. Plan (80% del esfuerzo): research extensivo, documentacion de requisitos,
+       brainstorming con Claude en chat mode. Aqui se define TODO antes de tocar codigo.
+       Un usuario reporto que 2 horas de planificacion le ahorraron 6-10 horas de desarrollo.
+    2. Work (20%): ejecucion. Claude implementa siguiendo el plan. Es rapido porque
+       el plan es claro y detallado.
+    3. Assess: 12 agentes especializados revisan en paralelo.
+       Security, performance, accesibilidad, tests, documentacion...
+       Cada uno con su propio focus area.
+    4. Compound: sistematizar los aprendizajes. Actualizar CLAUDE.md, crear rules,
+       documentar patrones para que la proxima vez sea aun mas rapido.
+    La key insight: el 80% del valor esta en la planificacion, no en la ejecucion.
+
+    INCIDENT.IO - Multi-agent pioneros:
+    Escalaron de 0 a 4-7 agentes concurrentes en 4 meses.
+    Infraestructura:
+    - Git Worktrees para aislamiento de cada agente. Crearon una funcion bash "w"
+      para gestionar worktrees de forma eficiente.
+    - PostToolUse hooks para auto-format y lint despues de cada edicion.
+    - Feedback loop optimizado: de 90+ segundos a menos de 10 segundos.
+    Metricas de impacto:
+    - JavaScript editor UI: de 2 horas a 10 minutos.
+    - OpenAPI generator: de 45 segundos a 0.21 segundos.
+    - PR descriptions: de 5 minutos manuales a 30 segundos con un skill.
+
+    TEST-DRIVEN AI DEVELOPMENT:
+    Patron recomendado oficialmente por Anthropic para --dangerously-skip-permissions:
+    1. Tu escribes tests que fallen (defines el contrato).
+    2. Commit (punto de recuperacion).
+    3. Claude: "Make all tests pass. Iterate until green."
+       Claude implementa, ejecuta tests, arregla, repite hasta que pasan.
+    4. Tu revisas el codigo generado, commit si OK.
+    Es el patron mas fiable porque los tests son la fuente de verdad.
+    Claude no puede "engañar" tests bien escritos.
+    Funciona especialmente bien para refactors donde el comportamiento no debe cambiar.
+
+    VOICE + CLAUDE CODE:
+    Subestimadisimo. Dictado por voz con herramientas como SuperWhisper,
+    Wispr Flow, o MacWhisper.
+    Velocidad: 150 WPM dictando vs 40 WPM tipeando = 3.75x mas input por minuto.
+    El resultado: prompts mucho mas largos y detallados, que producen mejores resultados.
+    Varios power users reportan que el dictado por voz cambio completamente
+    su workflow con Claude Code. Puedes dictar el framework de 4 preguntas
+    en 30 segundos en vez de 2 minutos tipeando.
+    La interfaz CLI de Claude Code disciplina el pensamiento naturalmente.
+    Dictado por voz amplifica esa disciplina con mas contexto.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 17: THE FILESYSTEM MAP -->
+<!-- ============================================================ -->
+<section>
+  <h2>El mapa completo de <code>.claude/</code></h2>
+  <div class="two-col">
+    <div>
+      <div class="tree">
+<span class="highlight">~/.claude/</span>
+├── <span class="highlight">settings.json</span>      <span class="comment"># config global</span>
+├── <span class="highlight">CLAUDE.md</span>           <span class="comment"># memoria global</span>
+├── agents/             <span class="comment"># subagentes globales</span>
+│   └── reviewer.md
+├── skills/             <span class="comment"># skills globales</span>
+│   └── fix-issue/
+│       └── SKILL.md
+├── rules/              <span class="comment"># reglas globales</span>
+│   └── preferences.md
+└── agent-memory/       <span class="comment"># memoria persistente</span>
+    └── reviewer/
+        └── MEMORY.md
+
+<span class="highlight">~/.claude.json</span>          <span class="comment"># OAuth, MCP user, prefs</span>
+      </div>
+    </div>
+    <div>
+      <div class="tree">
+<span class="highlight">&lt;project&gt;/</span>
+├── <span class="highlight">CLAUDE.md</span>           <span class="comment"># memoria proyecto (git)</span>
+├── <span class="highlight">.mcp.json</span>           <span class="comment"># MCP servers (git)</span>
+├── <span class="highlight">.claude/</span>
+│   ├── settings.json   <span class="comment"># config equipo (git)</span>
+│   ├── settings.local  <span class="comment"># config personal</span>
+│   ├── CLAUDE.local.md <span class="comment"># memoria personal</span>
+│   ├── agents/         <span class="comment"># subagentes proyecto</span>
+│   ├── skills/         <span class="comment"># skills proyecto</span>
+│   ├── rules/          <span class="comment"># reglas modulares</span>
+│   ├── hooks/          <span class="comment"># scripts de hooks</span>
+│   ├── agent-memory/   <span class="comment"># memoria agentes</span>
+│   └── commands/       <span class="comment"># legacy (funciona)</span>
+└── .github/workflows/
+    └── claude.yml      <span class="comment"># GitHub Actions</span>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    Esta slide es para referencia. Es el mapa completo de todos los archivos de configuracion.
+    Recomiendo hacer screenshot o tenerla a mano cuando configureis vuestros proyectos.
+
+    REGLA DE ORO: todo lo que esta en .claude/ sin ".local" en el nombre se commitea al repo.
+    Todo lo que tiene ".local" se gitignora automaticamente.
+
+    LADO IZQUIERDO - ~/.claude/ (usuario global):
+    - settings.json: tu configuracion para todos los proyectos.
+      Ejemplo: tu modelo preferido, tu tema, tus spinner verbs custom.
+    - CLAUDE.md: instrucciones que aplican a TODOS tus proyectos.
+      Ejemplo: "responde siempre en espanol", "usa 2 espacios para indent".
+    - agents/: subagentes disponibles en todos tus proyectos.
+      Ejemplo: un reviewer generico, un security auditor personal.
+    - skills/: skills disponibles en todos tus proyectos.
+      Ejemplo: /daily-standup, /weekly-review.
+    - rules/: reglas globales. Tus preferencias de codigo, workflow personal.
+    - agent-memory/: memoria persistente de subagentes a nivel usuario.
+      Los subagentes con memory: user guardan aqui sus aprendizajes entre sesiones.
+
+    ~/.claude.json (nota: es diferente del directorio ~/.claude/):
+    Este archivo guarda OAuth sessions, MCP server configs a nivel usuario,
+    preferencias del UI (tema, notificaciones), y estado per-project.
+
+    LADO DERECHO - proyecto:
+    - CLAUDE.md en la raiz: la memoria del proyecto. Compartida por git.
+    - .mcp.json: MCP servers del proyecto. Compartido por git.
+      Con variable expansion para secretos.
+    - .claude/settings.json: config del equipo. Permisos, hooks, modelo default.
+    - .claude/settings.local.json: tus overrides personales. Gitignored.
+      Ejemplo: tu quieres Opus, el equipo usa Sonnet.
+    - .claude/CLAUDE.local.md: tus instrucciones personales para este proyecto. Gitignored.
+    - .claude/agents/: subagentes del proyecto. Compartidos por git.
+    - .claude/skills/: skills del proyecto. Compartidos por git.
+    - .claude/rules/: reglas modulares con path-scoping. Compartidas por git.
+    - .claude/hooks/: scripts de hooks referenciados desde settings.json.
+    - .claude/agent-memory/: memoria de subagentes a nivel proyecto. Compartida.
+    - .claude/agent-memory-local/: memoria de subagentes local. Gitignored.
+    - .claude/commands/: legacy slash commands. Siguen funcionando pero skills es el futuro.
+
+    .github/workflows/claude.yml: GitHub Actions para @claude mentions en PRs y issues.
+
+    BACKUP AUTOMATICO:
+    Claude Code crea backups automaticos con timestamp cada vez que modifica un archivo de config.
+    Guarda los 5 mas recientes. Util si algo se rompe despues de un cambio.
+
+    MONOREPOS:
+    - Puedes tener CLAUDE.md en subdirectorios para contexto por package.
+    - Skills en subdirectorios se auto-descubren.
+    - --add-dir para anadir directorios adicionales al contexto.
+    - CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD=1 para cargar CLAUDE.md de --add-dir dirs.
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 18: QUICK REFERENCE -->
+<!-- ============================================================ -->
+<section>
+  <h2>Referencia rapida</h2>
+  <div class="grid-2">
+    <div>
+      <h3>Atajos</h3>
+      <table class="vs-table" style="font-size: 0.75em;">
+        <tr><td><span class="key">Shift</span>+<span class="key">Tab</span> x2</td><td>Plan/Act mode</td></tr>
+        <tr><td><span class="key">Ctrl</span>+<span class="key">B</span></td><td>Background task</td></tr>
+        <tr><td><span class="key">@</span></td><td>Mention archivo</td></tr>
+        <tr><td><code>/model</code></td><td>Cambiar modelo</td></tr>
+        <tr><td><code>/compact</code></td><td>Comprimir contexto</td></tr>
+        <tr><td><code>/clear</code></td><td>Reset contexto</td></tr>
+        <tr><td><code>/cost</code></td><td>Tokens gastados</td></tr>
+        <tr><td><code>/context</code></td><td>Ver consumo</td></tr>
+        <tr><td><code>/sandbox</code></td><td>Activar sandbox</td></tr>
+        <tr><td><code>/mcp</code></td><td>Gestionar MCP</td></tr>
+        <tr><td><code>/init</code></td><td>Generar CLAUDE.md</td></tr>
+        <tr><td><code>/review</code></td><td>Code review</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>Variables de entorno clave</h3>
+      <table class="vs-table" style="font-size: 0.65em;">
+        <tr><td><code>ANTHROPIC_MODEL</code></td><td>Override modelo</td></tr>
+        <tr><td><code>MAX_THINKING_TOKENS</code></td><td>Budget thinking</td></tr>
+        <tr><td><code>CLAUDE_AUTOCOMPACT_PCT_OVERRIDE</code></td><td>Trigger compaction</td></tr>
+        <tr><td><code>CLAUDE_CODE_EFFORT_LEVEL</code></td><td>low/medium/high</td></tr>
+        <tr><td><code>CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS</code></td><td>Multi-agent</td></tr>
+        <tr><td><code>ENABLE_TOOL_SEARCH</code></td><td>auto/true/false</td></tr>
+        <tr><td><code>BASH_DEFAULT_TIMEOUT_MS</code></td><td>Timeout bash</td></tr>
+      </table>
+      <br/>
+      <h3>Pipes</h3>
+      <pre><code class="language-bash"># Review de PR
+gh pr diff 123 | claude -p "review"
+
+# Piped + system prompt custom
+git log --oneline -20 | claude -p \
+  --append-system-prompt \
+  "Eres un release manager" \
+  "Draft release notes"</code></pre>
+    </div>
+  </div>
+  <aside class="notes">
+    Slide de referencia rapida. Recomiendo screenshot de esta tambien.
+
+    ATAJOS INTERACTIVOS:
+    - Shift+Tab x2: el mas importante. Alterna entre Plan mode y Act mode.
+      En Plan mode Claude solo lee. En Act mode Claude puede modificar.
+    - Ctrl+B: manda la tarea actual al background. Claude sigue trabajando
+      mientras tu puedes hacer otra cosa. El resultado te llega cuando acaba.
+    - @: autocomplete de archivos. Escribes @ y empiezas a tipear el nombre del archivo.
+      Se puede customizar con el setting fileSuggestion para scripts de autocomplete custom.
+
+    SLASH COMMANDS:
+    - /model: cambiar modelo mid-session. Puedes empezar en Opus para planificar
+      y cambiar a Sonnet para implementar. O al reves.
+    - /compact: ya lo hemos cubierto. Comprimir cada 30-45 min.
+    - /clear: reset total del contexto. CLAUDE.md se re-carga automaticamente.
+    - /cost: cuanto llevas gastado en tokens esta sesion. Bueno para awareness.
+    - /context: desglose de que consume contexto (MCP servers, historial, CLAUDE.md).
+    - /sandbox: activar/desactivar sandbox interactivamente.
+    - /mcp: gestionar MCP servers (estado, OAuth, habilitar/deshabilitar).
+    - /init: genera un CLAUDE.md analizando tu proyecto. Lo primero en un repo nuevo.
+    - /review: code review de los cambios actuales (staged + unstaged).
+
+    VARIABLES DE ENTORNO CLAVE:
+    - ANTHROPIC_MODEL: override del modelo. Para forzar Opus o Sonnet globalmente.
+    - MAX_THINKING_TOKENS: budget de thinking. Bajarlo para tareas simples (ahorra).
+    - CLAUDE_AUTOCOMPACT_PCT_OVERRIDE: a que % del contexto triggerear compaction auto.
+      Default ~95. Bajar a 50-70 para compactar mas frecuentemente.
+    - CLAUDE_CODE_EFFORT_LEVEL: low/medium/high. Controla cuanto esfuerzo pone Claude.
+      Low para tareas mecanicas, high para tareas complejas.
+    - CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS: "1" para habilitar agent teams.
+    - ENABLE_TOOL_SEARCH: auto (default), true, false. Para gestionar MCP tool loading.
+    - BASH_DEFAULT_TIMEOUT_MS: timeout de comandos bash. Subir para builds largos.
+
+    PIPES:
+    Los pipes son la feature mas infravalorada de Claude Code en headless mode.
+    - git diff | claude -p "review": review instantaneo de cambios.
+    - gh pr diff 123 | claude -p "summarize": resumen de PR.
+    - cat error.log | claude -p "diagnose": diagnostico de logs de error.
+    - kubectl logs pod | claude -p "find anomalies": analisis de logs de kubernetes.
+    - npm audit | claude -p "prioritize fixes": priorizar vulnerabilidades.
+
+    --append-system-prompt vs --system-prompt:
+    append anade al prompt default. Claude mantiene todas sus capacidades.
+    system-prompt REEMPLAZA todo. Claude pierde instrucciones default.
+    Usar append para el 90% de los casos. system-prompt solo para control total.
+    Ambos tienen variantes -file para cargar desde archivo (version control de prompts).
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 19: CLOSING -->
+<!-- ============================================================ -->
+<section>
+  <h2>Recapitulando</h2>
+  <br/>
+  <ol style="font-size: 0.75em;">
+    <li class="fragment"><span class="accent">CLAUDE.md + rules</span> &mdash; la memoria persistente del proyecto</li>
+    <li class="fragment"><span class="accent">Plan Mode + thinking</span> &mdash; piensa antes de actuar</li>
+    <li class="fragment"><span class="accent">Hooks</span> &mdash; automatizacion determinista (format, lint, proteccion)</li>
+    <li class="fragment"><span class="accent">Subagentes + skills</span> &mdash; delegar, aislar, paralelizar</li>
+    <li class="fragment"><span class="accent">Headless + CI</span> &mdash; Claude en tu pipeline, no solo en tu terminal</li>
+    <li class="fragment"><span class="accent">Sandbox + permisos</span> &mdash; seguridad sin friccion</li>
+    <li class="fragment"><span class="accent">Feedback loops</span> &mdash; tests + lint + verificacion = 2-3x calidad</li>
+  </ol>
+  <br/>
+  <p class="fragment dim" style="font-size: 0.65em;">
+    "Give Claude a way to verify its work. It will 2-3x the quality."<br/>
+    <span style="font-size: 0.8em;">&mdash; Boris Cherny, creador de Claude Code</span>
+  </p>
+  <aside class="notes">
+    Esta es la slide de recapitulacion. Ir punto por punto, breve pero con punch.
+
+    1. CLAUDE.md + RULES:
+    La memoria persistente. Sin esto Claude empieza cada sesion desde cero.
+    Con esto, empieza sabiendo tu stack, tus convenciones, tu arquitectura.
+    Es la diferencia entre un junior que empieza su primer dia y un senior
+    que lleva 6 meses en el proyecto. Invertid tiempo en esto primero.
+    /init para empezar, iterar desde ahi.
+
+    2. PLAN MODE + THINKING:
+    Shift+Tab x2 antes de cualquier tarea no trivial. Piensa antes de actuar.
+    "Think hard" para tareas complejas. Opus Plan Mode para lo critico.
+    El 80% del exito de una tarea con Claude se decide ANTES de que escriba codigo.
+    Every lo demostro: 80% planificacion, 20% ejecucion.
+
+    3. HOOKS:
+    La automatizacion determinista. Format en PostToolUse, lint en Stop,
+    proteccion de archivos en PreToolUse. incident.io redujo su feedback loop
+    de 90 segundos a menos de 10 con hooks bien configurados.
+    Lo que es mecanico y repetible, NO se lo dejes al LLM. Ponlo en un hook.
+
+    4. SUBAGENTES + SKILLS:
+    Delegar para aislar contexto y paralelizar. Un subagente para tests,
+    otro para security review, otro para documentacion. Cada uno con su focus.
+    Skills para operaciones repetibles: /deploy, /fix-issue, /create-pr.
+    Every usa 12 agentes especializados en paralelo en su fase de Assess.
+
+    5. HEADLESS + CI:
+    Claude no es solo una herramienta interactiva. Con -p, piping, y GitHub Actions,
+    se integra en tu pipeline. Auto-review de PRs, auto-fix de issues,
+    generacion de changelogs, migraciones automaticas.
+    Treasure Data valida schemas automaticamente en CI con Claude.
+
+    6. SANDBOX + PERMISOS:
+    Seguridad sin friccion. El sandbox reduce las interrupciones un 84%.
+    Claude trabaja libremente dentro de boundaries definidos.
+    Para enterprise: managed settings lockeando permisos a nivel organizacion.
+    No es opcional cuando trabajas con agentes autonomos.
+
+    7. FEEDBACK LOOPS:
+    La cita de Boris Cherny es LA insight de toda la charla.
+    "Give Claude a way to verify its work. It will 2-3x the quality."
+    Tests, lint, type checking, hooks que verifican automaticamente.
+    Sin verificacion, Claude produce codigo "plausible". Con verificacion,
+    produce codigo correcto. Es la diferencia entre 60% y 95% de acierto.
+
+    NOTA PARA EL SPEAKER:
+    Este es el momento de hacer la transicion al mensaje final.
+    Dejar que la cita de Boris se asiente. Es poderosa.
+    Decir algo como: "Si os llevas UNA sola cosa de esta charla,
+    que sea esta: dad a Claude forma de verificar su trabajo."
+  </aside>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 20: END -->
+<!-- ============================================================ -->
+<section>
+  <h1 style="font-size: 1.8em;">Tu rol ha cambiado:<br/><span class="accent">de escribir codigo<br/>a dirigir agentes</span></h1>
+  <br/>
+  <p class="dim" style="font-size: 0.6em;">
+    El skill mas valioso ya no es tipear rapido.<br/>
+    Es <strong style="color: var(--r-heading-color);">descomponer problemas</strong>,
+    <strong style="color: var(--r-heading-color);">dar contexto preciso</strong>, y
+    <strong style="color: var(--r-heading-color);">verificar resultados</strong>.
+  </p>
+  <br/>
+  <p style="font-size: 0.5em; color: #484f58;">
+    docs &rarr; code.claude.com/docs &middot;
+    repo &rarr; github.com/anthropics/claude-code &middot;
+    sdk &rarr; @anthropic-ai/claude-agent-sdk
+  </p>
+  <aside class="notes">
+    Mensaje final. Dejar que esto resuene.
+
+    EL CAMBIO DE ROL:
+    Tu rol ha cambiado fundamentalmente. Ya no eres alguien que escribe codigo.
+    Eres alguien que DIRIGE agentes que escriben codigo.
+    Es como la transicion de programador individual a tech lead,
+    pero comprimida en meses en vez de anos.
+
+    LAS 3 SKILLS NUEVAS:
+    1. DESCOMPONER PROBLEMAS:
+       La habilidad mas critica. Si no sabes descomponer una tarea en pasos claros,
+       Claude tampoco va a saber hacerlo. El framework de 4 preguntas
+       (QUE/DONDE/POR QUE/VERIFICA) es tu herramienta principal.
+       Every dedica el 80% de su tiempo a esto. No es accidental.
+
+    2. DAR CONTEXTO PRECISO:
+       CLAUDE.md, rules, skills, prompts bien escritos. Todo es contexto.
+       La diferencia entre un resultado mediocre y uno excelente es casi siempre
+       la calidad del contexto que le diste. No la inteligencia del modelo.
+       Boris Cherny: "The quality of your CLAUDE.md directly correlates
+       with the quality of Claude's output."
+
+    3. VERIFICAR RESULTADOS:
+       Tests, lint, type checking, code review manual, hooks automaticos.
+       Confiar sin verificar es el anti-patron mas costoso.
+       La verificacion no es opcional. Es parte del workflow.
+
+    CONTEXTO HISTORICO:
+    Estamos en un punto de inflexion similar a cuando aparecieron los IDEs,
+    o cuando Git cambio la colaboracion. Los que se adapten primero
+    tendran una ventaja desproporcionada.
+    Las startups de YC ya estan en 3000-5000 lineas de codigo por developer por semana.
+    Los equipos que no adopten estas herramientas se van a quedar atras.
+
+    RECURSOS:
+    - code.claude.com/docs: la documentacion oficial. Excelente y actualizada.
+    - github.com/anthropics/claude-code: el repo. Issues y discussions son oro.
+    - @anthropic-ai/claude-agent-sdk: para construir herramientas custom con Claude.
+    - El blog de Anthropic: case studies regulares de equipos en produccion.
+
+    CIERRE:
+    "Gracias. Estoy disponible para preguntas. Y si quereis profundizar
+    en algo especifico, happy to pair con vosotros despues."
+
+    Tip para Q&A: las preguntas mas comunes suelen ser sobre coste
+    (~$6/dev/dia), sobre seguridad (sandbox + permisos), y sobre
+    como empezar (respuesta: /init + CLAUDE.md + un hook de lint).
+  </aside>
+</section>
+
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: 'c/t',
+    transition: 'slide',
+    transitionSpeed: 'fast',
+    plugins: [RevealHighlight, RevealNotes],
+    width: 1280,
+    height: 720,
+  });
+</script>
+</body>
+</html>
