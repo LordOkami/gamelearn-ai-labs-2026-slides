@@ -1029,42 +1029,66 @@ done</code></pre>
 <!-- ============================================================ -->
 <section>
   <h2>Subagentes: aislar y paralelizar</h2>
-  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.35em;">
-    <div class="tip-card" style="padding: 0.4em 0.6em;">
-      <h3 style="font-size: 0.75em;">security-reviewer</h3>
-      <pre style="font-size: 0.85em; margin: 0.2em 0;"><code class="language-yaml">tools: Read, Grep, Glob
+  <div class="r-stack" style="margin: 0.2em 0;">
+    <div class="tip-card fragment fade-in-then-out" style="width: 80%; padding: 0.6em 1em;">
+      <div style="display: flex; align-items: center; gap: 0.8em;">
+        <div style="flex: 1;">
+          <h3 style="font-size: 0.85em;">1/6 &mdash; security-reviewer</h3>
+          <pre style="font-size: 0.85em; margin: 0.3em 0;"><code class="language-yaml">tools: Read, Grep, Glob
 model: opus</code></pre>
-      <p style="font-size: 0.5em;">Injection, auth flaws, secrets en codigo, insecure data handling</p>
+        </div>
+        <p style="font-size: 0.65em; flex: 1; margin: 0;">Revisa injection, auth flaws, secrets en codigo e insecure data handling. Usa <span class="accent">Opus</span> para analisis profundo.</p>
+      </div>
     </div>
-    <div class="tip-card" style="padding: 0.4em 0.6em;">
-      <h3 style="font-size: 0.75em;">build-error-fixer</h3>
-      <pre style="font-size: 0.85em; margin: 0.2em 0;"><code class="language-yaml">tools: Read, Edit, Bash, Grep
+    <div class="tip-card fragment fade-in-then-out" style="width: 80%; padding: 0.6em 1em;">
+      <div style="display: flex; align-items: center; gap: 0.8em;">
+        <div style="flex: 1;">
+          <h3 style="font-size: 0.85em;">2/6 &mdash; build-error-fixer</h3>
+          <pre style="font-size: 0.85em; margin: 0.3em 0;"><code class="language-yaml">tools: Read, Edit, Bash, Grep
 model: sonnet</code></pre>
-      <p style="font-size: 0.5em;">Lee errores de build, localiza la causa, aplica fix y verifica que compila</p>
+        </div>
+        <p style="font-size: 0.65em; flex: 1; margin: 0;">Lee errores de build, localiza la causa raiz, aplica el fix y verifica que compila. <span class="accent">Sonnet</span> para equilibrio velocidad/calidad.</p>
+      </div>
     </div>
-    <div class="tip-card" style="padding: 0.4em 0.6em;">
-      <h3 style="font-size: 0.75em;">test-writer</h3>
-      <pre style="font-size: 0.85em; margin: 0.2em 0;"><code class="language-yaml">tools: Read, Edit, Bash, Glob
+    <div class="tip-card fragment fade-in-then-out" style="width: 80%; padding: 0.6em 1em;">
+      <div style="display: flex; align-items: center; gap: 0.8em;">
+        <div style="flex: 1;">
+          <h3 style="font-size: 0.85em;">3/6 &mdash; test-writer</h3>
+          <pre style="font-size: 0.85em; margin: 0.3em 0;"><code class="language-yaml">tools: Read, Edit, Bash, Glob
 model: sonnet</code></pre>
-      <p style="font-size: 0.5em;">Analiza funciones, escribe tests unitarios, los ejecuta y arregla hasta green</p>
+        </div>
+        <p style="font-size: 0.65em; flex: 1; margin: 0;">Analiza funciones, escribe tests unitarios, los ejecuta y arregla hasta que esten en green.</p>
+      </div>
     </div>
-    <div class="tip-card" style="padding: 0.4em 0.6em;">
-      <h3 style="font-size: 0.75em;">codebase-explorer</h3>
-      <pre style="font-size: 0.85em; margin: 0.2em 0;"><code class="language-yaml">tools: Read, Grep, Glob
+    <div class="tip-card fragment fade-in-then-out" style="width: 80%; padding: 0.6em 1em;">
+      <div style="display: flex; align-items: center; gap: 0.8em;">
+        <div style="flex: 1;">
+          <h3 style="font-size: 0.85em;">4/6 &mdash; codebase-explorer</h3>
+          <pre style="font-size: 0.85em; margin: 0.3em 0;"><code class="language-yaml">tools: Read, Grep, Glob
 model: haiku</code></pre>
-      <p style="font-size: 0.5em;">Investiga codebase sin ensuciar tu contexto. Solo lectura, barato y rapido</p>
+        </div>
+        <p style="font-size: 0.65em; flex: 1; margin: 0;">Investiga codebase sin ensuciar tu contexto. Solo lectura, usa <span class="accent">Haiku</span> porque es barato y rapido.</p>
+      </div>
     </div>
-    <div class="tip-card" style="padding: 0.4em 0.6em;">
-      <h3 style="font-size: 0.75em;">pr-reviewer</h3>
-      <pre style="font-size: 0.85em; margin: 0.2em 0;"><code class="language-yaml">tools: Read, Grep, Bash(gh *)
+    <div class="tip-card fragment fade-in-then-out" style="width: 80%; padding: 0.6em 1em;">
+      <div style="display: flex; align-items: center; gap: 0.8em;">
+        <div style="flex: 1;">
+          <h3 style="font-size: 0.85em;">5/6 &mdash; pr-reviewer</h3>
+          <pre style="font-size: 0.85em; margin: 0.3em 0;"><code class="language-yaml">tools: Read, Grep, Bash(gh *)
 model: opus</code></pre>
-      <p style="font-size: 0.5em;">Revisa PR con contexto limpio: edge cases, estilo, tests faltantes, docs</p>
+        </div>
+        <p style="font-size: 0.65em; flex: 1; margin: 0;">Revisa PRs con contexto limpio: edge cases, estilo, tests faltantes y docs. <span class="accent">Opus</span> para maxima calidad.</p>
+      </div>
     </div>
-    <div class="tip-card" style="padding: 0.4em 0.6em;">
-      <h3 style="font-size: 0.75em;">migration-agent</h3>
-      <pre style="font-size: 0.85em; margin: 0.2em 0;"><code class="language-yaml">tools: Read, Edit, Bash, Grep
+    <div class="tip-card fragment fade-in" style="width: 80%; padding: 0.6em 1em;">
+      <div style="display: flex; align-items: center; gap: 0.8em;">
+        <div style="flex: 1;">
+          <h3 style="font-size: 0.85em;">6/6 &mdash; migration-agent</h3>
+          <pre style="font-size: 0.85em; margin: 0.3em 0;"><code class="language-yaml">tools: Read, Edit, Bash, Grep
 model: sonnet</code></pre>
-      <p style="font-size: 0.5em;">Migra archivos uno a uno (React&rarr;Vue, JS&rarr;TS, etc.) y verifica que compila</p>
+        </div>
+        <p style="font-size: 0.65em; flex: 1; margin: 0;">Migra archivos uno a uno (React&rarr;Vue, JS&rarr;TS, etc.) y verifica que cada uno compila.</p>
+      </div>
     </div>
   </div>
   <div class="callout" style="margin-top: 0.3em;">
@@ -1111,37 +1135,37 @@ model: sonnet</code></pre>
 <!-- ============================================================ -->
 <section>
   <h2>Patron Writer / Reviewer</h2>
-  <p class="dim" style="font-size: 0.55em;">Contexto limpio para revision = sin bias hacia el codigo escrito</p>
-  <table class="vs-table" style="font-size: 0.8em;">
+  <p class="dim" style="font-size: 0.5em; margin: 0;">Contexto limpio para revision = sin bias hacia el codigo escrito</p>
+  <table class="vs-table" style="font-size: 0.7em; margin: 0.2em 0;">
     <thead>
       <tr><th></th><th>Sesion A (Writer)</th><th>Sesion B (Reviewer)</th></tr>
     </thead>
     <tbody>
       <tr>
         <td><span class="step-num">1</span></td>
-        <td>"Implementa un rate limiter para nuestros API endpoints"</td>
+        <td>"Implementa rate limiter para los endpoints"</td>
         <td class="dim">&mdash;</td>
       </tr>
       <tr>
         <td><span class="step-num">2</span></td>
         <td class="dim">&mdash;</td>
-        <td>"Revisa el rate limiter en @src/middleware/rateLimiter.ts. Busca edge cases, race conditions, consistencia."</td>
+        <td>"Revisa @src/middleware/rateLimiter.ts: edge cases, race conditions"</td>
       </tr>
       <tr>
         <td><span class="step-num">3</span></td>
-        <td>"Feedback de la review: [output B]. Aborda estos issues."</td>
+        <td>"Feedback de review: [output B]. Aborda issues."</td>
         <td class="dim">&mdash;</td>
       </tr>
     </tbody>
   </table>
-  <div class="grid-2 fragment">
-    <div class="tip-card">
-      <h3>Variante: Test-first</h3>
-      <p>Sesion A escribe tests<br/>&rarr; Sesion B escribe codigo que los pase</p>
+  <div class="grid-2 fragment" style="gap: 0.3em;">
+    <div class="tip-card" style="padding: 0.35em 0.6em;">
+      <h3 style="font-size: 0.7em;">Variante: Test-first</h3>
+      <p style="font-size: 0.55em;">A escribe tests &rarr; B escribe codigo que los pase</p>
     </div>
-    <div class="tip-card">
-      <h3>Variante: Spec + Implement</h3>
-      <p>Sesion A: entrevista + SPEC.md<br/>&rarr; /clear &rarr; Sesion B implementa el spec</p>
+    <div class="tip-card" style="padding: 0.35em 0.6em;">
+      <h3 style="font-size: 0.7em;">Variante: Spec + Implement</h3>
+      <p style="font-size: 0.55em;">A: entrevista + SPEC.md &rarr; /clear &rarr; B implementa</p>
     </div>
   </div>
   <aside class="notes">
