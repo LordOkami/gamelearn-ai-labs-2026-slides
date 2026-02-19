@@ -17,23 +17,26 @@
       --r-selection-background-color: #da775644;
     }
     .reveal { font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif; }
+    .reveal section { padding: 0.3em; box-sizing: border-box; }
     .reveal h1, .reveal h2, .reveal h3 { font-weight: 700; text-transform: none; letter-spacing: -0.02em; }
     .reveal h1 { font-size: 2.2em; }
-    .reveal h2 { font-size: 1.5em; margin-bottom: 0.5em; }
-    .reveal h3 { font-size: 1.1em; color: var(--r-link-color); margin-bottom: 0.3em; }
+    .reveal h2 { font-size: 1.4em; margin-bottom: 0.3em; }
+    .reveal h3 { font-size: 1em; color: var(--r-link-color); margin-bottom: 0.2em; }
     .reveal .subtitle { color: #8b949e; font-size: 0.7em; margin-top: 0.2em; }
-    .reveal pre { width: 100%; font-size: 0.48em; box-shadow: 0 4px 20px rgba(0,0,0,0.4); border-radius: 8px; border: 1px solid #30363d; margin: 0.3em 0; }
-    .reveal pre code { padding: 0.8em; line-height: 1.4; max-height: 480px; }
+    .reveal p { margin: 0.3em 0; }
+    .reveal pre { width: 100%; font-size: 0.46em; box-shadow: 0 4px 20px rgba(0,0,0,0.4); border-radius: 8px; border: 1px solid #30363d; margin: 0.2em 0; }
+    .reveal pre code { padding: 0.6em; line-height: 1.35; max-height: 420px; }
     .reveal code { font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace; }
-    .reveal :not(pre) > code { background: #1c2333; padding: 0.1em 0.35em; border-radius: 4px; font-size: 0.82em; color: var(--r-link-color); }
+    .reveal :not(pre) > code { background: #1c2333; padding: 0.1em 0.3em; border-radius: 4px; font-size: 0.82em; color: var(--r-link-color); }
     .reveal ul, .reveal ol { text-align: left; margin-left: 0; }
-    .reveal li { margin-bottom: 0.35em; font-size: 0.78em; line-height: 1.35; }
-    .tip-card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 0.8em 1.1em; margin: 0.4em 0; text-align: left; }
-    .tip-card h3 { margin: 0 0 0.3em 0; font-size: 0.9em; }
-    .tip-card p, .tip-card li { font-size: 0.68em; color: #8b949e; margin: 0; }
+    .reveal li { margin-bottom: 0.25em; font-size: 0.72em; line-height: 1.3; }
+    .tip-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 0.5em 0.8em; margin: 0.2em 0; text-align: left; }
+    .tip-card h3 { margin: 0 0 0.2em 0; font-size: 0.85em; }
+    .tip-card p, .tip-card li { font-size: 0.62em; color: #8b949e; margin: 0; line-height: 1.4; }
+    .tip-card pre { margin: 0.3em 0; }
     .tip-card code { font-size: 0.9em; }
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6em; }
-    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5em; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5em; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.4em; }
     .accent { color: var(--r-link-color); font-weight: 600; }
     .dim { color: #8b949e; }
     .green { color: #3fb950; }
@@ -41,10 +44,10 @@
     .badge { display: inline-block; background: var(--r-link-color); color: #0d1117; font-size: 0.5em; padding: 0.15em 0.5em; border-radius: 20px; font-weight: 700; vertical-align: middle; margin-left: 0.3em; }
     .badge-green { background: #238636; }
     .badge-blue { background: #388bfd; }
-    .key { display: inline-block; background: #21262d; border: 1px solid #30363d; border-radius: 5px; padding: 0.05em 0.4em; font-family: monospace; font-size: 0.78em; box-shadow: 0 2px 0 #30363d; }
-    .vs-table { width: 100%; font-size: 0.65em; border-collapse: collapse; }
-    .vs-table th { color: var(--r-link-color); border-bottom: 2px solid #30363d; padding: 0.3em 0.6em; text-align: left; font-size: 0.9em; }
-    .vs-table td { border-bottom: 1px solid #21262d; padding: 0.3em 0.6em; }
+    .key { display: inline-block; background: #21262d; border: 1px solid #30363d; border-radius: 5px; padding: 0.02em 0.35em; font-family: monospace; font-size: 0.75em; box-shadow: 0 2px 0 #30363d; }
+    .vs-table { width: 100%; font-size: 0.6em; border-collapse: collapse; }
+    .vs-table th { color: var(--r-link-color); border-bottom: 2px solid #30363d; padding: 0.25em 0.5em; text-align: left; font-size: 0.9em; }
+    .vs-table td { border-bottom: 1px solid #21262d; padding: 0.25em 0.5em; }
     .vs-table .bad { color: #f85149; }
     .vs-table .good { color: #3fb950; }
     .reveal .slide-number { font-size: 11px; color: #484f58; }
@@ -53,14 +56,14 @@
     .tree .highlight { color: var(--r-link-color); font-weight: 600; }
     .tree .comment { color: #484f58; }
     .section-label { font-size: 0.45em; text-transform: uppercase; letter-spacing: 0.15em; color: #484f58; margin-bottom: 0.5em; }
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2em; align-items: start; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8em; align-items: start; }
     .stat-box { text-align: center; }
     .stat-box .number { font-size: 2.2em; font-weight: 800; color: var(--r-link-color); line-height: 1; }
     .stat-box .label { font-size: 0.55em; color: #8b949e; margin-top: 0.2em; }
-    .callout { background: #161b22; border-left: 4px solid var(--r-link-color); padding: 0.6em 1em; border-radius: 0 8px 8px 0; margin: 0.5em 0; text-align: left; }
-    .callout p { font-size: 0.7em; margin: 0; }
-    .step-num { display: inline-block; background: var(--r-link-color); color: #0d1117; width: 1.5em; height: 1.5em; line-height: 1.5em; text-align: center; border-radius: 50%; font-weight: 700; font-size: 0.8em; margin-right: 0.3em; }
-    .arrow { color: var(--r-link-color); font-size: 1.2em; }
+    .callout { background: #161b22; border-left: 4px solid var(--r-link-color); padding: 0.4em 0.8em; border-radius: 0 8px 8px 0; margin: 0.3em 0; text-align: left; }
+    .callout p { font-size: 0.65em; margin: 0; }
+    .step-num { display: inline-block; background: var(--r-link-color); color: #0d1117; width: 1.4em; height: 1.4em; line-height: 1.4em; text-align: center; border-radius: 50%; font-weight: 700; font-size: 0.75em; margin-right: 0.2em; }
+    .arrow { color: var(--r-link-color); font-size: 1.1em; }
   </style>
 </head>
 <body>
@@ -101,21 +104,18 @@
 <!-- ============================================================ -->
 <section>
   <h2>La restriccion fundamental</h2>
-  <br/>
   <div class="callout">
-    <p style="font-size: 0.85em;">
+    <p style="font-size: 0.8em;">
       La ventana de contexto se llena rapido,<br/>
       y <span class="accent">el rendimiento degrada cuando se llena</span>.
     </p>
   </div>
-  <br/>
   <ul>
     <li>Tu conversacion entera: mensajes, archivos leidos, output de comandos</li>
     <li>Una sola sesion de debugging puede consumir <strong>decenas de miles</strong> de tokens</li>
     <li>Cuando el contexto se llena, Claude "olvida" instrucciones y comete mas errores</li>
     <li class="fragment"><span class="accent">La mayoria de best practices giran alrededor de gestionar esto</span></li>
   </ul>
-  <br/>
   <p class="fragment dim" style="font-size: 0.6em;">
     Monitoriza tu contexto con un <code>status line</code> custom o con <code>/context</code>
   </p>
@@ -149,33 +149,31 @@
 <!-- ============================================================ -->
 <section>
   <h2>Dale a Claude forma de <span class="accent">verificar</span> su trabajo</h2>
-  <p class="dim" style="font-size: 0.6em;">La accion de mayor impacto que puedes hacer</p>
-  <br/>
+  <p class="dim" style="font-size: 0.55em;">La accion de mayor impacto que puedes hacer</p>
   <table class="vs-table">
     <thead>
       <tr><th>Estrategia</th><th class="bad">Antes</th><th class="good">Despues</th></tr>
     </thead>
     <tbody>
       <tr>
-        <td>Criterios de verificacion</td>
-        <td class="bad" style="font-size: 0.85em;">"implementa validacion de email"</td>
-        <td class="good" style="font-size: 0.85em;">"escribe validateEmail. Tests: user@ex.com &rarr; true, invalid &rarr; false. Ejecuta los tests"</td>
+        <td>Criterios</td>
+        <td class="bad">"implementa validacion de email"</td>
+        <td class="good">"escribe validateEmail. Tests: user@ex.com &rarr; true, invalid &rarr; false. Ejecuta los tests"</td>
       </tr>
       <tr>
-        <td>Verificacion visual</td>
-        <td class="bad" style="font-size: 0.85em;">"mejora el dashboard"</td>
-        <td class="good" style="font-size: 0.85em;">"[screenshot] implementa este diseno. Haz screenshot y compara. Lista diferencias y arregla"</td>
+        <td>Visual</td>
+        <td class="bad">"mejora el dashboard"</td>
+        <td class="good">"[screenshot] implementa este diseno. Compara con screenshot. Lista diferencias y arregla"</td>
       </tr>
       <tr>
         <td>Root cause</td>
-        <td class="bad" style="font-size: 0.85em;">"el build falla"</td>
-        <td class="good" style="font-size: 0.85em;">"el build falla con [error]. Arregla la causa raiz, no suprimas el error. Verifica que pasa"</td>
+        <td class="bad">"el build falla"</td>
+        <td class="good">"el build falla con [error]. Arregla la causa raiz, no suprimas el error. Verifica que pasa"</td>
       </tr>
     </tbody>
   </table>
-  <br/>
-  <p class="fragment" style="font-size: 0.65em;">
-    Tests, linters, scripts bash, screenshots con Chrome extension<br/>
+  <p class="fragment" style="font-size: 0.6em;">
+    Tests, linters, scripts bash, screenshots con Chrome extension &mdash;
     <strong>Invierte en que la verificacion sea solida</strong>
   </p>
   <aside class="notes">
@@ -212,12 +210,11 @@
 <!-- ============================================================ -->
 <section>
   <h2>Explora, planifica, codea</h2>
-  <p class="dim" style="font-size: 0.6em;">Separa la investigacion de la implementacion</p>
-  <br/>
-  <div style="display: flex; align-items: center; justify-content: center; gap: 0.5em; font-size: 0.85em;">
+  <p class="dim" style="font-size: 0.55em;">Separa la investigacion de la implementacion</p>
+  <div style="display: flex; align-items: center; justify-content: center; gap: 0.4em; font-size: 0.8em;">
     <div class="tip-card" style="flex: 1; text-align: center;">
       <h3><span class="step-num">1</span> Explorar</h3>
-      <p>Plan Mode: lee archivos, entiende la base</p>
+      <p>Plan Mode: lee archivos, entiende</p>
     </div>
     <span class="arrow">&rarr;</span>
     <div class="tip-card" style="flex: 1; text-align: center;">
@@ -235,18 +232,14 @@
       <p>Mensaje descriptivo + PR</p>
     </div>
   </div>
-  <br/>
   <pre class="fragment"><code class="language-markdown"># 1. Explorar (Plan Mode)
 lee /src/auth y entiende como manejamos sesiones y login.
-mira como gestionamos env vars para secretos.
 
 # 2. Planificar (Plan Mode)
-Quiero anadir Google OAuth. Que archivos hay que cambiar?
-Cual es el flujo de sesion? Crea un plan.
+Quiero anadir Google OAuth. Que archivos hay que cambiar? Crea un plan.
 
 # 3. Implementar (Normal Mode)
-Implementa el flujo OAuth de tu plan. Escribe tests para
-el callback handler, corre el test suite y arregla fallos.
+Implementa el flujo OAuth de tu plan. Escribe tests, corre el suite y arregla fallos.
 
 # 4. Commit
 commit con mensaje descriptivo y abre un PR</code></pre>
@@ -287,32 +280,31 @@ commit con mensaje descriptivo y abre un PR</code></pre>
 <!-- ============================================================ -->
 <section>
   <h2>Da contexto <span class="accent">especifico</span></h2>
-  <p class="dim" style="font-size: 0.6em;">Cuanto mas preciso, menos correcciones</p>
-  <br/>
+  <p class="dim" style="font-size: 0.55em;">Cuanto mas preciso, menos correcciones</p>
   <table class="vs-table">
     <thead>
       <tr><th>Estrategia</th><th class="bad">Vago</th><th class="good">Especifico</th></tr>
     </thead>
     <tbody>
       <tr>
-        <td>Acotar la tarea</td>
-        <td class="bad" style="font-size: 0.85em;">"anade tests para foo.py"</td>
-        <td class="good" style="font-size: 0.85em;">"test para foo.py cubriendo el edge case de usuario deslogueado. Sin mocks."</td>
+        <td>Acotar tarea</td>
+        <td class="bad">"anade tests para foo.py"</td>
+        <td class="good">"test para foo.py cubriendo edge case de usuario deslogueado. Sin mocks."</td>
       </tr>
       <tr>
         <td>Apuntar a fuentes</td>
-        <td class="bad" style="font-size: 0.85em;">"por que tiene ExecutionFactory un API tan raro?"</td>
-        <td class="good" style="font-size: 0.85em;">"mira el git history de ExecutionFactory y resume como llego a ser su API"</td>
+        <td class="bad">"por que ExecutionFactory tiene un API tan raro?"</td>
+        <td class="good">"mira el git history de ExecutionFactory y resume como llego su API"</td>
       </tr>
       <tr>
         <td>Referenciar patrones</td>
-        <td class="bad" style="font-size: 0.85em;">"anade un widget de calendario"</td>
-        <td class="good" style="font-size: 0.85em;">"mira como estan implementados los widgets en home. HotDogWidget.php es buen ejemplo. Sigue el patron."</td>
+        <td class="bad">"anade un widget de calendario"</td>
+        <td class="good">"mira widgets en home. HotDogWidget.php es ejemplo. Sigue el patron."</td>
       </tr>
       <tr>
         <td>Describir sintomas</td>
-        <td class="bad" style="font-size: 0.85em;">"arregla el bug de login"</td>
-        <td class="good" style="font-size: 0.85em;">"login falla tras session timeout. Mira el auth flow en src/auth/, token refresh. Test que reproduzca, luego fix."</td>
+        <td class="bad">"arregla el bug de login"</td>
+        <td class="good">"login falla tras session timeout. Mira src/auth/, token refresh. Test + fix."</td>
       </tr>
     </tbody>
   </table>
@@ -351,12 +343,11 @@ commit con mensaje descriptivo y abre un PR</code></pre>
 <!-- ============================================================ -->
 <section>
   <h2>Input rico: <code>@</code>, imagenes, pipes</h2>
-  <br/>
   <div class="grid-2">
     <div>
       <ul>
         <li><code>@archivo.ts</code> &mdash; Claude lee el archivo antes de responder</li>
-        <li><strong>Pegar imagenes</strong> &mdash; copy/paste o drag &amp; drop en el prompt</li>
+        <li><strong>Pegar imagenes</strong> &mdash; copy/paste o drag &amp; drop</li>
         <li><strong>URLs</strong> &mdash; documentacion, APIs. Allowlist con <code>/permissions</code></li>
         <li><strong>Pipes</strong> &mdash; <code>cat error.log | claude</code></li>
         <li><strong>Claude busca solo</strong> &mdash; bash, MCP, lectura de archivos</li>
@@ -374,9 +365,8 @@ gh pr diff 123 | claude -p "review"
  el patron antes de escribir el nuevo"</code></pre>
     </div>
   </div>
-  <br/>
   <div class="callout fragment">
-    <p><span class="accent">Tip de la comunidad:</span> Dictado por voz (SuperWhisper, Wispr Flow) = 150 WPM vs 40 WPM tipeando. Prompts mas largos y detallados = mejores resultados.</p>
+    <p><span class="accent">Tip:</span> Dictado por voz (SuperWhisper, Wispr Flow) = 150 WPM vs 40 WPM tipeando. Prompts mas largos = mejores resultados.</p>
   </div>
   <aside class="notes">
     Puedes proporcionar datos ricos a Claude de varias formas:
@@ -413,8 +403,7 @@ gh pr diff 123 | claude -p "review"
 <!-- ============================================================ -->
 <section>
   <h2>CLAUDE.md &mdash; la memoria persistente</h2>
-  <p class="dim" style="font-size: 0.6em;"><code>/init</code> para generar uno basado en tu proyecto</p>
-  <br/>
+  <p class="dim" style="font-size: 0.55em;"><code>/init</code> para generar uno basado en tu proyecto</p>
   <div class="two-col">
     <div>
       <pre><code class="language-markdown"># CLAUDE.md
@@ -430,21 +419,21 @@ gh pr diff 123 | claude -p "review"
 - Tests: npm test -- --watch
 - Lint: npm run lint:fix
 - Build: npm run build</code></pre>
-      <p style="font-size: 0.55em;" class="dim">
+      <p style="font-size: 0.5em;" class="dim">
         Soporta <code>@path/to/import</code> para incluir otros archivos
       </p>
     </div>
     <div>
-      <h3 style="font-size: 0.9em;">Incluir</h3>
-      <ul style="font-size: 0.65em;">
+      <h3 style="font-size: 0.8em;">Incluir</h3>
+      <ul style="font-size: 0.6em;">
         <li>Comandos bash que Claude no puede adivinar</li>
         <li>Reglas de estilo que difieren del default</li>
-        <li>Instrucciones de testing</li>
+        <li>Instrucciones de testing y runners</li>
         <li>Decisiones arquitecturales del proyecto</li>
         <li>Gotchas y comportamientos no obvios</li>
       </ul>
-      <h3 style="font-size: 0.9em; margin-top: 0.6em;">No incluir</h3>
-      <ul style="font-size: 0.65em;">
+      <h3 style="font-size: 0.85em; margin-top: 0.4em;">No incluir</h3>
+      <ul style="font-size: 0.6em;">
         <li class="red">Lo que Claude deduce leyendo el codigo</li>
         <li class="red">Convenciones estandar del lenguaje</li>
         <li class="red">Documentacion de API detallada (enlaza)</li>
@@ -498,7 +487,6 @@ gh pr diff 123 | claude -p "review"
 <!-- ============================================================ -->
 <section>
   <h2>Configura tu entorno</h2>
-  <br/>
   <div class="grid-3">
     <div class="tip-card">
       <h3>Permisos</h3>
@@ -583,7 +571,6 @@ gh pr diff 123 | claude -p "review"
 <!-- ============================================================ -->
 <section>
   <h2>Skills: conocimiento + workflows</h2>
-  <br/>
   <div class="two-col">
     <div>
       <h3>Conocimiento de dominio</h3>
@@ -659,17 +646,13 @@ Analiza y arregla el issue: $ARGUMENTS.
 <!-- ============================================================ -->
 <section>
   <h2>Hooks: automatizacion <span class="accent">determinista</span></h2>
-  <p class="dim" style="font-size: 0.6em;">Para acciones que deben ocurrir SIEMPRE, sin excepciones</p>
-  <br/>
+  <p class="dim" style="font-size: 0.55em;">Para acciones que deben ocurrir SIEMPRE, sin excepciones</p>
   <div class="two-col">
     <div>
       <h3>CLAUDE.md (advisory)</h3>
       <pre><code class="language-markdown"># En CLAUDE.md
 Ejecuta eslint despues de cada edit.
-
-# Resultado: Claude INTENTA hacerlo
-# pero puede olvidarse o saltarselo</code></pre>
-      <br/>
+# Resultado: Claude INTENTA pero puede saltarselo</code></pre>
       <h3>Hook (determinista)</h3>
       <pre><code class="language-json">{
   "hooks": {
@@ -685,19 +668,16 @@ Ejecuta eslint despues de cada edit.
 }</code></pre>
     </div>
     <div>
-      <h3>Cuando usar hooks vs CLAUDE.md</h3>
-      <br/>
+      <h3>Hooks vs CLAUDE.md vs Skills</h3>
       <table class="vs-table" style="font-size: 0.9em;">
         <tr><th>Escenario</th><th>Herramienta</th></tr>
-        <tr><td>Format despues de edit</td><td class="good">Hook</td></tr>
-        <tr><td>Lint despues de edit</td><td class="good">Hook</td></tr>
+        <tr><td>Format/Lint despues de edit</td><td class="good">Hook</td></tr>
         <tr><td>Proteger archivos</td><td class="good">Hook</td></tr>
         <tr><td>Estilo de codigo</td><td>CLAUDE.md</td></tr>
         <tr><td>Patrones arquitecturales</td><td>CLAUDE.md</td></tr>
         <tr><td>Workflows complejos</td><td>Skills</td></tr>
       </table>
-      <br/>
-      <p class="fragment" style="font-size: 0.65em;">
+      <p class="fragment" style="font-size: 0.6em; margin-top: 0.4em;">
         Claude puede escribir hooks por ti:<br/>
         <em>"Escribe un hook que corra eslint tras cada edit"</em>
       </p>
@@ -743,7 +723,6 @@ Ejecuta eslint despues de cada edit.
 <!-- ============================================================ -->
 <section>
   <h2>Comunicacion efectiva</h2>
-  <br/>
   <div class="two-col">
     <div>
       <h3>Pregunta como a un senior engineer</h3>
@@ -811,14 +790,13 @@ en SPEC.md.</code></pre>
 <!-- ============================================================ -->
 <section>
   <h2>Gestiona tu sesion</h2>
-  <br/>
   <div class="grid-2">
     <div class="tip-card">
-      <h3>Corrige pronto y a menudo</h3>
+      <h3>Corrige pronto</h3>
       <p>
-        <span class="key">Esc</span> para interrumpir (contexto preservado)<br/>
-        <span class="key">Esc</span> x2 o <code>/rewind</code> para restaurar estado<br/>
-        <code>"Deshaz eso"</code> para revertir cambios<br/>
+        <span class="key">Esc</span> interrumpir (preserva contexto)<br/>
+        <span class="key">Esc</span> x2 o <code>/rewind</code> restaurar estado<br/>
+        <code>"Deshaz eso"</code> revertir cambios<br/>
         <code>/clear</code> entre tareas no relacionadas
       </p>
     </div>
@@ -828,30 +806,27 @@ en SPEC.md.</code></pre>
         <code>/clear</code> frecuente entre tareas<br/>
         <code>/compact Focus on API changes</code> dirigido<br/>
         <span class="key">Esc</span> x2 &rarr; <strong>Summarize from here</strong><br/>
-        En CLAUDE.md: "When compacting, preserve modified files list"
+        CLAUDE.md: "When compacting, preserve file list"
       </p>
     </div>
     <div class="tip-card">
       <h3>Subagentes para investigacion</h3>
       <p>
-        <em>"Usa subagentes para investigar como funciona auth token refresh
-        y si tenemos utilidades OAuth existentes"</em><br/>
-        <span class="accent">Exploran en contexto separado</span> &rarr; tu main queda limpio
+        <em>"Usa subagentes para investigar como funciona auth token refresh"</em><br/>
+        <span class="accent">Exploran en contexto separado</span> &rarr; main limpio
       </p>
     </div>
     <div class="tip-card">
       <h3>Checkpoints + Resume</h3>
       <p>
         Cada accion crea un checkpoint. Restaura conversacion, codigo, o ambos.<br/>
-        <code>claude --continue</code> retoma la ultima sesion<br/>
-        <code>claude --resume</code> elige de sesiones recientes<br/>
+        <code>claude --continue</code> / <code>--resume</code><br/>
         <code>/rename</code> para nombres descriptivos
       </p>
     </div>
   </div>
-  <br/>
   <div class="callout fragment">
-    <p>Si has corregido a Claude <strong>2+ veces</strong> en el mismo issue: <code>/clear</code> y reescribe con un prompt mejor. Un contexto limpio con mejor prompt &gt; sesion larga con correcciones acumuladas.</p>
+    <p>Si has corregido a Claude <strong>2+ veces</strong> en el mismo issue: <code>/clear</code> + reescribe con mejor prompt. Contexto limpio &gt; correcciones acumuladas.</p>
   </div>
   <aside class="notes">
     Las conversaciones son persistentes y reversibles. Usa esto a tu favor.
@@ -905,39 +880,31 @@ en SPEC.md.</code></pre>
 <!-- ============================================================ -->
 <section>
   <h2>Automatiza y escala</h2>
-  <p class="dim" style="font-size: 0.6em;">De un Claude a multiples Claude en paralelo</p>
-  <br/>
+  <p class="dim" style="font-size: 0.55em;">De un Claude a multiples Claude en paralelo</p>
   <div class="grid-2">
     <div class="tip-card">
       <h3>Headless mode</h3>
-      <pre style="margin: 0.5em 0;"><code class="language-bash"># Query one-off
+      <pre><code class="language-bash"># Query one-off
 claude -p "Explica que hace este proyecto"
-
 # Output estructurado
 claude -p "Lista endpoints" --output-format json
-
-# Streaming para procesamiento
-claude -p "Analiza este log" \
-  --output-format stream-json</code></pre>
+# Streaming
+claude -p "Analiza log" --output-format stream-json</code></pre>
       <p>CI pipelines, pre-commit hooks, scripts</p>
     </div>
     <div class="tip-card">
       <h3>Sesiones paralelas</h3>
       <p>
-        &bull; <strong>Desktop app</strong>: multiples sesiones visuales, worktrees aislados<br/>
+        &bull; <strong>Desktop app</strong>: sesiones visuales, worktrees aislados<br/>
         &bull; <strong>Web</strong>: VMs aisladas en cloud de Anthropic<br/>
-        &bull; <strong>Agent Teams</strong>: coordinacion automatica con tareas compartidas<br/><br/>
-        <strong>Writer/Reviewer:</strong><br/>
-        Sesion A implementa &rarr; Sesion B revisa (contexto limpio, sin bias)
+        &bull; <strong>Agent Teams</strong>: coordinacion automatica<br/>
+        &bull; <strong>Writer/Reviewer</strong>: A implementa &rarr; B revisa (sin bias)
       </p>
     </div>
   </div>
-  <br/>
   <div class="tip-card fragment">
     <h3>Fan out: distribuir trabajo masivo</h3>
-    <pre style="margin: 0.5em 0;"><code class="language-bash"># 1. Claude genera lista de archivos a migrar
-# 2. Loop distribuyendo trabajo
-for file in $(cat files.txt); do
+    <pre><code class="language-bash">for file in $(cat files.txt); do
   claude -p "Migra $file de React a Vue. Return OK o FAIL." \
     --allowedTools "Edit,Bash(git commit *)"
 done</code></pre>
@@ -988,8 +955,7 @@ done</code></pre>
 <!-- ============================================================ -->
 <section>
   <h2>Anti-patrones comunes</h2>
-  <p class="dim" style="font-size: 0.55em;">De la documentacion oficial de Anthropic</p>
-  <br/>
+  <p class="dim" style="font-size: 0.5em;">De la documentacion oficial de Anthropic</p>
   <table class="vs-table">
     <thead>
       <tr><th>Anti-patron</th><th>Que pasa</th><th>Solucion</th></tr>
@@ -997,32 +963,31 @@ done</code></pre>
     <tbody>
       <tr>
         <td class="bad">Kitchen sink session</td>
-        <td style="font-size: 0.85em;">Mezclas tareas no relacionadas. Contexto lleno de ruido.</td>
+        <td>Mezclas tareas no relacionadas. Contexto lleno de ruido.</td>
         <td class="good"><code>/clear</code> entre tareas</td>
       </tr>
       <tr>
         <td class="bad">Corregir y corregir</td>
-        <td style="font-size: 0.85em;">Contexto contaminado con approaches fallidos.</td>
+        <td style="font-size: 0.8em;">Contexto contaminado con approaches fallidos.</td>
         <td class="good"><code>/clear</code> + mejor prompt inicial</td>
       </tr>
       <tr>
         <td class="bad">CLAUDE.md sobrecargado</td>
-        <td style="font-size: 0.85em;">Claude ignora la mitad. Reglas importantes se pierden.</td>
+        <td style="font-size: 0.8em;">Claude ignora la mitad. Reglas importantes se pierden.</td>
         <td class="good">Podar. Mover a skills y hooks.</td>
       </tr>
       <tr>
         <td class="bad">Trust-then-verify gap</td>
-        <td style="font-size: 0.85em;">Implementacion plausible que no cubre edge cases.</td>
+        <td style="font-size: 0.8em;">Implementacion plausible que no cubre edge cases.</td>
         <td class="good">Tests, scripts, screenshots. Siempre.</td>
       </tr>
       <tr>
         <td class="bad">Exploracion infinita</td>
-        <td style="font-size: 0.85em;">"Investiga X" sin scope. Lee cientos de archivos.</td>
+        <td style="font-size: 0.8em;">"Investiga X" sin scope. Lee cientos de archivos.</td>
         <td class="good">Acotar scope o usar subagentes.</td>
       </tr>
     </tbody>
   </table>
-  <br/>
   <div class="callout fragment">
     <p>
       <span class="accent">Regla:</span> Si Claude ya hace algo bien sin la instruccion en CLAUDE.md,
@@ -1077,7 +1042,6 @@ done</code></pre>
 <!-- ============================================================ -->
 <section>
   <h2>Subagentes: aislar y paralelizar</h2>
-  <br/>
   <div class="two-col">
     <div>
       <pre><code class="language-markdown"># .claude/agents/security-reviewer.md
@@ -1097,15 +1061,14 @@ Proporciona lineas especificas y fixes.</code></pre>
     </div>
     <div>
       <h3>Por que subagentes</h3>
-      <ul style="font-size: 0.7em;">
+      <ul style="font-size: 0.65em;">
         <li><span class="accent">Contexto aislado</span> &mdash; exploran sin ensuciar tu sesion</li>
         <li><span class="accent">Tools propias</span> &mdash; restricciones por agente</li>
-        <li><span class="accent">Modelo configurable</span> &mdash; Opus para review, Haiku para busquedas</li>
+        <li><span class="accent">Modelo configurable</span> &mdash; Opus review, Haiku busquedas</li>
         <li><span class="accent">Paralelizables</span> &mdash; "usa subagentes para X e Y"</li>
       </ul>
-      <br/>
       <h3>Patrones comunes</h3>
-      <ul style="font-size: 0.7em;">
+      <ul style="font-size: 0.65em;">
         <li>Investigar codebase antes de implementar</li>
         <li>Code review post-implementacion</li>
         <li>Security audit en paralelo</li>
@@ -1113,9 +1076,8 @@ Proporciona lineas especificas y fixes.</code></pre>
       </ul>
     </div>
   </div>
-  <br/>
   <pre class="fragment"><code class="language-plaintext"># Delegacion explicita
-"Usa un subagente para investigar como funciona token refresh y si tenemos utilidades OAuth"
+"Usa un subagente para investigar como funciona token refresh"
 "Usa un subagente para revisar este codigo buscando edge cases"
 "Usa el security-reviewer para auditar los cambios de auth"</code></pre>
   <aside class="notes">
@@ -1159,9 +1121,8 @@ Proporciona lineas especificas y fixes.</code></pre>
 <!-- ============================================================ -->
 <section>
   <h2>Patron Writer / Reviewer</h2>
-  <p class="dim" style="font-size: 0.6em;">Contexto limpio para revision = sin bias hacia el codigo escrito</p>
-  <br/>
-  <table class="vs-table" style="font-size: 0.85em;">
+  <p class="dim" style="font-size: 0.55em;">Contexto limpio para revision = sin bias hacia el codigo escrito</p>
+  <table class="vs-table" style="font-size: 0.8em;">
     <thead>
       <tr><th></th><th>Sesion A (Writer)</th><th>Sesion B (Reviewer)</th></tr>
     </thead>
@@ -1183,7 +1144,6 @@ Proporciona lineas especificas y fixes.</code></pre>
       </tr>
     </tbody>
   </table>
-  <br/>
   <div class="grid-2 fragment">
     <div class="tip-card">
       <h3>Variante: Test-first</h3>
@@ -1231,19 +1191,17 @@ Proporciona lineas especificas y fixes.</code></pre>
 <!-- ============================================================ -->
 <section>
   <h2>Desarrolla tu <span class="accent">intuicion</span></h2>
-  <br/>
   <div class="grid-2">
     <div>
       <h3>Cuando <span class="green">si</span> planificar</h3>
-      <ul style="font-size: 0.7em;">
+      <ul style="font-size: 0.65em;">
         <li>No estas seguro del approach</li>
         <li>El cambio toca multiples archivos</li>
         <li>No conoces el codigo que se modifica</li>
         <li>No puedes describir el diff en una frase</li>
       </ul>
-      <br/>
       <h3>Cuando <span class="green">si</span> ser especifico</h3>
-      <ul style="font-size: 0.7em;">
+      <ul style="font-size: 0.65em;">
         <li>Sabes exactamente lo que quieres</li>
         <li>El patron ya existe en el codebase</li>
         <li>Hay constraints no obvios</li>
@@ -1251,21 +1209,19 @@ Proporciona lineas especificas y fixes.</code></pre>
     </div>
     <div>
       <h3>Cuando <span class="red">no</span> planificar</h3>
-      <ul style="font-size: 0.7em;">
+      <ul style="font-size: 0.65em;">
         <li>Puedes describir el diff en una frase</li>
         <li>Fix de typo, linea de log, rename</li>
         <li>Scope claro y fix pequeno</li>
       </ul>
-      <br/>
       <h3>Cuando <span class="red">no</span> ser especifico</h3>
-      <ul style="font-size: 0.7em;">
+      <ul style="font-size: 0.65em;">
         <li>Estas explorando y puedes corregir curso</li>
         <li>"Que mejorarias en este archivo?"</li>
         <li>Quieres ver como Claude interpreta el problema</li>
       </ul>
     </div>
   </div>
-  <br/>
   <div class="callout fragment">
     <p>
       Cuando Claude produce gran output, <span class="accent">observa que hiciste</span>:
@@ -1310,35 +1266,29 @@ Proporciona lineas especificas y fixes.</code></pre>
   <div class="two-col">
     <div>
       <h3>Comandos esenciales</h3>
-      <table class="vs-table" style="font-size: 0.75em;">
+      <table class="vs-table" style="font-size: 0.65em;">
         <tr><td><span class="key">Shift</span>+<span class="key">Tab</span> x2</td><td>Plan/Act mode</td></tr>
-        <tr><td><span class="key">Esc</span></td><td>Interrumpir (preserva contexto)</td></tr>
-        <tr><td><span class="key">Esc</span> x2</td><td>Rewind menu</td></tr>
+        <tr><td><span class="key">Esc</span> / <span class="key">Esc</span> x2</td><td>Interrumpir / Rewind menu</td></tr>
         <tr><td><span class="key">Ctrl</span>+<span class="key">G</span></td><td>Editar plan en editor</td></tr>
-        <tr><td><code>/clear</code></td><td>Reset contexto</td></tr>
-        <tr><td><code>/compact</code></td><td>Comprimir contexto</td></tr>
-        <tr><td><code>/context</code></td><td>Ver consumo</td></tr>
+        <tr><td><code>/clear</code> · <code>/compact</code></td><td>Reset / comprimir contexto</td></tr>
+        <tr><td><code>/context</code> · <code>/cost</code></td><td>Ver consumo / tokens</td></tr>
         <tr><td><code>/init</code></td><td>Generar CLAUDE.md</td></tr>
-        <tr><td><code>/hooks</code></td><td>Configurar hooks</td></tr>
-        <tr><td><code>/permissions</code></td><td>Allowlist dominios/cmds</td></tr>
+        <tr><td><code>/hooks</code> · <code>/permissions</code></td><td>Configurar hooks / permisos</td></tr>
         <tr><td><code>/sandbox</code></td><td>Activar sandbox</td></tr>
-        <tr><td><code>/rename</code></td><td>Nombrar sesion</td></tr>
-        <tr><td><code>/rewind</code></td><td>Restaurar checkpoint</td></tr>
+        <tr><td><code>/rename</code> · <code>/rewind</code></td><td>Nombrar sesion / checkpoint</td></tr>
       </table>
     </div>
     <div>
       <h3>CLI flags clave</h3>
-      <table class="vs-table" style="font-size: 0.75em;">
+      <table class="vs-table" style="font-size: 0.65em;">
         <tr><td><code>-p "prompt"</code></td><td>Headless mode</td></tr>
-        <tr><td><code>--continue</code></td><td>Retomar sesion</td></tr>
-        <tr><td><code>--resume</code></td><td>Elegir sesion</td></tr>
+        <tr><td><code>--continue</code> · <code>--resume</code></td><td>Retomar / elegir sesion</td></tr>
         <tr><td><code>--output-format</code></td><td>json / stream-json</td></tr>
         <tr><td><code>--allowedTools</code></td><td>Restringir en batch</td></tr>
         <tr><td><code>--verbose</code></td><td>Debug output</td></tr>
       </table>
-      <br/>
       <h3>Workflow diario</h3>
-      <ol style="font-size: 0.65em;">
+      <ol style="font-size: 0.6em;">
         <li>Plan Mode: explorar + planificar</li>
         <li>Normal Mode: implementar + verificar</li>
         <li><code>/clear</code> entre tareas</li>
@@ -1392,8 +1342,7 @@ Proporciona lineas especificas y fixes.</code></pre>
 <!-- ============================================================ -->
 <section>
   <h2>Recapitulando</h2>
-  <br/>
-  <ol style="font-size: 0.75em;">
+  <ol style="font-size: 0.7em;">
     <li class="fragment"><span class="accent">Verifica</span> &mdash; tests, lint, screenshots. La accion de mayor impacto.</li>
     <li class="fragment"><span class="accent">Explora &rarr; Planifica &rarr; Codea</span> &mdash; separa investigacion de implementacion</li>
     <li class="fragment"><span class="accent">Contexto especifico</span> &mdash; archivos, patrones, sintomas, no prompts vagos</li>
@@ -1402,8 +1351,7 @@ Proporciona lineas especificas y fixes.</code></pre>
     <li class="fragment"><span class="accent">Escala</span> &mdash; headless, sesiones paralelas, fan out</li>
     <li class="fragment"><span class="accent">Evita anti-patrones</span> &mdash; kitchen sink, CLAUDE.md obeso, trust without verify</li>
   </ol>
-  <br/>
-  <p class="fragment dim" style="font-size: 0.65em;">
+  <p class="fragment dim" style="font-size: 0.6em;">
     "Give Claude a way to verify its work. It will 2-3x the quality."<br/>
     <span style="font-size: 0.8em;">&mdash; Boris Cherny, creador de Claude Code</span>
   </p>
