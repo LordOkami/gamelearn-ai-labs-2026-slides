@@ -643,15 +643,10 @@ Analiza y arregla el issue: $ARGUMENTS.
 <!-- ============================================================ -->
 <section>
   <h2>Hooks: automatizacion <span class="accent">determinista</span></h2>
-  <p class="dim" style="font-size: 0.55em;">Para acciones que deben ocurrir SIEMPRE, sin excepciones</p>
   <div class="two-col">
     <div>
-      <h3>CLAUDE.md (advisory)</h3>
-      <pre><code class="language-markdown"># En CLAUDE.md
-Ejecuta eslint despues de cada edit.
-# Resultado: Claude INTENTA pero puede saltarselo</code></pre>
-      <h3>Hook (determinista)</h3>
-      <pre><code class="language-json">{
+      <pre><code class="language-json">// .claude/settings.json
+{
   "hooks": {
     "PostToolUse": [{
       "matcher": "Edit|Write",
@@ -663,21 +658,21 @@ Ejecuta eslint despues de cada edit.
     }]
   }
 }</code></pre>
+      <p class="dim" style="font-size: 0.5em;">Eventos: <code>PreToolUse</code> · <code>PostToolUse</code> · <code>SessionStart</code> · <code>Stop</code></p>
     </div>
     <div>
-      <h3>Hooks vs CLAUDE.md vs Skills</h3>
-      <table class="vs-table" style="font-size: 0.9em;">
-        <tr><th>Escenario</th><th>Herramienta</th></tr>
-        <tr><td>Format/Lint despues de edit</td><td class="good">Hook</td></tr>
+      <h3 style="font-size: 0.85em;">Hooks vs CLAUDE.md vs Skills</h3>
+      <table class="vs-table" style="font-size: 0.85em;">
+        <tr><th>Escenario</th><th>Usar</th></tr>
+        <tr><td>Format/Lint tras edit</td><td class="good">Hook</td></tr>
         <tr><td>Proteger archivos</td><td class="good">Hook</td></tr>
         <tr><td>Estilo de codigo</td><td>CLAUDE.md</td></tr>
         <tr><td>Patrones arquitecturales</td><td>CLAUDE.md</td></tr>
         <tr><td>Workflows complejos</td><td>Skills</td></tr>
       </table>
-      <p class="fragment" style="font-size: 0.6em; margin-top: 0.4em;">
-        Claude puede escribir hooks por ti:<br/>
-        <em>"Escribe un hook que corra eslint tras cada edit"</em>
-      </p>
+      <div class="callout" style="margin-top: 0.3em;">
+        <p style="font-size: 0.55em;"><span class="accent">CLAUDE.md</span> = advisory (puede saltarselo). <span class="accent">Hook</span> = determinista (se ejecuta siempre).<br/>Claude puede escribir hooks por ti: <em>"Escribe un hook que corra eslint tras cada edit"</em></p>
+      </div>
     </div>
   </div>
   <aside class="notes">
@@ -787,43 +782,38 @@ en SPEC.md.</code></pre>
 <!-- ============================================================ -->
 <section>
   <h2>Gestiona tu sesion</h2>
-  <div class="grid-2">
-    <div class="tip-card">
-      <h3>Corrige pronto</h3>
-      <p>
-        <span class="key">Esc</span> interrumpir (preserva contexto)<br/>
-        <span class="key">Esc</span> x2 o <code>/rewind</code> restaurar estado<br/>
-        <code>"Deshaz eso"</code> revertir cambios<br/>
-        <code>/clear</code> entre tareas no relacionadas
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.35em;">
+    <div class="tip-card" style="padding: 0.35em 0.6em;">
+      <h3 style="font-size: 0.8em;">Corrige pronto</h3>
+      <p style="font-size: 0.55em;">
+        <span class="key">Esc</span> interrumpir &middot;
+        <span class="key">Esc</span> x2 rewind &middot;
+        <code>/clear</code> entre tareas
       </p>
     </div>
-    <div class="tip-card">
-      <h3>Contexto agresivo</h3>
-      <p>
-        <code>/clear</code> frecuente entre tareas<br/>
+    <div class="tip-card" style="padding: 0.35em 0.6em;">
+      <h3 style="font-size: 0.8em;">Contexto agresivo</h3>
+      <p style="font-size: 0.55em;">
         <code>/compact Focus on API changes</code> dirigido<br/>
-        <span class="key">Esc</span> x2 &rarr; <strong>Summarize from here</strong><br/>
-        CLAUDE.md: "When compacting, preserve file list"
+        <span class="key">Esc</span> x2 &rarr; <strong>Summarize from here</strong>
       </p>
     </div>
-    <div class="tip-card">
-      <h3>Subagentes para investigacion</h3>
-      <p>
-        <em>"Usa subagentes para investigar como funciona auth token refresh"</em><br/>
-        <span class="accent">Exploran en contexto separado</span> &rarr; main limpio
+    <div class="tip-card" style="padding: 0.35em 0.6em;">
+      <h3 style="font-size: 0.8em;">Subagentes para investigacion</h3>
+      <p style="font-size: 0.55em;">
+        Exploran en <span class="accent">contexto separado</span> &rarr; tu main queda limpio
       </p>
     </div>
-    <div class="tip-card">
-      <h3>Checkpoints + Resume</h3>
-      <p>
-        Cada accion crea un checkpoint. Restaura conversacion, codigo, o ambos.<br/>
-        <code>claude --continue</code> / <code>--resume</code><br/>
-        <code>/rename</code> para nombres descriptivos
+    <div class="tip-card" style="padding: 0.35em 0.6em;">
+      <h3 style="font-size: 0.8em;">Checkpoints + Resume</h3>
+      <p style="font-size: 0.55em;">
+        <code>--continue</code> / <code>--resume</code> &middot;
+        <code>/rename</code> &middot; <code>/rewind</code>
       </p>
     </div>
   </div>
-  <div class="callout fragment">
-    <p>Si has corregido a Claude <strong>2+ veces</strong> en el mismo issue: <code>/clear</code> + reescribe con mejor prompt. Contexto limpio &gt; correcciones acumuladas.</p>
+  <div class="callout" style="margin-top: 0.3em;">
+    <p style="font-size: 0.58em;">Si has corregido a Claude <strong>2+ veces</strong> en el mismo issue: <code>/clear</code> + reescribe con mejor prompt. Contexto limpio &gt; correcciones acumuladas.</p>
   </div>
   <aside class="notes">
     Las conversaciones son persistentes y reversibles. Usa esto a tu favor.
