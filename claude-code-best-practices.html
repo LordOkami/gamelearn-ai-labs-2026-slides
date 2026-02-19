@@ -1029,44 +1029,47 @@ done</code></pre>
 <!-- ============================================================ -->
 <section>
   <h2>Subagentes: aislar y paralelizar</h2>
-  <div class="two-col">
-    <div>
-      <pre><code class="language-markdown"># .claude/agents/security-reviewer.md
----
-name: security-reviewer
-description: Reviews code for security vulns
-tools: Read, Grep, Glob, Bash
-model: opus
----
-Eres un senior security engineer. Revisa:
-- Injection vulnerabilities (SQL, XSS, cmd)
-- Auth and authorization flaws
-- Secrets or credentials in code
-- Insecure data handling
-
-Proporciona lineas especificas y fixes.</code></pre>
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.35em;">
+    <div class="tip-card" style="padding: 0.4em 0.6em;">
+      <h3 style="font-size: 0.75em;">security-reviewer</h3>
+      <pre style="font-size: 0.85em; margin: 0.2em 0;"><code class="language-yaml">tools: Read, Grep, Glob
+model: opus</code></pre>
+      <p style="font-size: 0.5em;">Injection, auth flaws, secrets en codigo, insecure data handling</p>
     </div>
-    <div>
-      <h3>Por que subagentes</h3>
-      <ul style="font-size: 0.65em;">
-        <li><span class="accent">Contexto aislado</span> &mdash; exploran sin ensuciar tu sesion</li>
-        <li><span class="accent">Tools propias</span> &mdash; restricciones por agente</li>
-        <li><span class="accent">Modelo configurable</span> &mdash; Opus review, Haiku busquedas</li>
-        <li><span class="accent">Paralelizables</span> &mdash; "usa subagentes para X e Y"</li>
-      </ul>
-      <h3>Patrones comunes</h3>
-      <ul style="font-size: 0.65em;">
-        <li>Investigar codebase antes de implementar</li>
-        <li>Code review post-implementacion</li>
-        <li>Security audit en paralelo</li>
-        <li>Verificar edge cases</li>
-      </ul>
+    <div class="tip-card" style="padding: 0.4em 0.6em;">
+      <h3 style="font-size: 0.75em;">build-error-fixer</h3>
+      <pre style="font-size: 0.85em; margin: 0.2em 0;"><code class="language-yaml">tools: Read, Edit, Bash, Grep
+model: sonnet</code></pre>
+      <p style="font-size: 0.5em;">Lee errores de build, localiza la causa, aplica fix y verifica que compila</p>
+    </div>
+    <div class="tip-card" style="padding: 0.4em 0.6em;">
+      <h3 style="font-size: 0.75em;">test-writer</h3>
+      <pre style="font-size: 0.85em; margin: 0.2em 0;"><code class="language-yaml">tools: Read, Edit, Bash, Glob
+model: sonnet</code></pre>
+      <p style="font-size: 0.5em;">Analiza funciones, escribe tests unitarios, los ejecuta y arregla hasta green</p>
+    </div>
+    <div class="tip-card" style="padding: 0.4em 0.6em;">
+      <h3 style="font-size: 0.75em;">codebase-explorer</h3>
+      <pre style="font-size: 0.85em; margin: 0.2em 0;"><code class="language-yaml">tools: Read, Grep, Glob
+model: haiku</code></pre>
+      <p style="font-size: 0.5em;">Investiga codebase sin ensuciar tu contexto. Solo lectura, barato y rapido</p>
+    </div>
+    <div class="tip-card" style="padding: 0.4em 0.6em;">
+      <h3 style="font-size: 0.75em;">pr-reviewer</h3>
+      <pre style="font-size: 0.85em; margin: 0.2em 0;"><code class="language-yaml">tools: Read, Grep, Bash(gh *)
+model: opus</code></pre>
+      <p style="font-size: 0.5em;">Revisa PR con contexto limpio: edge cases, estilo, tests faltantes, docs</p>
+    </div>
+    <div class="tip-card" style="padding: 0.4em 0.6em;">
+      <h3 style="font-size: 0.75em;">migration-agent</h3>
+      <pre style="font-size: 0.85em; margin: 0.2em 0;"><code class="language-yaml">tools: Read, Edit, Bash, Grep
+model: sonnet</code></pre>
+      <p style="font-size: 0.5em;">Migra archivos uno a uno (React&rarr;Vue, JS&rarr;TS, etc.) y verifica que compila</p>
     </div>
   </div>
-  <pre class="fragment"><code class="language-plaintext"># Delegacion explicita
-"Usa un subagente para investigar como funciona token refresh"
-"Usa un subagente para revisar este codigo buscando edge cases"
-"Usa el security-reviewer para auditar los cambios de auth"</code></pre>
+  <div class="callout" style="margin-top: 0.3em;">
+    <p style="font-size: 0.55em;"><span class="accent">Contexto aislado</span> &mdash; exploran sin ensuciar tu sesion. <span class="accent">Modelo por agente</span> &mdash; Opus para review, Haiku para busquedas. <span class="accent">Paralelizables</span> &mdash; "usa subagentes para X e Y a la vez".</p>
+  </div>
   <aside class="notes">
     Los subagentes son una de las herramientas mas poderosas porque atacan
     directamente la restriccion fundamental del contexto.
