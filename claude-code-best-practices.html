@@ -487,43 +487,40 @@ gh pr diff 123 | claude -p "review"
 <!-- ============================================================ -->
 <section>
   <h2>Configura tu entorno</h2>
-  <div class="grid-3">
-    <div class="tip-card">
-      <h3>Permisos</h3>
-      <p><code>/permissions</code> allowlist safe commands<br/>
-        <code>/sandbox</code> aislamiento OS-level<br/>
-        Reduce interrupciones manteniendo control</p>
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.35em;">
+    <div class="tip-card" style="padding: 0.4em 0.6em;">
+      <h3 style="font-size: 0.8em;">Permisos</h3>
+      <p style="font-size: 0.55em;"><code>/permissions</code> allowlist commands<br/>
+        <code>/sandbox</code> aislamiento OS-level</p>
     </div>
-    <div class="tip-card">
-      <h3>CLI tools</h3>
-      <p><code>gh</code>, <code>aws</code>, <code>gcloud</code>, <code>sentry-cli</code><br/>
-        Gratis en contexto (no MCP overhead)<br/>
-        "Usa foo-cli --help para aprender, luego resuelve A, B, C"</p>
+    <div class="tip-card" style="padding: 0.4em 0.6em;">
+      <h3 style="font-size: 0.8em;">CLI tools</h3>
+      <p style="font-size: 0.55em;"><code>gh</code>, <code>aws</code>, <code>gcloud</code>, <code>sentry-cli</code><br/>
+        Gratis en contexto (no MCP overhead)</p>
     </div>
-    <div class="tip-card">
-      <h3>MCP servers</h3>
-      <p><code>claude mcp add</code><br/>
-        Notion, Figma, databases, Jira<br/>
-        Integraciones sin alternativa CLI</p>
+    <div class="tip-card" style="padding: 0.4em 0.6em;">
+      <h3 style="font-size: 0.8em;">MCP servers</h3>
+      <p style="font-size: 0.55em;"><code>claude mcp add</code><br/>
+        Notion, Figma, databases, Jira</p>
     </div>
-    <div class="tip-card">
-      <h3>Hooks</h3>
-      <p>Scripts automaticos en puntos clave<br/>
-        Deterministas (no advisory como CLAUDE.md)<br/>
-        "Escribe un hook que corra eslint tras cada edit"</p>
+    <div class="tip-card" style="padding: 0.4em 0.6em;">
+      <h3 style="font-size: 0.8em;">Hooks</h3>
+      <p style="font-size: 0.55em;">Scripts deterministas en puntos clave<br/>
+        "Escribe un hook que corra eslint tras edit"</p>
     </div>
-    <div class="tip-card">
-      <h3>Skills</h3>
-      <p><code>.claude/skills/</code> con <code>SKILL.md</code><br/>
-        Conocimiento de dominio on-demand<br/>
-        Workflows repetibles: <code>/fix-issue 1234</code></p>
+    <div class="tip-card" style="padding: 0.4em 0.6em;">
+      <h3 style="font-size: 0.8em;">Skills</h3>
+      <p style="font-size: 0.55em;"><code>.claude/skills/SKILL.md</code><br/>
+        On-demand: <code>/fix-issue 1234</code></p>
     </div>
-    <div class="tip-card">
-      <h3>Subagentes</h3>
-      <p><code>.claude/agents/</code><br/>
-        Contexto propio + tools propias<br/>
-        Security reviewer, build fixer, etc.</p>
+    <div class="tip-card" style="padding: 0.4em 0.6em;">
+      <h3 style="font-size: 0.8em;">Subagentes</h3>
+      <p style="font-size: 0.55em;"><code>.claude/agents/</code><br/>
+        Contexto aislado + tools propias</p>
     </div>
+  </div>
+  <div class="callout" style="margin-top: 0.4em;">
+    <p style="font-size: 0.58em;"><span class="accent">CLI tools son gratis</span> en contexto (Claude las ejecuta con Bash). Los MCP servers <span class="red">cuestan contexto</span> constantemente (tool definitions en system prompt). Si hay CLI que haga lo mismo, usa la CLI.</p>
   </div>
   <aside class="notes">
     Unos pocos pasos de setup hacen que Claude Code sea significativamente mas efectivo.
