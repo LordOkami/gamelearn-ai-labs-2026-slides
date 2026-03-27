@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code Cheat Sheet v3.0</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* slate-900 */
+            color: #e2e8f0; /* slate-200 */
+        }
+
+        #pdf-content {
+            background-color: #0f172a;
+            background-image:
+                radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.08), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(236, 72, 153, 0.08), transparent 25%);
+            min-height: 100vh;
+        }
+
+        code, .font-mono {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.6); /* slate-800 with opacity */
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(148, 163, 184, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .masonry-grid {
+            column-count: 1;
+            column-gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .masonry-grid { column-count: 2; }
+        }
+
+        @media (min-width: 1280px) {
+            .masonry-grid { column-count: 3; }
+        }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    </style>
+</head>
+<body class="bg-slate-900 min-h-screen">
+  <div id="pdf-content" class="p-4 md:p-8">
+
+    <!-- Header -->
+    <header class="max-w-7xl mx-auto mb-10 text-center md:text-left flex flex-col md:flex-row items-center justify-between">
+        <div>
+            <h1 class="text-3xl md:text-4xl font-bold mb-2 tracking-tight">
+                <i class="fa-solid fa-terminal text-indigo-400 mr-3"></i><span class="gradient-text">Claude Code</span> Cheat Sheet
+            </h1>
+            <p class="text-slate-400 text-sm md:text-base max-w-2xl">
+                Basado en las mejores prácticas oficiales. Un entorno de programación agéntico que
+                <strong class="text-indigo-300 font-medium">lee, planifica, ejecuta y verifica.</strong>
+            </p>
+        </div>
+        <div class="mt-4 md:mt-0 flex gap-2" id="header-actions">
+            <!-- Badge actualizado a v3.1 -->
+            <span class="px-3 py-1 bg-gradient-to-r from-sky-500 to-indigo-600 text-white shadow border border-sky-400/50 rounded-full text-xs font-bold tracking-wide flex items-center shadow-sky-500/20">
+                <i class="fa-solid fa-rocket mr-1 text-white"></i> v3.1
+            </span>
+            <button id="pdf-btn" onclick="downloadPDF()" class="px-3 py-1 bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 rounded-full text-xs font-semibold tracking-wide transition-colors cursor-pointer flex items-center">
+                <i class="fa-solid fa-download mr-1"></i> Descargar PDF
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="max-w-7xl mx-auto masonry-grid">
+
+        <!-- Fases del Flujo de Trabajo -->
+        <section class="glass-card rounded-xl p-6 masonry-item border-t-4 border-t-blue-500">
+            <h2 class="text-xl font-bold text-white mb-4 flex items-center">
+                <i class="fa-solid fa-arrows-spin text-blue-400 mr-2"></i> Flujo de Trabajo (4 Fases)
+            </h2>
+            <p class="text-sm text-slate-400 mb-4 italic border-l-2 border-slate-600 pl-3">No saltes directamente a codificar. Separa la investigación de la implementación.</p>
+
+            <div class="space-y-4">
+                <div class="bg-slate-800/50 rounded-lg p-3 border border-slate-700/50">
+                    <h3 class="font-semibold text-blue-300 text-sm mb-1"><span class="bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded mr-1 text-xs">1</span> Explorar <span class="text-xs text-slate-500 ml-1">(Plan Mode)</span></h3>
+                    <p class="text-xs text-slate-300 mb-2">Pide a Claude que lea archivos y entienda el contexto sin hacer cambios.</p>
+                    <code class="block bg-black/40 text-green-400 p-2 rounded text-xs overflow-x-auto">read @src/auth and understand how we handle sessions.</code>
+                </div>
+
+                <div class="bg-slate-800/50 rounded-lg p-3 border border-slate-700/50">
+                    <h3 class="font-semibold text-blue-300 text-sm mb-1"><span class="bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded mr-1 text-xs">2</span> Planificar <span class="text-xs text-slate-500 ml-1">(Plan Mode)</span></h3>
+                    <p class="text-xs text-slate-300 mb-2">Pide un plan detallado. <span class="text-yellow-400/80 italic">Tip: Modifícalo en tu editor antes de avanzar.</span></p>
+                    <code class="block bg-black/40 text-green-400 p-2 rounded text-xs overflow-x-auto">I want to add Google OAuth. What files need to change? Create a plan.</code>
+                </div>
+
+                <div class="bg-slate-800/50 rounded-lg p-3 border border-slate-700/50">
+                    <h3 class="font-semibold text-blue-300 text-sm mb-1"><span class="bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded mr-1 text-xs">3</span> Implementar <span class="text-xs text-slate-500 ml-1">(Normal Mode)</span></h3>
+                    <p class="text-xs text-slate-300 mb-2">Claude escribe el código basándose estrictamente en el plan.</p>
+                    <code class="block bg-black/40 text-green-400 p-2 rounded text-xs overflow-x-auto">implement the OAuth flow from your plan. Write tests and fix failures.</code>
+                </div>
+
+                <div class="bg-slate-800/50 rounded-lg p-3 border border-slate-700/50">
+                    <h3 class="font-semibold text-blue-300 text-sm mb-1"><span class="bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded mr-1 text-xs">4</span> Confirmar <span class="text-xs text-slate-500 ml-1">(Normal Mode)</span></h3>
+                    <p class="text-xs text-slate-300 mb-2">Usa Claude para crear commits descriptivos o PRs.</p>
+                    <code class="block bg-black/40 text-green-400 p-2 rounded text-xs overflow-x-auto">commit my changes with a descriptive message</code>
+                </div>
+            </div>
+        </section>
+
+        <!-- Regla de Oro -->
+        <section class="glass-card rounded-xl p-6 masonry-item border-t-4 border-t-yellow-400 relative overflow-hidden">
+            <div class="absolute -right-4 -top-4 text-yellow-500/10 text-6xl">
+                <i class="fa-solid fa-star"></i>
+            </div>
+            <h2 class="text-xl font-bold text-yellow-400 mb-3 flex items-center">
+                <i class="fa-solid fa-crown mr-2"></i> La Regla de Oro
+            </h2>
+            <h3 class="text-white font-semibold mb-2">Verificación Autónoma</h3>
+            <p class="text-sm text-slate-300 mb-4">
+                El mayor multiplicador de calidad (mejora 2x - 3x) es <strong>darle a Claude una forma de verificar su propio trabajo</strong>. Incluye comandos de prueba, linters o salidas esperadas.
+            </p>
+            <div class="bg-yellow-900/20 border border-yellow-700/50 rounded-lg p-3">
+                <div class="text-xs text-yellow-400 font-bold mb-1 uppercase tracking-wider">Prompt Ideal:</div>
+                <code class="block text-slate-200 text-sm leading-relaxed">
+                    Refactor the auth middleware. <span class="text-yellow-300 font-bold bg-yellow-900/40 px-1 rounded">Run the test suite</span> after making changes. <span class="text-yellow-300 font-bold bg-yellow-900/40 px-1 rounded">Fix any failures</span> before calling it done.
+                </code>
+            </div>
+        </section>
+
+        <!-- Novedad v3.0: Entrevista Inversa -->
+        <section class="glass-card rounded-xl p-6 masonry-item border-t-4 border-t-sky-400 relative overflow-hidden">
+            <h2 class="text-xl font-bold text-white mb-3 flex items-center">
+                <i class="fa-solid fa-microphone-lines text-sky-400 mr-2"></i> Entrevista Inversa
+            </h2>
+            <p class="text-sm text-slate-300 mb-3">¿No sabes cómo estructurar tu prompt inicial? Pídele a Claude que <strong>te entreviste a ti</strong> para extraer los requisitos exactos y evitar que el agente asuma cosas incorrectas.</p>
+
+            <div class="bg-sky-900/20 border border-sky-700/30 rounded-lg p-3">
+                <strong class="text-sky-300 text-xs block mb-2 uppercase tracking-wider"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i> El Prompt Mágico:</strong>
+                <code class="block bg-black/40 text-sky-200 p-2.5 rounded text-sm leading-relaxed border border-sky-800/50 shadow-inner shadow-black/50">
+                    "Tengo que implementar un sistema de pagos con Stripe. Antes de escribir ningún código o plan, hazme todas las preguntas necesarias (arquitectura, casos límite, rendimiento) de una en una hasta que tengas el contexto completo."
+                </code>
+            </div>
+            <p class="text-xs text-slate-400 mt-3 italic border-l-2 border-sky-500/50 pl-2">
+                <span class="text-sky-400 font-semibold">Ventaja:</span> Transforma una idea vaga en un documento de diseño robusto y sin alucinaciones.
+            </p>
+        </section>
+
+        <!-- Estrategias de Prompting -->
+        <section class="glass-card rounded-xl p-6 masonry-item border-t-4 border-t-rose-400">
+            <h2 class="text-xl font-bold text-white mb-4 flex items-center">
+                <i class="fa-solid fa-comments text-rose-400 mr-2"></i> Prompting Avanzado
+            </h2>
+            <div class="space-y-4 text-sm text-slate-300">
+                <div class="border-l-2 border-rose-500/50 pl-3">
+                    <strong class="text-rose-300 block mb-1">Chain of Thought (Pensar en voz alta):</strong>
+                    <p class="text-xs mb-2">Obliga a Claude a razonar antes de codificar. Esto reduce alucinaciones en problemas complejos.</p>
+                    <code class="block bg-black/40 text-rose-200 p-2 rounded text-xs">Fix the race condition in the DB wrapper. Before writing code, explain your step-by-step logic inside &lt;thinking&gt; tags.</code>
+                </div>
+                <div class="border-l-2 border-rose-500/50 pl-3">
+                    <strong class="text-rose-300 block mb-1">Few-Shot Prompting:</strong>
+                    <p class="text-xs">Si pides un refactor, dale un ejemplo exacto de cómo era antes y cómo lo quieres ahora dentro del prompt.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- .claudesignore y Contexto -->
+        <section class="glass-card rounded-xl p-6 masonry-item border-t-4 border-t-cyan-400">
+            <h2 class="text-xl font-bold text-white mb-3 flex items-center">
+                <i class="fa-solid fa-eye-slash text-cyan-400 mr-2"></i> .claudesignore
+            </h2>
+            <p class="text-sm text-slate-300 mb-3">Archivo clave para <strong>ahorrar tokens</strong> y evitar que Claude se confunda leyendo archivos irrelevantes.</p>
+
+            <div class="bg-slate-800/80 rounded-lg p-3 mb-3">
+                <strong class="text-cyan-300 text-xs block mb-1 uppercase tracking-wider">Qué bloquear siempre:</strong>
+                <ul class="text-xs text-slate-400 list-disc list-inside space-y-1">
+                    <li>Dependencias (<code class="text-slate-300">node_modules/</code>, <code class="text-slate-300">venv/</code>)</li>
+                    <li>Archivos compilados (<code class="text-slate-300">dist/</code>, <code class="text-slate-300">build/</code>)</li>
+                    <li>Bases de datos locales (<code class="text-slate-300">*.sqlite</code>, <code class="text-slate-300">*.db</code>)</li>
+                    <li><strong>Secretos</strong> (<code class="text-slate-300">.env</code>, <code class="text-slate-300">keys/</code>)</li>
+                </ul>
+            </div>
+            <p class="text-xs text-slate-400 italic">
+                <i class="fa-solid fa-circle-info text-cyan-500 mr-1"></i> Funciona exactamente igual que un <code class="text-slate-300">.gitignore</code>.
+            </p>
+        </section>
+
+        <!-- Enriqueciendo el Contexto -->
+        <section class="glass-card rounded-xl p-6 masonry-item border-t-4 border-t-purple-500">
+            <h2 class="text-xl font-bold text-white mb-4 flex items-center">
+                <i class="fa-solid fa-brain text-purple-400 mr-2"></i> Enriqueciendo el Contexto
+            </h2>
+            <ul class="space-y-4">
+                <li class="flex items-start">
+                    <div class="bg-purple-500/20 w-8 h-8 flex items-center justify-center shrink-0 rounded text-purple-400 mr-3 mt-0.5"><i class="fa-solid fa-at fa-fw"></i></div>
+                    <div>
+                        <strong class="text-slate-200 block text-sm">Archivos Directos</strong>
+                        <span class="text-xs text-slate-400">Usa <code class="text-purple-300 bg-purple-900/30 px-1 rounded">@src/utils.ts</code> en lugar de describir rutas.</span>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <div class="bg-purple-500/20 w-8 h-8 flex items-center justify-center shrink-0 rounded text-purple-400 mr-3 mt-0.5"><i class="fa-regular fa-image fa-fw"></i></div>
+                    <div>
+                        <strong class="text-slate-200 block text-sm">Imágenes y UI</strong>
+                        <span class="text-xs text-slate-400">Pega o arrastra imágenes directamente en el prompt.</span>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <div class="bg-purple-500/20 w-8 h-8 flex items-center justify-center shrink-0 rounded text-purple-400 mr-3 mt-0.5"><i class="fa-solid fa-link fa-fw"></i></div>
+                    <div>
+                        <strong class="text-slate-200 block text-sm">URLs y Permisos</strong>
+                        <span class="text-xs text-slate-400">Pasa enlaces a docs. Usa <code class="text-purple-300">/permissions</code> para dominios frecuentes.</span>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <div class="bg-purple-500/20 w-8 h-8 flex items-center justify-center shrink-0 rounded text-purple-400 mr-3 mt-0.5"><i class="fa-solid fa-terminal fa-fw"></i></div>
+                    <div>
+                        <strong class="text-slate-200 block text-sm">Canalización (Piping)</strong>
+                        <span class="text-xs text-slate-400 block mb-1">Envía datos de la terminal a Claude:</span>
+                        <code class="bg-black/40 text-green-400 px-2 py-1 rounded text-xs block break-all">cat error.log | claude "fix this"</code>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Antipatrones -->
+        <section class="glass-card rounded-xl p-6 masonry-item border-t-4 border-t-red-500">
+            <h2 class="text-xl font-bold text-white mb-4 flex items-center">
+                <i class="fa-solid fa-triangle-exclamation text-red-400 mr-2"></i> Antipatrones (Evitar)
+            </h2>
+            <div class="space-y-4">
+                <div class="border-l-2 border-red-500/50 pl-3">
+                    <h3 class="text-sm font-bold text-red-300">1. La sesión "Todo Incluido"</h3>
+                    <p class="text-xs text-slate-400 mt-1">Mezclar tareas no relacionadas ensucia el contexto.</p>
+                    <p class="text-xs mt-1"><span class="text-green-400 font-semibold">Solución:</span> Usa <code class="text-green-300 bg-green-900/30 px-1 rounded">/clear</code> entre tareas.</p>
+                </div>
+
+                <div class="border-l-2 border-red-500/50 pl-3">
+                    <h3 class="text-sm font-bold text-red-300">2. Corrección Infinita</h3>
+                    <p class="text-xs text-slate-400 mt-1">Dejar que Claude intente arreglar el mismo error una y otra vez contamina el contexto.</p>
+                    <p class="text-xs mt-1"><span class="text-green-400 font-semibold">Solución:</span> Tras 2 intentos, haz <code class="text-green-300 bg-green-900/30 px-1 rounded">/clear</code> y da un prompt mejorado con lo aprendido.</p>
+                </div>
+
+                <div class="border-l-2 border-red-500/50 pl-3">
+                    <h3 class="text-sm font-bold text-red-300">3. Confiar y no Verificar</h3>
+                    <p class="text-xs text-slate-400 mt-1">Aceptar código que "parece" correcto pero falla en casos límite.</p>
+                    <p class="text-xs mt-1"><span class="text-green-400 font-semibold">Solución:</span> Pide siempre que corra tests o scripts de validación.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Archivo CLAUDE.md -->
+        <section class="glass-card rounded-xl p-6 masonry-item border-t-4 border-t-teal-400">
+            <h2 class="text-xl font-bold text-white mb-3 flex items-center">
+                <i class="fa-regular fa-file-code text-teal-400 mr-2"></i> El Archivo CLAUDE.md
+            </h2>
+            <p class="text-sm text-slate-300 mb-3">Archivo especial en la raíz de tu proyecto que Claude lee automáticamente al iniciar.</p>
+
+            <div class="bg-slate-800/80 rounded-lg p-3 mb-3">
+                <strong class="text-teal-300 text-xs block mb-1 uppercase tracking-wider">Qué incluir:</strong>
+                <ul class="text-xs text-slate-400 list-disc list-inside space-y-1">
+                    <li>Comandos de build/test</li>
+                    <li>Convenciones de nombrado/estructura</li>
+                    <li>Reglas de arquitectura</li>
+                    <li>Directrices de seguridad (ej. "no alterar DB prod")</li>
+                </ul>
+            </div>
+
+            <div class="bg-teal-900/20 border border-teal-700/30 rounded-lg p-3">
+                <strong class="text-teal-400 text-xs block mb-1 uppercase tracking-wider"><i class="fa-solid fa-lightbulb mr-1"></i> Mejor Práctica:</strong>
+                <p class="text-xs text-slate-300">Mantenlo <strong>conciso</strong>. Si es muy largo, ignorará reglas importantes. Elimina instrucciones si Claude ya lo hace bien por defecto.</p>
+            </div>
+        </section>
+
+        <!-- Skills y MCP -->
+        <section class="glass-card rounded-xl p-6 masonry-item border-t-4 border-t-emerald-400">
+            <h2 class="text-xl font-bold text-white mb-3 flex items-center">
+                <i class="fa-solid fa-toolbox text-emerald-400 mr-2"></i> Skills y MCP
+            </h2>
+            <p class="text-sm text-slate-300 mb-3">Amplía las capacidades de Claude integrando herramientas externas a través de <strong>Model Context Protocol (MCP)</strong>.</p>
+            <ul class="space-y-2 text-xs text-slate-400">
+                <li class="flex items-start">
+                    <i class="fa-solid fa-plug text-emerald-500 mt-0.5 mr-2"></i>
+                    <span><strong class="text-slate-200">Herramientas Locales:</strong> Conecta scripts de tu proyecto (ej. buscar en tu base de datos local o ejecutar scripts de limpieza).</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fa-solid fa-cloud text-emerald-500 mt-0.5 mr-2"></i>
+                    <span><strong class="text-slate-200">APIs Externas:</strong> Dale a Claude las "skills" para interactuar con Jira, GitHub o Slack para gestionar tareas directamente.</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Agents (Subagentes) -->
+        <section class="glass-card rounded-xl p-6 masonry-item border-t-4 border-t-violet-400">
+            <h2 class="text-xl font-bold text-white mb-3 flex items-center">
+                <i class="fa-solid fa-network-wired text-violet-400 mr-2"></i> Agents (Subagentes)
+            </h2>
+            <p class="text-sm text-slate-300 mb-3">Divide problemas masivos usando múltiples agentes para no saturar el contexto principal.</p>
+            <div class="bg-violet-900/20 border border-violet-700/30 rounded-lg p-3">
+                <strong class="text-violet-300 text-xs block mb-2 uppercase tracking-wider">Patrón de Delegación:</strong>
+                <p class="text-xs text-slate-400 mb-2 border-l-2 border-violet-500/30 pl-2">
+                    <span class="text-violet-300 font-bold">1. Agente Investigador:</span> Usa un hilo solo para investigar y generar un <code class="text-violet-200">@diseño.md</code>.
+                </p>
+                <p class="text-xs text-slate-400 border-l-2 border-violet-500/30 pl-2">
+                    <span class="text-violet-300 font-bold">2. Agente Ejecutor:</span> Usa un hilo limpio con <code class="text-violet-200 bg-violet-900/40 px-1 rounded">claude "implementa basándote en @diseño.md"</code>.
+                </p>
+            </div>
+        </section>
+
+        <!-- Hooks -->
+        <section class="glass-card rounded-xl p-6 masonry-item border-t-4 border-t-orange-400">
+            <h2 class="text-xl font-bold text-white mb-3 flex items-center">
+                <i class="fa-solid fa-anchor text-orange-400 mr-2"></i> Hooks (Git & CI)
+            </h2>
+            <p class="text-sm text-slate-300 mb-3">Claude interactúa con tu entorno real. Usa hooks para obligar a Claude a mantener la calidad del código.</p>
+            <div class="space-y-3">
+                <div class="border-l-2 border-orange-500/50 pl-3">
+                    <p class="text-xs text-slate-400">
+                        <strong class="text-orange-300 block mb-1">Git Pre-commit Hooks:</strong>
+                        Configura Husky. Si Claude hace un commit y falla el linter, interceptará el error en la terminal y lo corregirá.
+                    </p>
+                </div>
+                <div class="border-l-2 border-orange-500/50 pl-3">
+                    <p class="text-xs text-slate-400">
+                        <strong class="text-orange-300 block mb-1">Automatización Post-run:</strong>
+                        Indícale en <code class="text-orange-200">CLAUDE.md</code> que siempre ejecute tus scripts de formato.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Novedad v3.1: Debugging Avanzado -->
+        <section class="glass-card rounded-xl p-6 masonry-item border-t-4 border-t-amber-400">
+            <h2 class="text-xl font-bold text-white mb-3 flex items-center">
+                <i class="fa-solid fa-bug-slash text-amber-400 mr-2"></i> Debugging Científico
+            </h2>
+            <p class="text-sm text-slate-300 mb-3">No dejes que Claude intente "adivinar" por qué falla un código basándose solo en leerlo. Oblígalo a usar instrumentación real.</p>
+            <div class="space-y-3">
+                <div class="bg-amber-900/20 border border-amber-700/30 rounded-lg p-3">
+                    <strong class="text-amber-300 text-xs block mb-2 uppercase tracking-wider">El flujo ideal contra bugs:</strong>
+                    <ol class="text-xs text-slate-300 space-y-2 list-decimal list-inside">
+                        <li><strong class="text-amber-200">Instrumentar:</strong> <code class="text-amber-100">"Añade console.logs detallados en la función que falla."</code></li>
+                        <li><strong class="text-amber-200">Ejecutar:</strong> <code class="text-amber-100">"Corre el test de integración y lee el output."</code></li>
+                        <li><strong class="text-amber-200">Analizar:</strong> <code class="text-amber-100">"Explica la causa raíz (root cause) del fallo basándote en los logs."</code></li>
+                        <li><strong class="text-amber-200">Corregir:</strong> <code class="text-amber-100">"Ahora sí, aplica la solución y limpia los logs."</code></li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comandos y Banderas Actualizados (Ocupa dos columnas si hay espacio) -->
+        <section class="glass-card rounded-xl p-6 masonry-item border-t-4 border-t-pink-500 md:col-span-full xl:col-span-2">
+            <h2 class="text-xl font-bold text-white mb-4 flex items-center">
+                <i class="fa-solid fa-keyboard text-pink-400 mr-2"></i> Comandos y Configuración CLI
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                <div class="flex bg-slate-800/50 border border-slate-700/50 rounded-lg overflow-hidden">
+                    <div class="bg-slate-800 px-3 py-2 border-r border-slate-700 flex items-center min-w-[100px] justify-center">
+                        <code class="text-pink-400 font-bold text-sm">/cost</code>
+                    </div>
+                    <div class="p-2 text-xs text-slate-300 flex items-center">
+                        Muestra el costo de tokens consumidos en la sesión actual.
+                    </div>
+                </div>
+
+                <div class="flex bg-slate-800/50 border border-slate-700/50 rounded-lg overflow-hidden">
+                    <div class="bg-slate-800 px-3 py-2 border-r border-slate-700 flex items-center min-w-[100px] justify-center">
+                        <code class="text-pink-400 font-bold text-sm">/history</code>
+                    </div>
+                    <div class="p-2 text-xs text-slate-300 flex items-center">
+                        Muestra el historial de prompts y acciones de la sesión.
+                    </div>
+                </div>
+
+                <div class="flex bg-slate-800/50 border border-slate-700/50 rounded-lg overflow-hidden">
+                    <div class="bg-slate-800 px-3 py-2 border-r border-slate-700 flex items-center min-w-[100px] justify-center">
+                        <code class="text-pink-400 font-bold text-sm">/config</code>
+                    </div>
+                    <div class="p-2 text-xs text-slate-300 flex items-center">
+                        Configura el tema (light/dark) o las claves API (Anthropic).
+                    </div>
+                </div>
+
+                <div class="flex bg-slate-800/50 border border-slate-700/50 rounded-lg overflow-hidden">
+                    <div class="bg-slate-800 px-3 py-2 border-r border-slate-700 flex items-center min-w-[100px] justify-center">
+                        <code class="text-pink-400 font-bold text-sm">/clear</code>
+                    </div>
+                    <div class="p-2 text-xs text-slate-300 flex items-center">
+                        Limpia el historial de la sesión para ahorrar contexto y evitar ruido.
+                    </div>
+                </div>
+
+                <div class="flex bg-slate-800/50 border border-slate-700/50 rounded-lg overflow-hidden">
+                    <div class="bg-slate-800 px-3 py-2 border-r border-slate-700 flex items-center min-w-[100px] justify-center">
+                        <code class="text-pink-400 font-bold text-sm">/compact</code>
+                    </div>
+                    <div class="p-2 text-xs text-slate-300 flex items-center">
+                        Comprime la conversación para ahorrar tokens sin borrarla del todo.
+                    </div>
+                </div>
+
+                <div class="flex bg-slate-800/50 border border-slate-700/50 rounded-lg overflow-hidden">
+                    <div class="bg-slate-800 px-3 py-2 border-r border-slate-700 flex items-center min-w-[100px] justify-center">
+                        <code class="text-pink-400 font-bold text-sm">/model</code>
+                    </div>
+                    <div class="p-2 text-xs text-slate-300 flex items-center">
+                        Cambia de modelo en vivo (ej. Sonnet para programar, Opus para pensar).
+                    </div>
+                </div>
+
+                <div class="flex bg-slate-800/50 border border-slate-700/50 rounded-lg overflow-hidden md:col-span-2 lg:col-span-3 mt-2">
+                    <div class="bg-slate-800 px-3 py-2 border-r border-slate-700 flex items-center min-w-[100px] justify-center">
+                        <code class="text-orange-400 font-bold text-xs break-all">claude --dangerously-skip-permissions</code>
+                    </div>
+                    <div class="p-2 text-xs text-slate-300 flex items-center">
+                        Bandera avanzada: Salta la interfaz de confirmación de comandos/archivos (úsalas con alias como <code class="text-slate-400 mx-1">cc</code> bajo tu propio riesgo para mayor velocidad).
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+  </div>
+
+    <script>
+        function downloadPDF() {
+            const btn = document.getElementById('pdf-btn');
+            const actions = document.getElementById('header-actions');
+            const originalText = btn.innerHTML;
+
+            // Estado de carga visual
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Generando...';
+            btn.disabled = true;
+
+            // Ocultamos botones y forzamos scroll arriba para evitar cortes
+            window.scrollTo(0, 0);
+            const originalDisplay = actions.style.display;
+            actions.style.display = 'none';
+
+            // Elemento contenedor principal
+            const element = document.getElementById('pdf-content');
+
+            // Calculamos la altura exacta forzando el layout a 1200px de ancho
+            const originalStyle = element.getAttribute('style') || '';
+            element.style.width = '1200px';
+            element.style.maxWidth = '1200px';
+            const exactHeight = element.scrollHeight;
+            element.setAttribute('style', originalStyle); // Restauramos inmediatamente
+
+            // Configuración mejorada para una ÚNICA PÁGINA (tamaño personalizado)
+            const opt = {
+                margin:       0,
+                filename:     'Claude_Code_CheatSheet_v3_1.pdf',
+                image:        { type: 'jpeg', quality: 1.0 },
+                html2canvas:  {
+                    scale: 2,
+                    useCORS: true,
+                    backgroundColor: '#0f172a',
+                    windowWidth: 1200,
+                    width: 1200, // Forzamos el ancho del canvas
+                    scrollY: 0
+                },
+                // jsPDF admite [ancho, alto]. Usamos píxeles ('px') para que coincida 1:1 con el HTML
+                jsPDF:        { unit: 'px', format: [1200, exactHeight], orientation: 'portrait' }
+            };
+
+            // Generar y guardar (interceptando para borrar páginas en blanco extra)
+            html2pdf().set(opt).from(element).toPdf().get('pdf').then(function(pdf) {
+                // Obtenemos el total de páginas generadas
+                const totalPages = pdf.internal.getNumberOfPages();
+                // Si por error de redondeo de píxeles generó más de 1, borramos las sobrantes
+                if (totalPages > 1) {
+                    for (let i = totalPages; i > 1; i--) {
+                        pdf.deletePage(i);
+                    }
+                }
+            }).save().then(() => {
+                // Restaurar la UI
+                actions.style.display = originalDisplay;
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }).catch(err => {
+                console.error("Error al generar el PDF: ", err);
+                actions.style.display = originalDisplay;
+                btn.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-1"></i> Error';
+                setTimeout(() => { btn.innerHTML = originalText; btn.disabled = false; }, 3000);
+            });
+        }
+    </script>
+</body>
+</html>
